@@ -9,6 +9,8 @@ import Footer from './components/Footer';
 import CompanyMain from './modules/CompanyMain';
 import ProjectMain from './modules/ProjectMain';
 import DeveloperMain from './modules/DeveloperMain';
+import Login from './components/Login';
+import Register from './components/Register';
 
 function App() {
 	return (
@@ -43,6 +45,14 @@ function App() {
 					<Route
 						path='/developers/:name'
 						element={<DeveloperMain />}
+					/>
+					<Route
+						path='/login'
+						element={<Login />}
+					/>
+					<Route
+						path='/register'
+						element={<Register />}
 					/>
 				</Routes>
 			</div>
