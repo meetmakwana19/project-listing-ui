@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { CgMenuRight, CgClose } from 'react-icons/cg';
 import NavMobile from './NavMobile';
 
@@ -24,8 +24,9 @@ const navigations = [
 
 const NavMenu = () => {
 	const [mobileNav, setMobileNav] = useState(false);
+
 	return (
-		<>
+		<div className='flex justify-between'>
 			<div
 				onClick={() => setMobileNav(!mobileNav)}
 				className='text-2xl md:hidden lg:text-3xl cursor-pointer'
@@ -36,13 +37,15 @@ const NavMenu = () => {
 				<ul className='md:flex md:gap-x-8'>
 					{navigations.map((navigation) => {
 						return (
-							<li>
-								<Link
+							<li className='mr-5 capitalize transition-all items-center hover:text-accent z-50'>
+								<NavLink
 									to={navigation.path}
-									className='mr-5 capitalize hover:border-b transition-all hover:text-gray-900'
+									className={(navClass) =>
+										navClass.isActive ? 'text-accent' : ''
+									}
 								>
 									{navigation.name}
-								</Link>
+								</NavLink>
 							</li>
 						);
 					})}
@@ -55,7 +58,7 @@ const NavMenu = () => {
 			>
 				<NavMobile />
 			</div>
-		</>
+		</div>
 	);
 };
 
