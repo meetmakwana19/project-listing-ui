@@ -1,6 +1,7 @@
 import React from 'react';
 import Logo from './navbar/Logo';
 import NavMenu from './navbar/NavMenu';
+import UserLogin from './navbar/UserLogin';
 
 const Header = () => {
 	return (
@@ -8,7 +9,7 @@ const Header = () => {
 			<div className='flex items-center justify-between gap-3 md:gap-0'>
 				<Logo />
 				<NavMenu />
-				{/* USER MENU */}
+				<UserLogin />
 			</div>
 		</div>
 	);
