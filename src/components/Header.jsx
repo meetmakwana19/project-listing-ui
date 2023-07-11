@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from './navbar/Logo';
 import NavMenu from './navbar/NavMenu';
 import UserLogin from './navbar/UserLogin';
 
 const Header = () => {
+	// Header Sticky
+	const [navbar, setNavbar] = useState(false);
+	useEffect(() => {
+		return () => {
+			window.addEventListener('scroll', changeBackground);
+		};
+	}, []);
+
+	const changeBackground = () => {
+		if (window.scrollY >= 80) {
+			setNavbar(true);
+		} else {
+			setNavbar(false);
+		}
+	};
+
 	return (
-		<div className='antialiased fixed w-full bg-white z-10 shadow-sm max-w-[2520px] mx-auto xl:px-20 md:px-10 sm:px-2 px-4 py-4 border-b-[1px]'>
-			<div className='flex items-center justify-between gap-3 md:gap-0'>
-				<Logo />
-				<NavMenu />
-				<UserLogin />
-			</div>
+		<div className={navbar ? 'header bg-white' : 'header bg-transparent'}>
+			<Logo />
+			<NavMenu />
+			<UserLogin />
 		</div>
 	);
 };
