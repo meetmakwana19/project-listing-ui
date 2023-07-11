@@ -8,9 +8,13 @@ const Hero = () => {
 			className=' antialiased flex flex-col py-12 px-6  items-center
 		   justify-center gap-4'
 		>
+			{/*------------- Background Gradient ------------ */}
 			<div className='flex flex-row gap-0 z-0'>
 				<div className='gradient'></div>
 			</div>
+
+			{/*------------- Milestone ------------ */}
+
 			<div
 				className='flex flex-row px-2 border items-center justify-center 
 			animate-bounce border-accent rounded-full text-gray-700 text-md z-10'
@@ -18,6 +22,9 @@ const Hero = () => {
 				<MdCelebration className='mr-2' />
 				More than 6000+ users joined.
 			</div>
+
+			{/*------------- Headings ------------ */}
+
 			<div className='gap-0 z-[1]'>
 				<h1
 					className=' text-gray-900 text-center text-4xl md:text-6xl
@@ -32,6 +39,9 @@ const Hero = () => {
 					Complete Freelancing Platform
 				</h1>
 			</div>
+
+			{/*------------- SubHeading ------------ */}
+
 			<p className='my-3 text-center md:text-2xl text-xl text-gray-700'>
 				IdeaBox is a project listing platform that{' '}
 				<span className='text-accent font-semibold'>"Connects"</span> <br />
@@ -46,6 +56,9 @@ const Hero = () => {
 						Start your journey <RiArrowRightSLine className='ml-2 text-md' />
 					</a>
 				</div>
+
+				{/*------------- Demo Video ------------ */}
+
 				<a
 					href='/'
 					className='flex p-0 gap-3 items-center justify-center'
@@ -57,7 +70,8 @@ const Hero = () => {
 					</div>
 				</a>
 			</div>
-			{/* Screenshots */}
+			{/*------------- Screenshots ------------ */}
+
 			<img src='/new-hero.svg' />
 			<h2
 				className='text-center text-3xl md:text-4xl
