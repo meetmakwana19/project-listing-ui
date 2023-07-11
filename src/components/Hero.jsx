@@ -6,19 +6,19 @@ const Hero = () => {
 	return (
 		<div
 			className=' antialiased flex flex-col py-12 px-6  items-center
-		 max-w-7xl  justify-center gap-4'
+		   justify-center gap-4'
 		>
-			<div className='flex flex-row gap-0'>
+			<div className='flex flex-row gap-0 z-0'>
 				<div className='gradient'></div>
 			</div>
 			<div
 				className='flex flex-row px-2 border items-center justify-center 
-			animate-bounce border-accent rounded-full text-gray-700 text-md'
+			animate-bounce border-accent rounded-full text-gray-700 text-md z-10'
 			>
 				<MdCelebration className='mr-2' />
 				More than 6000+ users joined.
 			</div>
-			<div className='gap-0'>
+			<div className='gap-0 z-[1]'>
 				<h1
 					className=' text-gray-900 text-center text-4xl md:text-6xl
 				 font-semibold'
@@ -37,11 +37,11 @@ const Hero = () => {
 				<span className='text-accent font-semibold'>"Connects"</span> <br />
 				businesses with freelancers helping them grow together.
 			</p>
-			<div className='flex my-8 items-center justify-center gap-10'>
-				<div className='flex justify-between  items-center bg-accent rounded-lg p-3 md:p-4 text-white font-semibold text-center'>
+			<div className='flex my-8 items-center justify-center gap-10 z-[1]'>
+				<div className='flex justify-between  items-center cursor-pointer bg-accent hover:bg-accent/50 rounded-lg text-white font-semibold text-center'>
 					<a
-						href='/'
-						className='flex items-center justify-center'
+						href='/register'
+						className='flex p-3 md:p-4 items-center justify-center'
 					>
 						Start your journey <RiArrowRightSLine className='ml-2 text-md' />
 					</a>

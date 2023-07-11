@@ -3,12 +3,8 @@
 @tailwind utilities;
 
 @layer components {
-	.button {
-		@apply text-[#535353];
-	}
-
 	.header {
-		@apply antialiased bg-transparent w-full  z-10 shadow-sm max-w-[2520px]
+		@apply antialiased bg-transparent w-full z-50 shadow-sm max-w-[2520px]
 				 mx-auto xl:px-20 md:px-10 sm:px-2 px-4 py-4 font-sans fixed
 				  flex items-center justify-between gap-3 md:gap-0 font-semibold transition-all;
 	}

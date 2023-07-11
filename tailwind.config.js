@@ -6,6 +6,7 @@ export default {
 			colors: {
 				// Add Customs Colors Here
 				accent: '#6c47ff',
+				'bg-color': '#0c0129',
 			},
 		},
 	},
