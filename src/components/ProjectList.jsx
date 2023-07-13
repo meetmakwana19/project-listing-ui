@@ -1,25 +1,14 @@
 import { BsFillBookmarkPlusFill } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 const ProjectList = () => {
 	return (
-		<div className='flex lg:w-3/5 flex-col justify-center w-full md:w-4/5 items-start border z-10 border-slate-300  bg-white/50 rounded-2xl py-5'>
-			<h1 className='text-2xl text-start font-medium text-slate-800 px-5'>
-				Projects open for development
-			</h1>
-			<div className='flex mt-6 w-full border-b '>
-				<div className='tabs'>
-					<a className='tab tab-bordered tab-active '>Best Matches</a>
-					<a className='tab'>Saved Jobs</a>
-				</div>
-			</div>
-
-			<p className='mx-5 my-2 text-base'>
-				Browse projects that match your experience to a client's hiring
-				preferences. Ordered by most relevant.
-			</p>
-
+		<>
 			{/*---------------- Project List--------------- */}
-			<div className='flex flex-col items-start gap-3 p-5 hover:bg-slate-100 cursor-pointer border-t w-full relative'>
+			<Link
+				to={`/projects/:id`}
+				className='flex flex-col items-start gap-3 p-5 hover:bg-slate-100 cursor-pointer border-t w-full relative'
+			>
 				<div className='flex w-full gap-6 items-center relative'>
 					<BsFillBookmarkPlusFill className='absolute w-7 h-7 top-2 border-spacing-4 right-3 z-30 hover:text-accent' />
 					<img
@@ -30,6 +19,7 @@ const ProjectList = () => {
 					<div className='flex flex-col w-full'>
 						{/*------------ title------------- */}
 						<h1 className='text-xl font-medium text-slate-900'>Android</h1>
+
 						{/*------------ timestamp ------------- */}
 						<p className='text-sm text-slate-600'>Posted by Google</p>
 						<div className='flex my-5'>
@@ -64,13 +54,13 @@ const ProjectList = () => {
 				{/* -------------tech Stack---------------- */}
 				<div className='flex'>
 					<ul className='capitalize text-slate-500'>
-						<li className='border  bg-slate-100/50 shadow-sm p-2 text-sm px-2 py-1 rounded-xl'>
+						<li className='border  bg-cyan-100/50 shadow-sm p-2 text-sm px-2 py-1 rounded-xl'>
 							mobile
 						</li>
 					</ul>
 				</div>
-			</div>
-		</div>
+			</Link>
+		</>
 	);
 };
 
