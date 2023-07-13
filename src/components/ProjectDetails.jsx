@@ -6,21 +6,22 @@ import { AiFillQuestionCircle } from 'react-icons/ai';
 const ProjectDetails = () => {
 	return (
 		<>
-			<div className='flex justify-center relative mx-3'>
+			<div className='flex flex-col max-w-screen-sm md:max-w-none lg:max-w-none items-center justify-center mx-3'>
 				<div
 					className='flex lg:w-3/5 flex-col justify-center 
-				w-full md:w-4/5 items-start border z-10
-				 border-slate-300  bg-white/50 rounded-2xl py-6 '
+				 md:w-4/5 items-center border z-10 relative
+				 border-slate-300  bg-white/50 rounded-2xl py-6 mb-10 '
 				>
-					<div className='items-center relative flex flex-col md:flex-row'>
-						<img
-							src='/SVG/os-projects-android_thumbnail_720.png'
-							className='aspect-video ml-6 mb-2 md:aspect-square 
-							w-ful  md:h-44 max md:w-44 object-cover rounded-lg'
-							alt=''
-						/>
+					<div className='flex w-full items-center justify-start flex-col md:flex-row relative'>
+						<div className='flex w-full items-center justify-center md:items-start md:justify-start px-5 md:w-auto '>
+							<img
+								src='/SVG/os-projects-android_thumbnail_720.png'
+								className='aspect-video  mb-2 md:aspect-square
+								 w-full  md:h-44 max md:w-44 object-cover rounded-lg'
+							/>
+						</div>
 						{/* Heading */}
-						<div>
+						<div className='flex flex-col w-full md:w-auto justify-start items-start  md:ml-0'>
 							<h1 className='text-2xl px-6 text-start font-medium text-slate-800 mb-6 '>
 								Projects open for development
 							</h1>
@@ -84,8 +85,68 @@ const ProjectDetails = () => {
 						<p className='text-base mb-3 text-start font-medium text-slate-800'>
 							Skill and Expertise
 						</p>
-						<div className='flex'>
-							<ul className='capitalize text-slate-600 underline'>
+						<div className='flex flex-wrap'>
+							<ul className='flex flex-wrap  gap-2 capitalize text-slate-600 underline'>
+								<li
+									className='border border-slate-300 px-2 
+								py-1 bg-accent/10 text-sm rounded-2xl'
+								>
+									mobile
+								</li>
+								<li
+									className='border border-slate-300 px-2 
+								py-1 bg-accent/10 text-sm rounded-2xl'
+								>
+									mobile
+								</li>
+								<li
+									className='border border-slate-300 px-2 
+								py-1 bg-accent/10 text-sm rounded-2xl'
+								>
+									mobile
+								</li>
+								<li
+									className='border border-slate-300 px-2 
+								py-1 bg-accent/10 text-sm rounded-2xl'
+								>
+									mobile
+								</li>
+								<li
+									className='border border-slate-300 px-2 
+								py-1 bg-accent/10 text-sm rounded-2xl'
+								>
+									mobile
+								</li>
+								<li
+									className='border border-slate-300 px-2 
+								py-1 bg-accent/10 text-sm rounded-2xl'
+								>
+									mobile
+								</li>
+								<li
+									className='border border-slate-300 px-2 
+								py-1 bg-accent/10 text-sm rounded-2xl'
+								>
+									mobile
+								</li>
+								<li
+									className='border border-slate-300 px-2 
+								py-1 bg-accent/10 text-sm rounded-2xl'
+								>
+									mobile
+								</li>
+								<li
+									className='border border-slate-300 px-2 
+								py-1 bg-accent/10 text-sm rounded-2xl'
+								>
+									mobile
+								</li>
+								<li
+									className='border border-slate-300 px-2 
+								py-1 bg-accent/10 text-sm rounded-2xl'
+								>
+									mobile
+								</li>
 								<li
 									className='border border-slate-300 px-2 
 								py-1 bg-accent/10 text-sm rounded-2xl'
@@ -107,6 +168,26 @@ const ProjectDetails = () => {
 								<AiFillQuestionCircle className='text-base text-accent ml-2' />
 							</div>
 						</p>
+					</div>
+				</div>
+				{/* Apply Button */}
+				<div className='flex fixed bottom-0 bg-white gap-2 w-full border-t border-slate-300 py-2 items-center justify-center z-10 px-3'>
+					<div className='flex items-center justify-center w-1/2'>
+						<Link
+							className='flex bg-accent px-4 py-2 w-full items-center justify-center text-white
+						hover:bg-white hover:text-accent hover:border-accent font-medium border border-slate-300 rounded-full'
+						>
+							Apply Now
+						</Link>
+					</div>
+					<div className='flex items-center justify-center w-1/2'>
+						{' '}
+						<Link
+							className='flex bg-white px-4 py-2 w-full items-center justify-center text-accent
+						hover:bg-accent hover:text-white font-medium border border-accent rounded-full'
+						>
+							Save
+						</Link>
 					</div>
 				</div>
 			</div>
