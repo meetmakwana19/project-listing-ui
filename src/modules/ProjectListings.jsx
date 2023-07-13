@@ -24,7 +24,23 @@ const ProjectListings = () => {
 			</div>
 
 			<div className='flex justify-center my-6 relative mx-3'>
-				<ProjectList />
+				<div className='flex lg:w-3/5 flex-col justify-center w-full md:w-4/5 items-start border z-10 border-slate-300  bg-white/50 rounded-2xl py-5'>
+					<h1 className='text-2xl text-start font-medium text-slate-800 px-5'>
+						Projects open for development
+					</h1>
+					<div className='flex mt-6 w-full border-b '>
+						<div className='tabs'>
+							<a className='tab tab-bordered tab-active '>Best Matches</a>
+							<a className='tab'>Saved Jobs</a>
+						</div>
+					</div>
+
+					<p className='mx-5 my-2 text-base'>
+						Browse projects that match your experience to a client's hiring
+						preferences. Ordered by most relevant.
+					</p>
+					<ProjectList />
+				</div>
 			</div>
 		</div>
 	);
