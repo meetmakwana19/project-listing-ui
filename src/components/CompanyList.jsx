@@ -17,48 +17,35 @@ const CompanyList = () => {
 						alt=''
 					/>
 					<div className='flex flex-col w-full'>
-						{/*------------ title------------- */}
-						<h1 className='text-xl font-medium text-slate-900'>Android</h1>
+						{/*------------ Company Name------------- */}
+						<h1 className='text-xl font-medium text-slate-900'>Accenture</h1>
 
-						{/*------------ timestamp ------------- */}
-						<p className='text-sm text-slate-600'>Posted by Google</p>
 						<div className='flex my-5'>
 							<div className='flex flex-col w-1/2 items-start justify-start gap-3'>
 								<div>
-									<h3 className='listing-content-data'>30+ hrs/week</h3>
-									<h4 className='listing-content-constant'>Hours Needed</h4>
+									<h3 className='listing-content-data'>Domain</h3>
+									<h4 className='listing-content-constant company-domain'>IT and Consultancy</h4>
 								</div>
 								<div>
-									<h3 className='listing-content-data'>Entry Level</h3>
-									<h4 className='listing-content-constant'>Experience Level</h4>
+									<h3 className='listing-content-data'>Website</h3>
+									<a className="link link-hover company-website">Accenture.com</a>
 								</div>
 							</div>
 							<div className='flex flex-col w-1/2 items-start justify-start gap-3'>
 								<div>
-									<h3 className='listing-content-data'>30+ hrs/week</h3>
-									<h4 className='listing-content-constant'>Duration</h4>
+									<h3 className='listing-content-data'>Founded in</h3>
+									<h4 className='listing-content-constant'>1968</h4>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				{/*------------ description ------------- */}
-				<p className='listing-description'>
-					Hello I am a doctor managing a surgery center in CT and need someone
-					to help us develop our EMR and softwares, SIS Surgical Information
-					Sytems, SIS link, and bring our business to the next level. Need help
-					with the softwares and other tools office IT help etc.
+				{/*------------ Description ------------- */}
+				<p className='Company-description'>
+				Accenture is an Irish-American, professional services company based in Dublin, specializing in information technology services and consulting. Accenture is a global professional services company with leading capabilities in digital, cloud, and security. 
 				</p>
 
-				{/* -------------tech Stack---------------- */}
-				<div className='flex'>
-					<ul className='capitalize text-slate-500'>
-						<li className='border  bg-cyan-100/50 shadow-sm p-2 text-sm px-2 py-1 rounded-xl'>
-							mobile
-						</li>
-					</ul>
-				</div>
 			</Link>
 		</>
 	);
