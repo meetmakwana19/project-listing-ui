@@ -58,7 +58,7 @@ const CompanyList = () => {
 				<div className='flex Comapany-tags'>
 					<ul className='capitalize text-slate-500 flex gap-2'>
 						<li className='border  bg-transparent hover:bg-cyan-100/50 shadow-sm p-2 text-sm px-2 py-1 rounded-xl'>
-							It Services
+							IT Services
 						</li>
 						<li className='border  bg-transparent hover:bg-cyan-100/50 shadow-sm p-2 text-sm px-2 py-1 rounded-xl'>
 							Software Product
