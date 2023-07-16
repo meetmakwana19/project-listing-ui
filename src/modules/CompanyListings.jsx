@@ -25,7 +25,7 @@ const CompanyListings = () => {
 			</div>
 
 			{/*------------- Search Bar ------------*/}
-			{/* <div className="flex justify-center my-2 relative mx-3">
+			{/* <div className="flex justify-center mt-4 py-0 relative mx-3">
 				<form className='flex lg:w-3/5 flex-col justify-center w-full md:w-4/5'>
 					<label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
 						Search
@@ -63,7 +63,7 @@ const CompanyListings = () => {
 						</button>
 					</div>
 				</form>
-			</div> */}
+			</div>  */}
 
 			<div className='flex justify-center my-6 relative mx-3'>
 				<div className='flex lg:w-3/5 flex-col justify-center w-full md:w-4/5 items-start border z-10 border-slate-300  bg-white/50 rounded-2xl py-5'>
