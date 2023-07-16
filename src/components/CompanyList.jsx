@@ -46,6 +46,23 @@ const CompanyList = () => {
 				Accenture is an Irish-American, professional services company based in Dublin, specializing in information technology services and consulting. Accenture is a global professional services company with leading capabilities in digital, cloud, and security. 
 				</p>
 
+				{/* -------------Company Tags---------------- */}
+				<div className='flex Comapany-tags'>
+					<ul className='capitalize text-slate-500 flex gap-2'>
+						<li className='border  bg-transparent hover:bg-cyan-100/50 shadow-sm p-2 text-sm px-2 py-1 rounded-xl'>
+							It Services
+						</li>
+						<li className='border  bg-transparent hover:bg-cyan-100/50 shadow-sm p-2 text-sm px-2 py-1 rounded-xl'>
+							Software Product
+						</li>
+						<li className='border  bg-transparent hover:bg-cyan-100/50 shadow-sm p-2 text-sm px-2 py-1 rounded-xl'>
+							IT services
+						</li>
+						<li className='border  bg-transparent hover:bg-cyan-100/50 shadow-sm p-2 text-sm px-2 py-1 rounded-xl'>
+							BPO
+						</li>
+					</ul>
+				</div>
 			</Link>
 		</>
 	);
