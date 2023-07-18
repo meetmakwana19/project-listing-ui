@@ -27,8 +27,8 @@ function CompanyMain() {
 
 	return(
 		<div>
-			<CompanyDetails org_data={organization}/>	
-		</div>
+            <CompanyDetails org_data={organization}/>   
+        </div>
 	)
 };
 
