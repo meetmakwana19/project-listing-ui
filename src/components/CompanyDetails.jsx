@@ -45,6 +45,13 @@ const CompanyDetails = ({ org_data }) => {
 								</h1>
 								<p className='description'>{org_data.domain}</p>
 							</div>
+							<div className='flex flex-col gap-2'>
+								<h1 className='text-lg text-slate-900 font-medium'>
+									Founded in
+								</h1>
+								<p className='description'>1968</p>
+							</div>
+							
 						</div>
 						{/* ----------Col-2----------------*/}
 						
