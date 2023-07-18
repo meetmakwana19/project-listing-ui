@@ -1,7 +1,5 @@
-import React from 'react';
-
 const CompanyListings = () => {
-	return <div>CompanyListings</div>;
+	return <div>Company</div>;
 };
 
 export default CompanyListings;
