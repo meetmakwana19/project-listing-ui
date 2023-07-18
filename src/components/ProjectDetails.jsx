@@ -47,11 +47,13 @@ const ProjectDetails = () => {
 								Posted by Google
 							</Link>
 							{/* Timestamp */}
-							<p className='text-sm px-6 text-slate-600'>Posted on 20/06/23</p>
+							<p className='text-sm px-6 text-slate-600'>
+								Posted on {project?.date}
+							</p>
 							<div className='flex px-6 flex-col my-5 gap-2'>
 								{/* City */}
 								<p className='text-base flex items-center gap-2 text-slate-800'>
-									<BiSolidMap className='text-accent' /> Worldwide
+									<BiSolidMap className='text-accent' /> {project?.city}
 								</p>
 								{/* Proposal Count */}
 								<p className='text-base  text-slate-800'>
@@ -73,16 +75,16 @@ const ProjectDetails = () => {
 						<div className='flex text-base px-6 text-start font-normal gap-3 items-start'>
 							<FaCircleDollarToSlot className='text-accent mt-2' />
 							<p className='text-base font-medium'>
-								Rs. 100.00 <br />{' '}
+								Rs. {project?.pay} <br />{' '}
 								<span className='text-sm font-light text-slate-600'>
-									Fixed-price
+									{project?.payType}
 								</span>
 							</p>
 						</div>
 						{/* Experience Level */}
 						<div className='flex text-base px-6 text-start font-normal gap-3 items-start'>
 							<p className='text-base font-medium'>
-								Entry Level <br />{' '}
+								{project?.level} <br />{' '}
 								<span className='text-sm font-light text-slate-600'>
 									Experience Level
 								</span>
@@ -92,7 +94,7 @@ const ProjectDetails = () => {
 					<div className='flex w-full border-t py-3'>
 						{/* Contract type */}
 						<p className='text-base px-6 text-start font-normal text-slate-800'>
-							<span className='font-medium'>Project Type:</span> One-time
+							<span className='font-medium'>Project Type:</span> {project?.type}
 							project
 						</p>
 					</div>
