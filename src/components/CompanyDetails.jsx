@@ -98,7 +98,42 @@ const CompanyDetails = ({ org_data }) => {
 						</div>
 					</div>
 				</div>
-				
+				<div
+					className='flex w-full lg:w-3/5 md:w-4/5 flex-col justify-center 
+            items-center border z-10 relative
+           border-slate-300  bg-white/50 rounded-2xl my-6 mb-10'
+				>
+					<div className='flex flex-col px-5 py-7'>
+						<h1 className='text-2xl font-semibold mb-3'>Company Projects</h1>
+						{/* ---------TODO: Comapny Projects------------ */}
+						<div className='border-b py-5 border-slate-300 '>
+							<h2 className='text-xl font-semibold mb-3'>
+								EduConnect
+							</h2>
+							<div className='flex place-content-start items-center w-full text-slate-600 gap-1'>
+								{/*------------------------ Developer City-------------------------- */}
+								<p>January 2020 - December 2022</p>
+							</div>
+							<p className='description'>
+								Key Responsibilities:Design its UI/UX <br />
+								Project Description: Lorem ipsum dolor, sit amet consectetur adipisicing elit. In officia atque, porro quibusdam alias, voluptates quasi aliquid tempora fugiat, ex dignissimos facere est et labore libero dolor natus deserunt. Dignissimos.
+							</p>
+						</div>
+						<div className='border-b py-5 border-slate-300'>
+							<h2 className='text-xl font-semibold mb-3'>
+								EduConnect
+							</h2>
+							<div className='flex place-content-start items-center w-full text-slate-600 gap-1'>
+								{/*------------------------ Developer City-------------------------- */}
+								<p>January 2020 - December 2022</p>
+							</div>
+ 							<p className='description'>
+								Key Responsibilities:Design its Frontend <br />
+                                Project Description: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure non in architecto quas quisquam repellat. Vero in laboriosam adipisci tempora rem quos sunt, reprehenderit molestiae ex, totam quia ratione ea. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis quisquam blanditiis cum id, amet debitis neque totam a numquam aperiam ex eum veritatis molestias facere assumenda repudiandae? Fugit, iste obcaecati.
+							</p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</>
 	);
