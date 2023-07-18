@@ -4,6 +4,7 @@ import { LuEdit } from 'react-icons/lu';
 
 
 
+
 const CompanyDetails = ({ org_data }) => {
 	console.log("got orgData ---------", org_data);
 	return (
@@ -23,7 +24,13 @@ const CompanyDetails = ({ org_data }) => {
 							/>
 						</div>
 						<LuEdit className='absolute right-8 top-9 text-2xl text-accent hover:bg-accent/10' />
-						
+						<div className='flex flex-col justify-between items-start gap-3'>
+							{/* --------Company Name------------------- */}
+							<h1 className='text-3xl font-medium text-slate-900'>
+								{org_data.name}
+							</h1>
+							
+						</div>
 					</div>
 				</div>
 			</div>
