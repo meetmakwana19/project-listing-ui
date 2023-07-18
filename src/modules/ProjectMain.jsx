@@ -2,7 +2,7 @@ import ProjectDetails from '../components/ProjectDetails';
 
 const ProjectMain = () => {
 	return (
-		<div>
+		<div className='mb-10'>
 			<ProjectDetails />
 		</div>
 	);

@@ -27,7 +27,7 @@ function App() {
 						element={<ProjectListings />}
 					/>
 					<Route
-						path='/projects/:id'
+						path='/projects/:uid'
 						element={<ProjectMain />}
 					/>
 					<Route
@@ -35,7 +35,7 @@ function App() {
 						element={<CompanyListings />}
 					/>
 					<Route
-						path='/companies/:name'
+						path='/companies/:uid'
 						element={<CompanyMain />}
 					/>
 					<Route
@@ -43,7 +43,7 @@ function App() {
 						element={<DevelopersListing />}
 					/>
 					<Route
-						path='/developers/:name'
+						path='/developers/:uid'
 						element={<DeveloperMain />}
 					/>
 					<Route
@@ -56,7 +56,6 @@ function App() {
 					/>
 				</Routes>
 			</div>
-			<Footer />
 		</>
 	);
 }

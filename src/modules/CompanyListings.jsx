@@ -1,7 +1,21 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import CompanyList from '../components/CompanyList';
 
 const CompanyListings = () => {
+	const [organizations, setOrganizations] = useState([]);
+	useEffect(() => {
+		const fetchOrganizations = async () => {
+			const response = await fetch(
+				'https://projekto-backend.onrender.com/organizations',
+				{ mode: 'cors' }
+			);
+			const fetchedOrganizations = await response.json();
+			setOrganizations(fetchedOrganizations.data);
+			console.log('fetch Organizations------------', fetchedOrganizations.data);
+			// console.log('fetch Organizations------------', organizations);
+		};
+		fetchOrganizations();
+	}, []);
 	return (
 		<div className='flex flex-col justify-center w-full'>
 			{/*------------- Background Gradient ------------ */}
@@ -70,9 +84,13 @@ const CompanyListings = () => {
 					<h1 className='text-2xl text-start font-medium text-slate-800 px-5 my-2'>
 						List of companies
 					</h1>
-					<CompanyList />
-					<CompanyList />
-					<CompanyList />
+					{organizations.length > 0 ? (
+						<CompanyList organizations_prop={organizations} />
+					) : (
+						<div className='flex w-full justify-center text-slate-500'>
+							Loading.....
+						</div>
+					)}
 				</div>
 			</div>
 		</div>

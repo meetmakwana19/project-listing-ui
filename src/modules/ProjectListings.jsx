@@ -1,6 +1,21 @@
+import { useEffect, useState } from 'react';
 import ProjectList from '../components/ProjectList';
 
 const ProjectListings = () => {
+	const [projects, setProjects] = useState([]);
+	useEffect(() => {
+		const fetchProjects = async () => {
+			const response = await fetch(
+				'https://projekto-backend.onrender.com/projects',
+				{ mode: 'cors' }
+			);
+			const fetchedProjects = await response.json();
+			setProjects(fetchedProjects.data);
+			console.log('fetch Projects------------', fetchedProjects.data);
+			// console.log('fetch Projects------------', projects);
+		};
+		fetchProjects();
+	}, []);
 	return (
 		<div className='flex flex-col justify-center w-full'>
 			{/*------------- Background Gradient ------------ */}
@@ -42,7 +57,13 @@ const ProjectListings = () => {
 						Browse projects that match your experience to a client's hiring
 						preferences. Ordered by most relevant.
 					</p>
-					<ProjectList />
+					{projects.length > 0 ? (
+						<ProjectList projects_prop={projects} />
+					) : (
+						<div className='flex w-full justify-center text-slate-500'>
+							Loading.....
+						</div>
+					)}
 				</div>
 			</div>
 		</div>
