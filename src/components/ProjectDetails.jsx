@@ -7,7 +7,7 @@ import Container from './Container';
 const ProjectDetails = () => {
 	return (
 		<>
-			<div className='flex flex-col max-w-screen-sm md:max-w-none lg:max-w-none items-center justify-center mx-3'>
+			<div className='flex flex-col max-w-screen-sm md:max-w-none lg:max-w-none items-center justify-center mx-3 relative'>
 				<Container>
 					<div className='flex w-full items-center justify-start flex-col md:flex-row relative'>
 						<div className='flex w-full items-center justify-center md:items-start md:justify-start px-5 md:w-auto '>
@@ -168,7 +168,10 @@ const ProjectDetails = () => {
 					</div>
 				</Container>
 				{/* Apply Button */}
-				<div className='flex fixed md:relative lg:w-3/5 md:w-4/5 bottom-0 bg-white gap-2 w-full border-t border-slate-300 py-2 items-center justify-center z-10 px-3'>
+				<div
+					className='flex md:relative 2xl:absolute 2xl:w-96 md:w-4/5 2xl:bg-transparent 2xl:-top-[79%] 2xl:right-[21%] fixed bottom-0
+				 bg-white gap-2 w-full border-t md:border-0 md:bottom-4 border-slate-300 py-2 items-center justify-center z-10 px-3'
+				>
 					<div className='flex items-center justify-center w-1/2'>
 						<Link
 							className='flex bg-accent px-4 py-2 w-full items-center justify-center text-white
