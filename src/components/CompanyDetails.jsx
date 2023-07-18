@@ -59,7 +59,17 @@ const CompanyDetails = ({ org_data }) => {
 							</div>
 						</div>
 						{/* ----------Col-2----------------*/}
-						
+						<div className='flex flex-col border-l pl-2 border-slate-300 gap-6 w-2/3 pb-10'>
+							<div className='flex flex-col gap-2 px-5 py-7'>
+								{/* ---------Company Name------------ */}
+								<h1 className='text-2xl font-semibold mb-3'>
+									About {org_data.name}
+								</h1>
+								<p className='description'>
+									{org_data.about}
+								</p>
+							</div>
+						</div>
 					</div>
 				</div>
 				
