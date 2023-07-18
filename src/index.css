@@ -32,6 +32,9 @@
 	.listing-description {
 		@apply text-base text-slate-800 text-justify;
 	}
+	.description {
+		@apply text-base text-start font-normal text-slate-800;
+	}
 }
 
 html {

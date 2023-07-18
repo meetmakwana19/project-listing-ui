@@ -53,8 +53,8 @@ const ProjectList = () => {
 
 				{/* -------------tech Stack---------------- */}
 				<div className='flex'>
-					<ul className='capitalize text-slate-500'>
-						<li className='border  bg-cyan-100/50 shadow-sm p-2 text-sm px-2 py-1 rounded-xl'>
+					<ul className='capitalize text-accent'>
+						<li className='border  bg-accent/10 shadow-sm p-2 text-sm px-2 py-1 rounded-xl'>
 							mobile
 						</li>
 					</ul>
