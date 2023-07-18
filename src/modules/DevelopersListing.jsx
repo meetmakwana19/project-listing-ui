@@ -1,10 +1,21 @@
-import { BiDevices } from 'react-icons/bi';
-import { BsFillBookmarkPlusFill } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
-import DeveloperPic from '../components/image/DeveloperPic';
+import { useEffect, useState } from 'react';
 import DeveloperList from '../components/DeveloperList';
 
 const DevelopersListing = () => {
+	const [developers, setDevelopers] = useState([]);
+	useEffect(() => {
+		const fetchDevelopers = async () => {
+			const response = await fetch(
+				'https://projekto-backend.onrender.com/developers',
+				{ mode: 'cors' }
+			);
+			const fetchedDevelopers = await response.json();
+			setDevelopers(fetchedDevelopers.data);
+			console.log('fetch Developers------------', fetchedDevelopers.data);
+			// console.log('fetch Developers------------', developers);
+		};
+		fetchDevelopers();
+	}, []);
 	return (
 		<>
 			<div className='flex flex-col justify-center w-full'>
@@ -33,8 +44,13 @@ const DevelopersListing = () => {
 							List of companies
 						</h1>
 						{/*---------------- Developer List--------------- */}
-						<DeveloperList />
-						<DeveloperList />
+						{developers.length > 0 ? (
+							<DeveloperList developers_prop={developers} />
+						) : (
+							<div className='flex justify-center text-slate-500'>
+								Loading.....
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
