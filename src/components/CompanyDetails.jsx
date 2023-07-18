@@ -36,7 +36,14 @@ const CompanyDetails = ({ org_data }) => {
 							</div>
 						</div>
 					</div>
+					<div className='flex justify-start w-full items-start place-content-start'>
+						{/* ----------Col-1----------------*/}
+						
+						{/* ----------Col-2----------------*/}
+						
+					</div>
 				</div>
+				
 			</div>
 		</>
 	);
