@@ -24,7 +24,10 @@ const ProjectListings = () => {
 			</div>
 
 			<div className='flex justify-center my-6 relative mx-3'>
-				<div className='flex lg:w-3/5 flex-col justify-center w-full md:w-4/5 items-start border z-10 border-slate-300  bg-white/50 rounded-2xl py-5'>
+				<div
+					className='flex lg:w-3/5 flex-col justify-center w-full md:w-4/5 items-start
+				 border z-10 border-slate-300  bg-white/50 rounded-2xl py-5'
+				>
 					<h1 className='text-2xl text-start font-medium text-slate-800 px-5'>
 						Projects open for development
 					</h1>

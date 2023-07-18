@@ -75,67 +75,43 @@ const DeveloperMain = () => {
 									<ul className='flex flex-wrap  gap-2 capitalize text-accent'>
 										<li
 											className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
+								py-1 bg-accent/5 text-sm rounded-2xl'
 										>
 											mobile
 										</li>
 										<li
 											className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
+								py-1 bg-accent/5 text-sm rounded-2xl'
 										>
 											mobile
 										</li>
 										<li
 											className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
+								py-1 bg-accent/5 text-sm rounded-2xl'
 										>
 											mobile
 										</li>
 										<li
 											className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
+								py-1 bg-accent/5 text-sm rounded-2xl'
 										>
 											mobile
 										</li>
 										<li
 											className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
+								py-1 bg-accent/5 text-sm rounded-2xl'
 										>
 											mobile
 										</li>
 										<li
 											className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
+								py-1 bg-accent/5 text-sm rounded-2xl'
 										>
 											mobile
 										</li>
 										<li
 											className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
-										>
-											mobile
-										</li>
-										<li
-											className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
-										>
-											mobile
-										</li>
-										<li
-											className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
-										>
-											mobile
-										</li>
-										<li
-											className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
-										>
-											mobile
-										</li>
-										<li
-											className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
+								py-1 bg-accent/5 text-sm rounded-2xl'
 										>
 											mobile
 										</li>
