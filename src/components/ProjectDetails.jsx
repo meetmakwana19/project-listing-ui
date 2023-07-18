@@ -5,6 +5,26 @@ import { AiFillQuestionCircle } from 'react-icons/ai';
 import Container from './Container';
 
 const ProjectDetails = () => {
+	const { id } = useParams();
+	const navigate = useNavigate();
+	const [project, setProject] = useState({});
+	console.log(id, 'id', product);
+
+	useEffect(() => {
+		const fetchProject = async () => {
+			const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+			const data = await response.json();
+			console.log(data);
+			setProduct(data);
+		};
+		fetchProject();
+	}, []);
+
+	if (!Object.keys(project).length > 0)
+		return (
+			<div className='flex justify-center text-slate-500'>Loading.....</div>
+		);
+
 	return (
 		<>
 			<div className='flex flex-col max-w-screen-sm md:max-w-none lg:max-w-none items-center justify-center mx-3 relative'>
@@ -12,7 +32,7 @@ const ProjectDetails = () => {
 					<div className='flex w-full items-center justify-start flex-col md:flex-row relative'>
 						<div className='flex w-full items-center justify-center md:items-start md:justify-start px-5 md:w-auto '>
 							<img
-								src='/SVG/os-projects-android_thumbnail_720.png'
+								src={project?.image}
 								className='aspect-video  mb-2 md:aspect-square
 								 w-full  md:h-44 max md:w-44 object-cover rounded-lg'
 							/>
@@ -36,7 +56,9 @@ const ProjectDetails = () => {
 								{/* Proposal Count */}
 								<p className='text-base  text-slate-800'>
 									Send a proposal for: total proposals{' '}
-									<span className='text-accent animate-pulse'>100</span>
+									<span className='text-accent animate-pulse'>
+										{project?.proposal}
+									</span>
 								</p>
 							</div>
 						</div>
@@ -44,10 +66,7 @@ const ProjectDetails = () => {
 
 					<div className='flex w-full border-t py-3'>
 						{/* description */}
-						<h1 className='description px-6'>
-							I need someone how can design my website. My website is pretty
-							straightforward.
-						</h1>
+						<h1 className='description px-6'>{project?.description}</h1>
 					</div>
 					{/* Pricing */}
 					<div className='flex justify-start gap-8 w-full border-t pt-3 pb-6'>
