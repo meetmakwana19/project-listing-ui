@@ -4,10 +4,13 @@ import Featured from '../components/Featured';
 
 const Home = () => {
 	return (
-		<div className='flex flex-col w-full justify-center'>
-			<Hero />
-			<Featured />
-		</div>
+		<>
+			<div className='flex flex-col w-full justify-center'>
+				<Hero />
+				<Featured />
+			</div>
+			<Footer />
+		</>
 	);
 };
 

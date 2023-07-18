@@ -1,21 +1,24 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { BiSolidMap } from 'react-icons/bi';
 import { FaCircleDollarToSlot } from 'react-icons/fa6';
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import Container from './Container';
+import { useEffect, useState } from 'react';
 
 const ProjectDetails = () => {
-	const { id } = useParams();
-	const navigate = useNavigate();
-	const [project, setProject] = useState({});
-	console.log(id, 'id', product);
+	const { uid } = useParams();
+	const [project, setProject] = useState([]);
 
 	useEffect(() => {
 		const fetchProject = async () => {
-			const response = await fetch(`https://fakestoreapi.com/products/${id}`);
-			const data = await response.json();
-			console.log(data);
-			setProduct(data);
+			const response = await fetch(
+				`https://projekto-backend.onrender.com/projects/${uid}`,
+				{ mode: 'cors' }
+			);
+			const fetchedProject = await response.json();
+			setProject(fetchedProject.data);
+			console.log('fetch Projects------------', fetchedProject.data);
+			// console.log('fetch Projects------------', projects);
 		};
 		fetchProject();
 	}, []);
@@ -32,15 +35,15 @@ const ProjectDetails = () => {
 					<div className='flex w-full items-center justify-start flex-col md:flex-row relative'>
 						<div className='flex w-full items-center justify-center md:items-start md:justify-start px-5 md:w-auto '>
 							<img
-								src={project?.image}
-								className='aspect-video  mb-2 md:aspect-square
-								 w-full  md:h-44 max md:w-44 object-cover rounded-lg'
+								src={project?.thumbnail}
+								className='aspect-video  mb-2 
+								 w-full  md:h-44 max  object-cover rounded-lg'
 							/>
 						</div>
 						{/* Heading */}
 						<div className='flex flex-col w-full md:w-auto justify-start items-start  md:ml-0'>
 							<h1 className='text-2xl px-6 text-start font-medium text-slate-800 mb-6 '>
-								Projects open for development
+								{project?.title}
 							</h1>
 							{/* Domain */}
 							<Link className='text-accent px-6 my-2 text-base font-medium underline'>
@@ -48,18 +51,18 @@ const ProjectDetails = () => {
 							</Link>
 							{/* Timestamp */}
 							<p className='text-sm px-6 text-slate-600'>
-								Posted on {project?.date}
+								Posted on {project?.createdAt}
 							</p>
 							<div className='flex px-6 flex-col my-5 gap-2'>
 								{/* City */}
 								<p className='text-base flex items-center gap-2 text-slate-800'>
-									<BiSolidMap className='text-accent' /> {project?.city}
+									<BiSolidMap className='text-accent' /> Worldwide
 								</p>
 								{/* Proposal Count */}
 								<p className='text-base  text-slate-800'>
 									Send a proposal for: total proposals{' '}
 									<span className='text-accent animate-pulse'>
-										{project?.proposal}
+										{project?.proposals}
 									</span>
 								</p>
 							</div>
@@ -75,27 +78,27 @@ const ProjectDetails = () => {
 						<div className='flex text-base px-6 text-start font-normal gap-3 items-start'>
 							<FaCircleDollarToSlot className='text-accent mt-2' />
 							<p className='text-base font-medium'>
-								Rs. {project?.pay} <br />{' '}
+								Rs. {project?.fixed_price} <br />{' '}
 								<span className='text-sm font-light text-slate-600'>
-									{project?.payType}
+									{project?.project_type}
 								</span>
 							</p>
 						</div>
 						{/* Experience Level */}
 						<div className='flex text-base px-6 text-start font-normal gap-3 items-start'>
 							<p className='text-base font-medium'>
-								{project?.level} <br />{' '}
+								{project?.timeframe} <br />{' '}
 								<span className='text-sm font-light text-slate-600'>
-									Experience Level
+									Project Duration
 								</span>
 							</p>
 						</div>
 					</div>
 					<div className='flex w-full border-t py-3'>
 						{/* Contract type */}
-						<p className='text-base px-6 text-start font-normal text-slate-800'>
-							<span className='font-medium'>Project Type:</span> {project?.type}
-							project
+						<p className='text-base capitalize px-6 text-start font-normal text-slate-800'>
+							<span className=' font-medium'>Project Type:</span>{' '}
+							{project?.board} project
 						</p>
 					</div>
 					<div className='flex flex-col w-full border-t py-3 px-6 gap-4'>
@@ -109,67 +112,7 @@ const ProjectDetails = () => {
 									className='border border-slate-300 px-2 
 								py-1 bg-accent/10 text-sm rounded-2xl'
 								>
-									mobile
-								</li>
-								<li
-									className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
-								>
-									mobile
-								</li>
-								<li
-									className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
-								>
-									mobile
-								</li>
-								<li
-									className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
-								>
-									mobile
-								</li>
-								<li
-									className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
-								>
-									mobile
-								</li>
-								<li
-									className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
-								>
-									mobile
-								</li>
-								<li
-									className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
-								>
-									mobile
-								</li>
-								<li
-									className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
-								>
-									mobile
-								</li>
-								<li
-									className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
-								>
-									mobile
-								</li>
-								<li
-									className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
-								>
-									mobile
-								</li>
-								<li
-									className='border border-slate-300 px-2 
-								py-1 bg-accent/10 text-sm rounded-2xl'
-								>
-									mobile
+									{project?.techStack}
 								</li>
 							</ul>
 						</div>
@@ -178,7 +121,7 @@ const ProjectDetails = () => {
 					<div className='flex flex-col w-full border-t py-3 px-6 gap-4'>
 						<p className='flex items-center text-lg my-3 text-start font-medium text-slate-800'>
 							Upgrade your membership to see bid range
-							{/* Tooltip Style ----! pending */}
+							{/* ----------TODO: Tooltip Style ----! pending */}
 							<div
 								className='tooltip'
 								data-tip='Hello'

@@ -1,67 +1,81 @@
 import { BsFillBookmarkPlusFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
-const ProjectList = () => {
-	return (
-		<>
-			{/*---------------- Project List--------------- */}
-			<Link
-				to={`/projects/:id`}
-				className='flex flex-col items-start gap-3 p-5 hover:bg-slate-100 cursor-pointer border-t w-full relative'
-			>
-				<div className='flex w-full gap-6 items-center relative'>
-					<BsFillBookmarkPlusFill className='absolute w-7 h-7 top-2 border-spacing-4 right-3 z-30 hover:text-accent' />
-					<img
-						src='/SVG/os-projects-android_thumbnail_720.png'
-						className='aspect-square w-40 h-40 object-cover rounded-lg'
-						alt=''
-					/>
-					<div className='flex flex-col w-full'>
-						{/*------------ title------------- */}
-						<h1 className='text-xl font-medium text-slate-900'>Android</h1>
+const ProjectList = ({ projects_prop = [] }) => {
+	return projects_prop.map((projects) => {
+		// console.log('developer >>>>>', developer);
+		const {
+			uid,
+			title,
+			description,
+			featured,
+			board,
+			timeframe,
+			thumbnail,
+			techstack,
+			fixed_price,
+			project_type,
+			required_personnel,
+		} = projects;
 
-						{/*------------ timestamp ------------- */}
-						<p className='text-sm text-slate-600'>Posted by Google</p>
-						<div className='flex my-5'>
-							<div className='flex flex-col w-1/2 items-start justify-start gap-3'>
-								<div>
-									<h3 className='listing-content-data'>30+ hrs/week</h3>
-									<h4 className='listing-content-constant'>Hours Needed</h4>
+		return (
+			<>
+				{/*---------------- Project List--------------- */}
+				<Link
+					to={`/projects/${uid}`}
+					className='flex flex-col items-start gap-3 p-5 hover:bg-slate-100 cursor-pointer border-t w-full relative'
+				>
+					<div className='flex flex-col lg:flex-row w-full gap-6 items-center relative'>
+						<BsFillBookmarkPlusFill className='text-white lg:text-accent absolute w-7 h-7 top-2 border-spacing-4 right-3 z-30 hover:text-accent/30 drop-shadow-xl drop-shadow-white' />
+						<img
+							src={thumbnail}
+							className='flex place-content-start items-start w-full aspect-video  h-48 object-cover rounded-lg'
+							alt={title}
+						/>
+						<div className='flex flex-col w-full'>
+							{/*------------ title------------- */}
+							<h1 className='text-xl font-medium text-slate-900'>{title}</h1>
+
+							{/*------------ timestamp ------------- */}
+							<p className='text-sm text-slate-600'>Posted by Google</p>
+							<div className='flex my-5'>
+								<div className='flex flex-col w-1/2 items-start justify-start gap-3'>
+									<div>
+										<h3 className='listing-content-data'>{timeframe}</h3>
+										<h4 className='listing-content-constant'>Duration</h4>
+									</div>
+									<div>
+										<h3 className='listing-content-data'>
+											{required_personnel}
+										</h3>
+										<h4 className='listing-content-constant'>Role</h4>
+									</div>
 								</div>
-								<div>
-									<h3 className='listing-content-data'>Entry Level</h3>
-									<h4 className='listing-content-constant'>Experience Level</h4>
-								</div>
-							</div>
-							<div className='flex flex-col w-1/2 items-start justify-start gap-3'>
-								<div>
-									<h3 className='listing-content-data'>30+ hrs/week</h3>
-									<h4 className='listing-content-constant'>Duration</h4>
+								<div className='flex flex-col w-1/2 items-start justify-start gap-3'>
+									<div>
+										<h3 className='listing-content-data'>{project_type}</h3>
+										<h4 className='listing-content-constant'>Project Type</h4>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
-				{/*------------ description ------------- */}
-				<p className='listing-description'>
-					Hello I am a doctor managing a surgery center in CT and need someone
-					to help us develop our EMR and softwares, SIS Surgical Information
-					Sytems, SIS link, and bring our business to the next level. Need help
-					with the softwares and other tools office IT help etc.
-				</p>
+					{/*------------ description ------------- */}
+					<p className='listing-description'>{description}</p>
 
-				{/* -------------tech Stack---------------- */}
-				<div className='flex'>
-					<ul className='capitalize text-accent'>
-						<li className='border  bg-accent/5 shadow-sm p-2 text-sm px-2 py-1 rounded-xl'>
-							mobile
-						</li>
-					</ul>
-				</div>
-			</Link>
-		</>
-	);
+					{/* -------------tech Stack---------------- */}
+					<div className='flex'>
+						<ul className='capitalize text-accent'>
+							<li className='border  bg-accent/5 shadow-sm p-2 text-sm px-2 py-1 rounded-xl'>
+								mobile
+							</li>
+						</ul>
+					</div>
+				</Link>
+			</>
+		);
+	});
 };
 
 export default ProjectList;
