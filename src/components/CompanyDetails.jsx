@@ -69,6 +69,32 @@ const CompanyDetails = ({ org_data }) => {
 									{org_data.about}
 								</p>
 							</div>
+							<div className='flex flex-col gap-2 px-5'>
+								<h1 className='text-lg font-semibold mb-3'>Domain</h1>
+								<div className='flex flex-wrap'>
+									<ul className='flex flex-wrap  gap-2 capitalize text-accent'>
+										
+												<li
+													className='border border-slate-300 px-2 
+									py-1 bg-accent/5 text-sm rounded-2xl'
+												>
+													Consultancy
+												</li>
+												<li
+													className='border border-slate-300 px-2 
+									py-1 bg-accent/5 text-sm rounded-2xl'
+												>
+													Cybersecurity
+												</li>
+												<li
+													className='border border-slate-300 px-2 
+									py-1 bg-accent/5 text-sm rounded-2xl'
+												>
+													Machine Learning
+												</li>
+									</ul>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
