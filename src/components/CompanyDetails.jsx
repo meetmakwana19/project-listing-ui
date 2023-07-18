@@ -29,7 +29,11 @@ const CompanyDetails = ({ org_data }) => {
 							<h1 className='text-3xl font-medium text-slate-900'>
 								{org_data.name}
 							</h1>
-							
+							<div className='flex place-content-start items-center w-full text-slate-600 gap-1'>
+								<BiSolidMap />
+								{/*------------------------ Company Location-------------------------- */}
+								<p>India</p>
+							</div>
 						</div>
 					</div>
 				</div>
