@@ -37,16 +37,18 @@ const ProjectListings = () => {
 				>
 					Complete Trust & Freedom
 				</h1>
+
+				{/* ----------------Show Only for Organizations------------ */}
 				<div className='flex my-8 items-center justify-center gap-10 z-[1]'>
-				<div className='flex justify-between  items-center cursor-pointer bg-accent hover:bg-accent/50 rounded-lg text-white font-semibold text-center'>
-					<a
-						href='/addproject'
-						className='flex p-3 md:p-4 items-center justify-center'
-					>
-						New Project <RiArrowRightSLine className='ml-2 text-md' />
-					</a>
+					<div className='flex justify-between  items-center cursor-pointer bg-accent hover:bg-accent/50 rounded-lg text-white font-semibold text-center'>
+						<a
+							href='/projects/create'
+							className='flex p-3 md:p-4 items-center justify-center'
+						>
+							New Project <RiArrowRightSLine className='ml-2 text-md' />
+						</a>
+					</div>
 				</div>
-			</div>
 			</div>
 
 			<div className='flex justify-center my-6 relative mx-3'>

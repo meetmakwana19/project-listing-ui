@@ -1,12 +1,8 @@
-
 import { BiSolidMap } from 'react-icons/bi';
 import { LuEdit } from 'react-icons/lu';
 
-
-
-
 const CompanyDetails = ({ org_data }) => {
-	console.log("got orgData ---------", org_data);
+	console.log('got orgData ---------', org_data);
 	return (
 		<>
 			<div className='flex flex-col max-w-screen-sm md:max-w-none lg:max-w-none items-center justify-center mx-3'>
@@ -20,10 +16,10 @@ const CompanyDetails = ({ org_data }) => {
 						<div className='flex items-center relative justify-center h-24 p-0 m-0'>
 							<img
 								src={org_data.banner_img}
-								className='inline-block object-cover aspect-square h-full p-0 shadow shadow-accent rounded-full'
+								className='inline-block object-cover aspect-video h-full p-0 shadow rounded-xl'
 							/>
 						</div>
-						<LuEdit className='absolute right-8 top-9 text-2xl text-accent hover:bg-accent/10' />
+						{/* <LuEdit className='absolute right-8 top-9 text-2xl text-accent hover:bg-accent/10' /> */}
 						<div className='flex flex-col justify-between items-start gap-3'>
 							{/* --------Company Name------------------- */}
 							<h1 className='text-3xl font-medium text-slate-900'>
@@ -38,12 +34,10 @@ const CompanyDetails = ({ org_data }) => {
 					</div>
 					<div className='flex justify-start w-full items-start place-content-start'>
 						{/* ----------Col-1----------------*/}
-						<div className='flex flex-col gap-6 px-5 py-7  mr-2  w-1/3'>
+						<div className='flex flex-col gap-6 px-5 py-7  mr-2  w-1/3 relative'>
 							<div className='flex flex-col gap-2  '>
-								<h1 className='text-lg text-slate-900 font-medium'>
-									Industry
-								</h1>
-								<p className='description'>{org_data.domain}</p>
+								<h1 className='text-lg text-slate-900 font-medium'>Industry</h1>
+								<p className='description break-words'>{org_data.domain}</p>
 							</div>
 							<div className='flex flex-col gap-2'>
 								<h1 className='text-lg text-slate-900 font-medium'>
@@ -55,7 +49,7 @@ const CompanyDetails = ({ org_data }) => {
 								<h1 className='text-lg text-slate-900 font-medium'>
 									Company Website
 								</h1>
-								<p className='description'>{org_data.website}</p>
+								<p className='description break-words'>{org_data.website}</p>
 							</div>
 						</div>
 						{/* ----------Col-2----------------*/}
@@ -65,33 +59,30 @@ const CompanyDetails = ({ org_data }) => {
 								<h1 className='text-2xl font-semibold mb-3'>
 									About {org_data.name}
 								</h1>
-								<p className='description'>
-									{org_data.about}
-								</p>
+								<p className='description'>{org_data.about}</p>
 							</div>
 							<div className='flex flex-col gap-2 px-5'>
 								<h1 className='text-lg font-semibold mb-3'>Domain</h1>
 								<div className='flex flex-wrap'>
 									<ul className='flex flex-wrap  gap-2 capitalize text-accent'>
-										
-												<li
-													className='border border-slate-300 px-2 
+										<li
+											className='border border-slate-300 px-2 
 									py-1 bg-accent/5 text-sm rounded-2xl'
-												>
-													Consultancy
-												</li>
-												<li
-													className='border border-slate-300 px-2 
+										>
+											Consultancy
+										</li>
+										<li
+											className='border border-slate-300 px-2 
 									py-1 bg-accent/5 text-sm rounded-2xl'
-												>
-													Cybersecurity
-												</li>
-												<li
-													className='border border-slate-300 px-2 
+										>
+											Cybersecurity
+										</li>
+										<li
+											className='border border-slate-300 px-2 
 									py-1 bg-accent/5 text-sm rounded-2xl'
-												>
-													Machine Learning
-												</li>
+										>
+											Machine Learning
+										</li>
 									</ul>
 								</div>
 							</div>
@@ -107,29 +98,34 @@ const CompanyDetails = ({ org_data }) => {
 						<h1 className='text-2xl font-semibold mb-3'>Company Projects</h1>
 						{/* ---------TODO: Comapny Projects------------ */}
 						<div className='border-b py-5 border-slate-300 '>
-							<h2 className='text-xl font-semibold mb-3'>
-								EduConnect
-							</h2>
+							<h2 className='text-xl font-semibold mb-3'>EduConnect</h2>
 							<div className='flex place-content-start items-center w-full text-slate-600 gap-1'>
 								{/*------------------------ Developer City-------------------------- */}
 								<p>January 2020 - December 2022</p>
 							</div>
 							<p className='description'>
 								Key Responsibilities:Design its UI/UX <br />
-								Project Description: Lorem ipsum dolor, sit amet consectetur adipisicing elit. In officia atque, porro quibusdam alias, voluptates quasi aliquid tempora fugiat, ex dignissimos facere est et labore libero dolor natus deserunt. Dignissimos.
+								Project Description: Lorem ipsum dolor, sit amet consectetur
+								adipisicing elit. In officia atque, porro quibusdam alias,
+								voluptates quasi aliquid tempora fugiat, ex dignissimos facere
+								est et labore libero dolor natus deserunt. Dignissimos.
 							</p>
 						</div>
 						<div className='border-b py-5 border-slate-300'>
-							<h2 className='text-xl font-semibold mb-3'>
-								EduConnect
-							</h2>
+							<h2 className='text-xl font-semibold mb-3'>EduConnect</h2>
 							<div className='flex place-content-start items-center w-full text-slate-600 gap-1'>
 								{/*------------------------ Developer City-------------------------- */}
 								<p>January 2020 - December 2022</p>
 							</div>
- 							<p className='description'>
+							<p className='description'>
 								Key Responsibilities:Design its Frontend <br />
-                                Project Description: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iure non in architecto quas quisquam repellat. Vero in laboriosam adipisci tempora rem quos sunt, reprehenderit molestiae ex, totam quia ratione ea. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facilis quisquam blanditiis cum id, amet debitis neque totam a numquam aperiam ex eum veritatis molestias facere assumenda repudiandae? Fugit, iste obcaecati.
+								Project Description: Lorem, ipsum dolor sit amet consectetur
+								adipisicing elit. Iure non in architecto quas quisquam repellat.
+								Vero in laboriosam adipisci tempora rem quos sunt, reprehenderit
+								molestiae ex, totam quia ratione ea. Lorem ipsum dolor, sit amet
+								consectetur adipisicing elit. Facilis quisquam blanditiis cum
+								id, amet debitis neque totam a numquam aperiam ex eum veritatis
+								molestias facere assumenda repudiandae? Fugit, iste obcaecati.
 							</p>
 						</div>
 					</div>
@@ -139,4 +135,4 @@ const CompanyDetails = ({ org_data }) => {
 	);
 };
 
- export default CompanyDetails;
+export default CompanyDetails;
