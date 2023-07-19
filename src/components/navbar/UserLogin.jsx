@@ -12,6 +12,8 @@ function UserLogin() {
 			>
 				<RxAvatar />
 			</label>
+			{/* ----------for Logged Out Users------------------- */}
+
 			<ul className='menu dropdown-content z-[15] p-2 shadow bg-base-100 rounded-box w-52 mt-4'>
 				<li>
 					<Link
@@ -27,6 +29,18 @@ function UserLogin() {
 						className='w-full text-accent hover:text-accent bg-white shadow-sm font-medium hover:bg-slate-100 rounded-lg text-sm px-5 py-2.5 text-center'
 					>
 						Register
+					</Link>
+				</li>
+			</ul>
+
+			{/* ----------for Logged In Users------------------- */}
+			<ul className='menu dropdown-content z-[15] p-2 shadow bg-base-100 rounded-box w-52 mt-4'>
+				<li>
+					<Link
+						to={'/'}
+						className='w-full text-accent  focus:bg-accent hover:bg-slate-100  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+					>
+						Logout
 					</Link>
 				</li>
 			</ul>
