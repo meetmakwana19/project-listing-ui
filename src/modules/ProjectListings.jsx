@@ -60,12 +60,13 @@ const ProjectListings = () => {
 					<h1 className='text-2xl text-start font-medium text-slate-800 px-5'>
 						Projects open for development
 					</h1>
-					<div className='flex mt-6 w-full justify-between border-b'>
+					<div className='flex mt-6 w-full border-b '>
 						<div className='tabs'>
 							<a className='tab tab-bordered tab-active '>Best Matches</a>
 							<a className='tab'>Saved Jobs</a>
 						</div>
-						{/*--------Add State for sort button--------- */}
+
+						{/*--------sort button--------- */}
 						<>
 							<div class='flex items-center justify-end px-4'>
 								<div class='relative inline-block text-left'>
@@ -94,17 +95,7 @@ const ProjectListings = () => {
 										</button>
 									</div>
 
-									{/* <!--
-              Dropdown menu, show/hide based on menu state.
-
-              Entering: "transition ease-out duration-100"
-                From: "transform opacity-0 scale-95"
-                To: "transform opacity-100 scale-100"
-              Leaving: "transition ease-in duration-75"
-                From: "transform opacity-100 scale-100"
-                To: "transform opacity-0 scale-95"
-            --> */}
-									<div
+												<div
 										class={`absolute right-0 mt-2 w-40 origin-top-right rounded-md
 										 bg-white shadow-2xl ring-1 z-20 ring-black ring-opacity-5 focus:outline-none
 										 ${isOpen ? '' : 'hidden'}`}
