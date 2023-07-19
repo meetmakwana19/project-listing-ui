@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import organization from '/organization.svg';
 import { LoginContainer } from './LoginContainer';
+import { useNavigate } from 'react-router-dom';
 
 export const OrgLogin = () => {
+	let navigate = useNavigate();
 	const [form, setForm] = useState({
 		uid: "",
 		password: "",
@@ -17,14 +19,20 @@ export const OrgLogin = () => {
 		})
 		.then((response) => response.json())
 		.then((data) => {
-			console.log("LOGGED IN --> ", data);
+			// console.log("LOGGED IN --> ", data);
+			if(data.data.access_token){
+				// console.log("token is ", data.data.access_token);
+				localStorage.setItem("authToken", data.data.access_token)
+				navigate("/");
+				alert(`${data.message}`)
+			}
 		})
 		.catch((error) => {
 			console.log("POSTING error --> ", error);
 		})
 	}
 
-	console.log("Orglogin----", form);
+	// console.log("Orglogin----", form);
 	return (
 		<LoginContainer image={organization}>
 			<div className='w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8'>

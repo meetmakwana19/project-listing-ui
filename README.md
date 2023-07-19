@@ -1,4 +1,4 @@
-# A Project Listing App's Frontend
+# ideabox - A Project Listing App's Frontend
 
 Developing NodeJS environment `v18.16.0`
 
@@ -35,6 +35,22 @@ npm init @eslint/config
 
 Runs the app in the development mode.
 Open http://localhost:5173 to view it in your browser.
+
+
+---
+
+## About project : 
+
+
+- This is a frontend part of a fullstack application called **ideabox** - A Project Listing app. 
+- This frontend has been integrated with a REST API developed in ExpressJS.
+- The link to the REST API's repository is https://github.com/meetmakwana19/project-listing-backend
+- The API's production link is https://projekto-backend.onrender.com/
+
+
+---
+
+---Ignore---
 
 Unnecessary errors by ESLint :
 

@@ -7,7 +7,9 @@ import PersonalInfo from '../components/form/register/steps/PersonalInfo';
 import Final from '../components/form/register/steps/Final';
 import FormContainer from '../components/form/FormContainer';
 import developer from '/developer.svg';
+import { useNavigate } from 'react-router-dom';
 const RegisterDeveloper = () => {
+	let navigate = useNavigate();
 	const [currentStep, setCurrentStep] = useState(1);
 	const [formData, setFormData] = useState({
 		fname: '',
@@ -47,13 +49,13 @@ const RegisterDeveloper = () => {
 
 	const handleClick = (direction) => {
 		let newStep = currentStep;
-		console.log('newstep---', newStep);
-		console.log('lenght?------', steps.length);
-		console.log('direction------>', direction);
+		// console.log('newstep---', newStep);
+		// console.log('lenght?------', steps.length);
+		// console.log('direction------>', direction);
 
 		// POST when the you reach at the last step
 		if (newStep == steps.length) {
-			console.log('heyyyy ', JSON.stringify(formData));
+			// console.log('heyyyy ', JSON.stringify(formData));
 			fetch('https://projekto-backend.onrender.com/developers/auth/register', {
 				method: 'POST',
 				headers: {
@@ -63,7 +65,13 @@ const RegisterDeveloper = () => {
 			})
 				.then((response) => response.json())
 				.then((data) => {
-					console.log('POSTED --> ', data);
+					// console.log('POSTED --> ', data);
+					if(data.data.access_token){
+						// console.log("token is ", data.data.access_token);
+						localStorage.setItem("authToken", data.data.access_token)
+						navigate("/");
+						alert(`${data.message}`)
+					}
 				})
 				.catch((error) => {
 					console.log('POSTING error --> ', error);

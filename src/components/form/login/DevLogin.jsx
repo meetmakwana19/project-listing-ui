@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { LoginContainer } from './LoginContainer';
 import developer from '/developer.svg';
+import { useNavigate } from 'react-router-dom';
 
 export const DevLogin = () => {
+	let navigate = useNavigate();
 	const [form, setForm] = useState({
 		email: "",
 		password: "",
 	})
-	console.log("Dev login----", form);
+	// console.log("Dev login----", form);
 
 	const onSignIn = () => {
 		fetch("https://projekto-backend.onrender.com/developers/auth/login", {
@@ -19,7 +21,13 @@ export const DevLogin = () => {
 		})
 		.then((response) => response.json())
 		.then((data) => {
-			console.log("LOGGED IN --> ", data);
+			if(data.data.access_token){
+				// console.log("token is ", data.data.access_token);
+				localStorage.setItem("authToken", data.data.access_token)
+				navigate("/");
+				alert(`${data.message}`)
+			}
+			// console.log("LOGGED IN --> ", data);
 		})
 		.catch((error) => {
 			console.log("POSTING error --> ", error);

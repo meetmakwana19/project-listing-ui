@@ -12,7 +12,7 @@ import Login from './modules/Login';
 import Register from './modules/Register';
 import RegisterDeveloper from './modules/RegisterDeveloper';
 import RegisterOrganization from './modules/RegisterOrganization';
-
+import AboutUs from './modules/AboutUs'
 import ProjectAdd from './modules/ProjectAdd';
 
 import { DevLogin } from './components/form/login/DevLogin';
@@ -35,6 +35,10 @@ function App() {
 					<Route
 						path='/projects/create'
 						element={<ProjectAdd />}
+					/>
+					<Route
+						path='/about'
+						element={<AboutUs/>}
 					/>
 					<Route
 						path='/projects/:uid'
