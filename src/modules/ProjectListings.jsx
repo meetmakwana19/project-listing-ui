@@ -3,6 +3,7 @@ import ProjectList from '../components/ProjectList';
 import { RiArrowRightSLine } from 'react-icons/ri';
 
 const ProjectListings = () => {
+	const [isOpen, setIsOpen] = useState(false);
 	const [projects, setProjects] = useState([]);
 	useEffect(() => {
 		const fetchProjects = async () => {
@@ -75,6 +76,7 @@ const ProjectListings = () => {
 											id='menu-button'
 											aria-expanded='false'
 											aria-haspopup='true'
+											onClick={() => setIsOpen(!isOpen)}
 										>
 											Sort
 											<svg
@@ -103,21 +105,19 @@ const ProjectListings = () => {
                 To: "transform opacity-0 scale-95"
             --> */}
 									<div
-										class='absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none'
+										class={`absolute right-0 mt-2 w-40 origin-top-right rounded-md
+										 bg-white shadow-2xl ring-1 z-20 ring-black ring-opacity-5 focus:outline-none
+										 ${isOpen ? '' : 'hidden'}`}
 										role='menu'
 										aria-orientation='vertical'
 										aria-labelledby='menu-button'
 										tabindex='-1'
 									>
+										{' '}
 										<div
 											class='py-1'
 											role='none'
 										>
-											{/* <!--
-                  Active: "bg-gray-100", Not Active: ""
-
-                  Selected: "font-medium text-gray-900", Not Selected: "text-gray-500"
-                --> */}
 											<a
 												href='#'
 												class='font-medium text-gray-900 block px-4 py-2 text-sm'
