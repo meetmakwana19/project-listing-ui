@@ -11,6 +11,8 @@ import ProjectMain from './modules/ProjectMain';
 import DeveloperMain from './modules/DeveloperMain';
 import Login from './modules/Login';
 import Register from './modules/Register';
+import RegisterDeveloper from './modules/RegisterDeveloper';
+import RegisterOrganization from './modules/RegisterOrganization';
 
 function App() {
 	return (
@@ -53,6 +55,14 @@ function App() {
 					<Route
 						path='/register'
 						element={<Register />}
+					/>
+					<Route
+						path='/register/developer'
+						element={<RegisterDeveloper />}
+					/>
+					<Route
+						path='/register/company'
+						element={<RegisterOrganization />}
 					/>
 				</Routes>
 			</div>

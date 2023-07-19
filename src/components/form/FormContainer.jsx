@@ -1,4 +1,4 @@
-const FormContainer = ({ children }) => {
+const FormContainer = ({ children, image }) => {
 	return (
 		<div className='bg-white relative lg:pt-14 h-full'>
 			<div
@@ -6,15 +6,15 @@ const FormContainer = ({ children }) => {
       xl:px-5 lg:flex-row overflow-x-clip'
 			>
 				<div className='flex flex-col items-center w-full pt-5 md:px-10  lg:pt-1 lg:flex-row'>
-					<div className='hidden md:flex w-full bg-cover relative max-w-md lg:max-w-2xl lg:w-1/2'>
+					<div className='hidden md:flex w-full h-full bg-cover relative max-w-md lg:max-w-2xl lg:w-1/2'>
 						<div className='flex flex-col items-center justify-center w-full h-full relative lg:pr-10'>
 							<img
-								src='https://res.cloudinary.com/macxenon/image/upload/v1631570592/Run_-_Health_qcghbu.png'
-								className='btn-'
+								src={image}
+								className='flex w-full object-cover h-[50vh] p-0'
 							/>
 						</div>
 					</div>
-					<div className='w-full flex items-center mt-5 mx-0 bg-red-200 relative z-10 max-w-2xl lg:mt-0 lg:w-1/2'>
+					<div className='w-full flex items-center mt-5 mx-0  relative z-10 max-w-2xl lg:mt-0 lg:w-1/2'>
 						<div
 							className='flex w-full flex-col items-start h-[80vh] md:h-[80vh] justify-start p-10 bg-white shadow-2xl rounded-xl
             relative z-10'
