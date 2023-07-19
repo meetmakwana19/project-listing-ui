@@ -6,12 +6,12 @@ import FormContainer from '../components/form/FormContainer';
 import organization from '/organization.svg';
 import OrgAccount from '../components/form/register/organization/OrgAccount';
 import OrgInfo from '../components/form/register/organization/OrgInfo';
-import OrgBanner from '../components/form/register/organization/OrgBanner';
+import OrgFinal from '../components/form/register/organization/OrgFInal';
 
 const RegisterOrganization = () => {
 	const [currentStep, setCurrentStep] = useState(1);
 
-	const steps = ['Login Details', 'Company Details', 'Logo'];
+	const steps = ['Login Details', 'Company Details', 'Review'];
 
 	const displayStep = (step) => {
 		switch (step) {
@@ -20,7 +20,7 @@ const RegisterOrganization = () => {
 			case 2:
 				return <OrgInfo />;
 			case 3:
-				return <OrgBanner />;
+				return <OrgFinal />;
 			default:
 		}
 	};

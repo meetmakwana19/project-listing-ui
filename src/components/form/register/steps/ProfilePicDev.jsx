@@ -32,7 +32,7 @@ function ProfilePicDev({ formdata, setFormData }) {
 							lastModified: Date.now(),
 						});
 
-						console.log("file came--", file);
+						console.log('file came--', file);
 						setImage(file);
 					},
 					'image/jpeg',
@@ -41,10 +41,10 @@ function ProfilePicDev({ formdata, setFormData }) {
 			};
 		};
 	};
- 
+
 	const handleUploadButtonClick = () => {
-		if(image){
-			console.log("hiiii", image);
+		if (image) {
+			console.log('hiiii', image);
 		}
 	};
 
@@ -83,15 +83,14 @@ function ProfilePicDev({ formdata, setFormData }) {
 						style={{ display: 'none' }}
 					/>
 				</div>
-
 			</div>
-				<button
-					className='text-lg px-6 py-2 bg-white border my-3 border-accent rounded-lg 
+			<button
+				className='text-lg px-6 py-2 bg-white border my-3 border-accent rounded-lg 
 					font-medium hover:bg-accent hover:text-white transition'
-					onClick = {() => handleUploadButtonClick()}
-				>
-					Upload
-				</button>
+				onClick={() => handleUploadButtonClick()}
+			>
+				Upload
+			</button>
 		</div>
 	);
 }

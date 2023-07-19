@@ -12,7 +12,7 @@ function UserLogin() {
 			>
 				<RxAvatar />
 			</label>
-			<ul className='menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4'>
+			<ul className='menu dropdown-content z-[15] p-2 shadow bg-base-100 rounded-box w-52 mt-4'>
 				<li>
 					<Link
 						to={'login'}
