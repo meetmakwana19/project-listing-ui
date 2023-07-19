@@ -8,28 +8,44 @@ import OrgAccount from '../components/form/register/organization/OrgAccount';
 import OrgInfo from '../components/form/register/organization/OrgInfo';
 import OrgBanner from '../components/form/register/organization/OrgBanner';
 import Final from '../components/form/register/organization/Final';
+import OrgFinal from '../components/form/register/organization/OrgFInal';
 
 const RegisterOrganization = () => {
 	const [currentStep, setCurrentStep] = useState(1);
 	const [formData, setFormData] = useState({
-		"name": "",
-		"about": "",
-		"password": "",
-		"domain": "",
-		"website": "",
-	})
+		name: '',
+		about: '',
+		password: '',
+		domain: '',
+		website: '',
+	});
 
 	const steps = ['Login Details', 'Company Details', 'Review'];
 
 	const displayStep = (step) => {
 		switch (step) {
 			case 1:
-				return <OrgAccount formData={formData} setFormData={setFormData} />;
+				return (
+					<OrgAccount
+						formData={formData}
+						setFormData={setFormData}
+					/>
+				);
 			case 2:
-				return <OrgInfo formData={formData} setFormData={setFormData} />;
+				return (
+					<OrgInfo
+						formData={formData}
+						setFormData={setFormData}
+					/>
+				);
 			case 3:
 				// return <OrgBanner formData={formData} setFormData={setFormData} />;
-				return <Final formData={formData} setFormData={setFormData} />;
+				return (
+					<OrgFinal
+						formData={formData}
+						setFormData={setFormData}
+					/>
+				);
 			default:
 		}
 	};
@@ -40,22 +56,25 @@ const RegisterOrganization = () => {
 		console.log('lenght?------', steps.length);
 
 		// POST when the you reach at the last step
-		if(newStep == steps.length){
-			console.log("heyyyy ", JSON.stringify(formData));
-			fetch("https://projekto-backend.onrender.com/organizations/auth/register", {
-				method: "POST",
-				headers: {
-					"Content-Type":"application/json",
-				},
-				body: JSON.stringify(formData)
-			})
-			.then((response) => response.json())
-			.then((data) => {
-				console.log("POSTED --> ", data);
-			})
-			.catch((error) => {
-				console.log("POSTING error --> ", error);
-			})
+		if (newStep == steps.length) {
+			console.log('heyyyy ', JSON.stringify(formData));
+			fetch(
+				'https://projekto-backend.onrender.com/organizations/auth/register',
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(formData),
+				}
+			)
+				.then((response) => response.json())
+				.then((data) => {
+					console.log('POSTED --> ', data);
+				})
+				.catch((error) => {
+					console.log('POSTING error --> ', error);
+				});
 		}
 
 		direction === 'next' ? newStep++ : newStep--;
@@ -63,7 +82,7 @@ const RegisterOrganization = () => {
 		newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
 	};
 
-	console.log("org data ==== ", formData);
+	console.log('org data ==== ', formData);
 	return (
 		<div
 		//  className='mx-auto rounded-2xl bg-white pb-2 shadow-xl md:w-1/2'
