@@ -21,11 +21,12 @@ module.exports = {
     ecmaVersion: 'latest',
   },
   rules: {
-    // suppress errors for missing 'import React' in files
-    'react/react-in-jsx-scope': 'off',
     quotes: ['off', 'double'],
     'no-console': 0,
     'max-len': 0, // for comments length
-
+    // suppress errors for missing 'import React' in files
+    'react/react-in-jsx-scope': 'off',
+    "react/prop-types": "off",
+    "react/no-array-index-key": "off",
   },
 };
