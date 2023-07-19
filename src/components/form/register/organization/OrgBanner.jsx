@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { RxAvatar } from 'react-icons/rx';
+import { VscOrganization } from 'react-icons/vsc';
 
-function ProfilePicDev() {
+const OrgBanner = () => {
 	const [image, setImage] = useState(null);
 	const hiddenFileInput = useRef(null);
 
@@ -56,7 +56,7 @@ function ProfilePicDev() {
 			redirect: 'follow',
 		};
 
-		fetch('https://projekto-backend.onrender.com/developers', requestOptions)
+		fetch('https://projekto-backend.onrender.com/organizations', requestOptions)
 			.then((response) => response.text())
 			.then((result) => {
 				console.log(JSON.parse(result));
@@ -90,7 +90,7 @@ function ProfilePicDev() {
 							className='img-display-after'
 						/>
 					) : (
-						<RxAvatar className='w-40 h-40 text-accent' />
+						<VscOrganization className='w-40 h-40 text-accent' />
 					)}
 
 					<input
@@ -103,8 +103,8 @@ function ProfilePicDev() {
 				</div>
 
 				<button
-					className='text-lg px-6 py-2 bg-white border my-3 border-accent rounded-lg 
-					font-medium hover:bg-accent hover:text-white transition'
+					className='text-lg px-6 py-2 bg-white border my-3 hover:bg-accent hover:text-white transition border-accent rounded-lg 
+            font-medium'
 					onClick={handleUploadButtonClick}
 				>
 					Upload
@@ -112,6 +112,6 @@ function ProfilePicDev() {
 			</div>
 		</div>
 	);
-}
+};
 
-export default ProfilePicDev;
+export default OrgBanner;

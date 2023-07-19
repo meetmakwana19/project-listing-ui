@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Stepper from '../components/form/register/Stepper';
 import StepperControl from '../components/form/register/StepperControl';
 import { UseContextProvider } from '../components/form/register/StepperContext';
-import AccountCredentials from '../components/form/register/steps/AccountCredentials';
-import PersonalInfo from '../components/form/register/steps/PersonalInfo';
-import Final from '../components/form/register/steps/Final';
 import FormContainer from '../components/form/FormContainer';
 import organization from '/organization.svg';
+import OrgAccount from '../components/form/register/organization/OrgAccount';
+import OrgInfo from '../components/form/register/organization/OrgInfo';
+import OrgBanner from '../components/form/register/organization/OrgBanner';
 
 const RegisterOrganization = () => {
 	const [currentStep, setCurrentStep] = useState(1);
 
-	const steps = ['Login Details', 'Personal Details', 'Profile Pic'];
+	const steps = ['Login Details', 'Company Details', 'Logo'];
 
 	const displayStep = (step) => {
 		switch (step) {
 			case 1:
-				return <AccountCredentials />;
+				return <OrgAccount />;
 			case 2:
-				return <PersonalInfo />;
+				return <OrgInfo />;
 			case 3:
-				return <Final />;
+				return <OrgBanner />;
 			default:
 		}
 	};

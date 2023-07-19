@@ -1,11 +1,7 @@
 import { Link } from 'react-router-dom';
 import FormContainer from '../components/form/FormContainer';
-import { RxAvatar } from 'react-icons/rx';
 import developer from '/developer.svg';
 import organization from '/organization.svg';
-import RegisterDeveloper from './RegisterDeveloper';
-import RegisterOrganization from './RegisterOrganization';
-import { useState } from 'react';
 import Skate from '/Run_Skate.png';
 
 const Register = () => {
