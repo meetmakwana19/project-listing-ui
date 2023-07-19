@@ -7,20 +7,29 @@ import organization from '/organization.svg';
 import OrgAccount from '../components/form/register/organization/OrgAccount';
 import OrgInfo from '../components/form/register/organization/OrgInfo';
 import OrgBanner from '../components/form/register/organization/OrgBanner';
+import Final from '../components/form/register/organization/Final';
 
 const RegisterOrganization = () => {
 	const [currentStep, setCurrentStep] = useState(1);
+	const [formData, setFormData] = useState({
+		"name": "",
+		"about": "",
+		"password": "",
+		"domain": "",
+		"website": "",
+	})
 
 	const steps = ['Login Details', 'Company Details', 'Logo'];
 
 	const displayStep = (step) => {
 		switch (step) {
 			case 1:
-				return <OrgAccount />;
+				return <OrgAccount formData={formData} setFormData={setFormData} />;
 			case 2:
-				return <OrgInfo />;
+				return <OrgInfo formData={formData} setFormData={setFormData} />;
 			case 3:
-				return <OrgBanner />;
+				// return <OrgBanner formData={formData} setFormData={setFormData} />;
+				return <Final formData={formData} setFormData={setFormData} />;
 			default:
 		}
 	};
@@ -30,11 +39,31 @@ const RegisterOrganization = () => {
 		console.log('newstep---', newStep);
 		console.log('lenght?------', steps.length);
 
+		// POST when the you reach at the last step
+		if(newStep == steps.length){
+			console.log("heyyyy ", JSON.stringify(formData));
+			fetch("https://projekto-backend.onrender.com/organizations/auth/register", {
+				method: "POST",
+				headers: {
+					"Content-Type":"application/json",
+				},
+				body: JSON.stringify(formData)
+			})
+			.then((response) => response.json())
+			.then((data) => {
+				console.log("POSTED --> ", data);
+			})
+			.catch((error) => {
+				console.log("POSTING error --> ", error);
+			})
+		}
+
 		direction === 'next' ? newStep++ : newStep--;
 		// check if steps are within bounds
 		newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
 	};
 
+	console.log("org data ==== ", formData);
 	return (
 		<div
 		//  className='mx-auto rounded-2xl bg-white pb-2 shadow-xl md:w-1/2'
