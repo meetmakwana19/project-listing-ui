@@ -5,7 +5,6 @@ import Home from './modules/Home';
 import CompanyListings from './modules/CompanyListings';
 import DevelopersListing from './modules/DevelopersListing';
 import ProjectListings from './modules/ProjectListings';
-import Footer from './components/Footer';
 import CompanyMain from './modules/CompanyMain';
 import ProjectMain from './modules/ProjectMain';
 import DeveloperMain from './modules/DeveloperMain';
@@ -15,59 +14,59 @@ import RegisterDeveloper from './modules/RegisterDeveloper';
 import RegisterOrganization from './modules/RegisterOrganization';
 
 function App() {
-	return (
-		<>
-			<Header />
-			<div className='pt-20'>
-				<Routes>
-					<Route
-						path='/'
-						element={<Home />}
-					/>
-					<Route
-						path='/projects'
-						element={<ProjectListings />}
-					/>
-					<Route
-						path='/projects/:uid'
-						element={<ProjectMain />}
-					/>
-					<Route
-						path='/companies'
-						element={<CompanyListings />}
-					/>
-					<Route
-						path='/companies/:uid'
-						element={<CompanyMain />}
-					/>
-					<Route
-						path='/developers'
-						element={<DevelopersListing />}
-					/>
-					<Route
-						path='/developers/:uid'
-						element={<DeveloperMain />}
-					/>
-					<Route
-						path='/login'
-						element={<Login />}
-					/>
-					<Route
-						path='/register'
-						element={<Register />}
-					/>
-					<Route
-						path='/register/developer'
-						element={<RegisterDeveloper />}
-					/>
-					<Route
-						path='/register/company'
-						element={<RegisterOrganization />}
-					/>
-				</Routes>
-			</div>
-		</>
-	);
+  return (
+    <>
+      <Header />
+      <div className="pt-20">
+        <Routes>
+          <Route
+            path="/"
+            element={<Home />}
+          />
+          <Route
+            path="/projects"
+            element={<ProjectListings />}
+          />
+          <Route
+            path="/projects/:uid"
+            element={<ProjectMain />}
+          />
+          <Route
+            path="/companies"
+            element={<CompanyListings />}
+          />
+          <Route
+            path="/companies/:uid"
+            element={<CompanyMain />}
+          />
+          <Route
+            path="/developers"
+            element={<DevelopersListing />}
+          />
+          <Route
+            path="/developers/:uid"
+            element={<DeveloperMain />}
+          />
+          <Route
+            path="/login"
+            element={<Login />}
+          />
+          <Route
+            path="/register"
+            element={<Register />}
+          />
+          <Route
+            path="/register/developer"
+            element={<RegisterDeveloper />}
+          />
+          <Route
+            path="/register/company"
+            element={<RegisterOrganization />}
+          />
+        </Routes>
+      </div>
+    </>
+  );
 }
 
 export default App;
