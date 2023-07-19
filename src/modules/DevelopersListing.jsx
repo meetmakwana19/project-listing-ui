@@ -47,7 +47,7 @@ const DevelopersListing = () => {
 						{developers.length > 0 ? (
 							<DeveloperList developers_prop={developers} />
 						) : (
-							<div className='flex justify-center text-slate-500'>
+							<div className='flex justify-center w-full text-slate-500'>
 								Loading.....
 							</div>
 						)}
