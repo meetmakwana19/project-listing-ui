@@ -19,7 +19,7 @@ const RegisterOrganization = () => {
 		"website": "",
 	})
 
-	const steps = ['Login Details', 'Company Details', 'Logo'];
+	const steps = ['Login Details', 'Company Details', 'Review'];
 
 	const displayStep = (step) => {
 		switch (step) {
