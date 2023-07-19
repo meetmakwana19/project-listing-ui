@@ -1,8 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import organization from '/organization.svg';
 import { LoginContainer } from './LoginContainer';
 
 export const OrgLogin = () => {
+	const [form, setForm] = useState({
+		uid: "",
+		password: "",
+	})
+	const onSignIn = () => {
+		fetch("https://projekto-backend.onrender.com/organizations/auth/login", {
+			method: "POST",
+			headers: {
+				"Content-Type":"application/json",
+			},
+			body: JSON.stringify(form)
+		})
+		.then((response) => response.json())
+		.then((data) => {
+			console.log("LOGGED IN --> ", data);
+		})
+		.catch((error) => {
+			console.log("POSTING error --> ", error);
+		})
+	}
+
+	console.log("Orglogin----", form);
 	return (
 		<LoginContainer image={organization}>
 			<div className='w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8'>
@@ -13,6 +35,7 @@ export const OrgLogin = () => {
 					<input
 						placeholder='Eg. org_41961242'
 						type='text'
+						value={form.uid} onChange={(e) => setForm({...form, uid: e.target.value})}
 						className='border lowercase placeholder-gray-400 focus:outline-none
   focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
   border-gray-300 rounded-md'
@@ -28,13 +51,14 @@ export const OrgLogin = () => {
 					<input
 						placeholder='Password'
 						type='password'
+						value={form.password} onChange={(e) => setForm({...form, password: e.target.value})}
 						className='border placeholder-gray-400 focus:outline-none
   focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
   border-gray-300 rounded-md'
 					/>
 				</div>
 				<button
-					onClick={() => handleClick('next')}
+					onClick={() => onSignIn()}
 					className={`absolute -bottom-52 cursor-pointer  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500
 rounded-lg transition duration-200 hover:bg-indigo-600 ease w-full`}
 				>
