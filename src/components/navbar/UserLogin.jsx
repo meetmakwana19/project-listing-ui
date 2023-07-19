@@ -5,7 +5,7 @@ import { RxAvatar } from 'react-icons/rx';
 
 function UserLogin() {
 	return (
-		<div className=' hover:text-accent dropdown dropdown-end hover:border-none'>
+		<div className=' hover:text-accent dropdown dropdown-end '>
 			<label
 				tabIndex={0}
 				className='btn text-4xl btn-ghost rounded-btn'
