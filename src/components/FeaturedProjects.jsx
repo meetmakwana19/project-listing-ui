@@ -18,8 +18,6 @@ const FeaturedProjects = () => {
 					{/*------------- Project thumbnail ------------ */}
 					<img
 						src='/SVG/os-projects-android_thumbnail_720.png'
-						alt=''
-						srcset=''
 						className='object-cover rounded  aspect-video'
 					/>
 
@@ -61,11 +59,7 @@ const FeaturedProjects = () => {
 					</div>
 				</div>
 				<div className='flex flex-col md:w-1/3 gap-4 bg-[#0a0c3d] rounded-xl border border-slate-800 p-5'>
-					<img
-						src='/SVG/os-projects-kub_thumbnail_720.png'
-						alt=''
-						srcset=''
-					/>
+					<img src='/SVG/os-projects-kub_thumbnail_720.png' />
 					<h2 className='font-semibold text-xl'>Kubernetes</h2>
 					<p className='opacity-75'>
 						Kubernetes is a cluster management system for managing containerized
@@ -76,11 +70,7 @@ const FeaturedProjects = () => {
 					</p>
 				</div>
 				<div className='flex  md:w-1/3 flex-col gap-4 bg-[#0a0c3d] rounded-xl border border-slate-800 p-5'>
-					<img
-						src='/SVG/os-projects-flutter_thumbnail.png'
-						alt=''
-						srcset=''
-					/>
+					<img src='/SVG/os-projects-flutter_thumbnail.png' />
 					<h2 className='font-semibold text-xl'>Flutter</h2>
 					<p className='opacity-75'>
 						Flutter is a mobile app SDK for building high-performance,

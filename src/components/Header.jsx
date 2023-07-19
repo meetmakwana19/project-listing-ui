@@ -25,9 +25,11 @@ const Header = () => {
 		<div className={navbar ? 'header bg-white' : 'header bg-transparent'}>
 			<div className='flex w-full justify-between relative items-center'>
 				<Logo />
-				<NavMenu />
-				{/* <UserLogin /> */}
-				<LoggedIn />
+				<div className='flex items-center gap-2'>
+					<NavMenu />
+					<UserLogin />
+				</div>
+				{/* <LoggedIn /> */}
 			</div>
 		</div>
 	);
