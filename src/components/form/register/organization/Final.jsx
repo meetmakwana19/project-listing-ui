@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import OrgBanner from './OrgBanner';
+// import OrgBanner from './OrgBanner';
+import OrgFinal from './OrgFInal';
 
 const Final = ({formData, setFormData}) => {
 	/* Show details */
@@ -7,7 +8,7 @@ const Final = ({formData, setFormData}) => {
 	return (
 		<div>
 			{/* <OrgBanner formData={formData} setFormData={setFormData} /> */}
-			Are you sure ? 
+			<OrgFinal/>
 		</div>
 	);
 };
