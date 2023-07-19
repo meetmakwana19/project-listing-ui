@@ -10,26 +10,36 @@ import developer from '/developer.svg';
 const RegisterDeveloper = () => {
 	const [currentStep, setCurrentStep] = useState(1);
 	const [formData, setFormData] = useState({
-		fname: "",
-		lname: "",
-		email: "",
-		password: "",
-		phone: "",
-		city: "",
-		technical_role: "",
-		qualification: "",
-		skills: "",
-		profile_pic: "",
-	})
+		fname: '',
+		lname: '',
+		email: '',
+		password: '',
+		phone: '',
+		city: '',
+		technical_role: '',
+		qualification: '',
+		skills: '',
+		profile_pic: '',
+	});
 
-	const steps = ['Login Details', 'Personal Details', 'Profile Pic'];
+	const steps = ['Login Details', 'Personal Details', 'Review'];
 
 	const displayStep = (step) => {
 		switch (step) {
 			case 1:
-				return <AccountCredentials formData={formData} setFormData={setFormData}/>;
+				return (
+					<AccountCredentials
+						formData={formData}
+						setFormData={setFormData}
+					/>
+				);
 			case 2:
-				return <PersonalInfo formData={formData} setFormData={setFormData} />;
+				return (
+					<PersonalInfo
+						formData={formData}
+						setFormData={setFormData}
+					/>
+				);
 			case 3:
 				return <Final />;
 			default:
@@ -43,28 +53,27 @@ const RegisterDeveloper = () => {
 		console.log('direction------>', direction);
 
 		// POST when the you reach at the last step
-		if(newStep == steps.length){
-			console.log("heyyyy ", JSON.stringify(formData));
-			fetch("https://projekto-backend.onrender.com/developers/auth/register", {
-				method: "POST",
+		if (newStep == steps.length) {
+			console.log('heyyyy ', JSON.stringify(formData));
+			fetch('https://projekto-backend.onrender.com/developers/auth/register', {
+				method: 'POST',
 				headers: {
-					"Content-Type":"application/json",
+					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify(formData)
+				body: JSON.stringify(formData),
 			})
-			.then((response) => response.json())
-			.then((data) => {
-				console.log("POSTED --> ", data);
-			})
-			.catch((error) => {
-				console.log("POSTING error --> ", error);
-			})
+				.then((response) => response.json())
+				.then((data) => {
+					console.log('POSTED --> ', data);
+				})
+				.catch((error) => {
+					console.log('POSTING error --> ', error);
+				});
 		}
 
 		direction === 'next' ? newStep++ : newStep--;
 		// check if steps are within bounds
 		newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
-
 	};
 
 	return (
