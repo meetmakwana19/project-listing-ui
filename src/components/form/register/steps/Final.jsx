@@ -7,7 +7,8 @@ const Final = () => {
 
 	return (
 		<div>
-			<ProfilePicDev />
+			{/* <ProfilePicDev profileImg={profileImg} setProfileImg={setProfileImg}/> */}
+			Are you sure ? 
 		</div>
 	);
 };
