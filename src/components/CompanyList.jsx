@@ -12,7 +12,7 @@ const CompanyList = ({ organizations_prop = [] }) => {
 					to={`/companies/${uid}`}
 					className='flex flex-col items-start gap-3 p-5 hover:bg-slate-100 cursor-pointer border-t w-full relative'
 				>
-					<div className='flex w-full gap-6 items-center relative'>
+					<div className='flex  flex-col lg:flex-row w-full gap-6 items-center relative'>
 						<BsFillBookmarkPlusFill className='absolute w-7 h-7 top-2 border-spacing-4 right-3 z-30 hover:text-accent' />
 						<img
 							src={banner_img}
