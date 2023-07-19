@@ -35,9 +35,12 @@ const NavMenu = () => {
 			</div>
 			<nav className='hidden md:ml-auto md:mr-auto md:flex md:flex-wrap md:items-center text-base md:justify-center'>
 				<ul className='md:flex md:gap-x-8'>
-					{navigations.map((navigation) => {
+					{navigations.map((navigation, index) => {
 						return (
-							<li className='mr-5 capitalize transition-all items-center hover:text-accent z-50'>
+							<li
+								key={index}
+								className='mr-5 capitalize transition-all items-center hover:text-accent z-50'
+							>
 								<NavLink
 									to={navigation.path}
 									className={(navClass) =>

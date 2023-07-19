@@ -24,9 +24,10 @@ const NavMobile = () => {
 	return (
 		<div className='bg-white w-full h-full shadow-2xl'>
 			<ul className='text-center h-full flex flex-col items-center justify-center gap-y-6'>
-				{navigations.map((navigation) => {
+				{navigations.map((navigation, index) => {
+					// Include index as the second argument
 					return (
-						<li>
+						<li key={index}>
 							<Link
 								to={navigation.path}
 								className='mr-5 capitalize hover:border-b transition-all hover:text-gray-900'
