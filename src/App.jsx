@@ -37,7 +37,7 @@ function App() {
 						element={<ProjectAdd />}
 					/>
 					<Route
-						path='/aboutus'
+						path='/about'
 						element={<AboutUs/>}
 					/>
 					<Route
