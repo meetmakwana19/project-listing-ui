@@ -9,8 +9,10 @@ import OrgInfo from '../components/form/register/organization/OrgInfo';
 import OrgBanner from '../components/form/register/organization/OrgBanner';
 import Final from '../components/form/register/organization/Final';
 import OrgFinal from '../components/form/register/organization/OrgFInal';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterOrganization = () => {
+	let navigate = useNavigate();
 	const [currentStep, setCurrentStep] = useState(1);
 	const [formData, setFormData] = useState({
 		name: '',
@@ -52,12 +54,12 @@ const RegisterOrganization = () => {
 
 	const handleClick = (direction) => {
 		let newStep = currentStep;
-		console.log('newstep---', newStep);
-		console.log('lenght?------', steps.length);
+		// console.log('newstep---', newStep);
+		// console.log('lenght?------', steps.length);
 
 		// POST when the you reach at the last step
 		if (newStep == steps.length) {
-			console.log('heyyyy ', JSON.stringify(formData));
+			// console.log('heyyyy ', JSON.stringify(formData));
 			fetch(
 				'https://projekto-backend.onrender.com/organizations/auth/register',
 				{
@@ -70,7 +72,13 @@ const RegisterOrganization = () => {
 			)
 				.then((response) => response.json())
 				.then((data) => {
-					console.log('POSTED --> ', data);
+					// console.log('POSTED --> ', data);
+					if(data.data.access_token){
+						// console.log("token is ", data.data.access_token);
+						localStorage.setItem("authToken", data.data.access_token)
+						navigate("/");
+						alert(`${data.message}`)
+					}		
 				})
 				.catch((error) => {
 					console.log('POSTING error --> ', error);
