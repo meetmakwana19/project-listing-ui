@@ -1,6 +1,23 @@
+import { useEffect, useState } from 'react';
 import { RiArrowRightSLine } from 'react-icons/ri';
 
 const FeaturedProjects = () => {
+	const [projects, setProjects] = useState([])
+
+	useEffect(() => {
+		const fetchProjects = async () => {
+			const response = await fetch(
+				'https://projekto-backend.onrender.com/projects?featured=true',
+				{ mode: 'cors' }
+			);
+			const fetchedProjects = await response.json();
+			setProjects(fetchedProjects.data);
+			console.log('fetch Projects------------', fetchedProjects.data);
+			// console.log('fetch Projects------------', projects);
+		};
+		fetchProjects();	
+	}, [])
+	
 	return (
 		<div className='flex flex-col max-w-7xl'>
 			<div className='flex flex-col'>
