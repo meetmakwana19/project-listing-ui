@@ -20,7 +20,7 @@ export default function StepperControl({ handleClick, currentStep, steps }) {
 					currentStep === 1 ? 'w-full' : 'w-32'
 				}`}
 			>
-				{currentStep === steps.length ? 'Confirm' : 'Next'}
+				{currentStep === steps.length ? `Confirm` : `Next`}
 			</button>
 		</div>
 	);
