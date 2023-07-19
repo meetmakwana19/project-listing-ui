@@ -19,7 +19,6 @@ const RegisterDeveloper = () => {
 		technical_role: "",
 		qualification: "",
 		skills: "",
-		profile_pic: "",
 	})
 
 	const steps = ['Login Details', 'Personal Details', 'Profile Pic'];
