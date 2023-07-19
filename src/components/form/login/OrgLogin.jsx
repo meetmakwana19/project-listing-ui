@@ -25,6 +25,7 @@ export const OrgLogin = () => {
 				localStorage.setItem("authToken", data.data.access_token)
 				navigate("/");
 				alert(`${data.message}`)
+				window.location.reload();
 			}
 		})
 		.catch((error) => {

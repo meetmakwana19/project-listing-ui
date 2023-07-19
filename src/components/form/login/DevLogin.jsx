@@ -26,6 +26,7 @@ export const DevLogin = () => {
 				localStorage.setItem("authToken", data.data.access_token)
 				navigate("/");
 				alert(`${data.message}`)
+				window.location.reload();
 			}
 			// console.log("LOGGED IN --> ", data);
 		})
