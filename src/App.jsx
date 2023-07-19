@@ -12,6 +12,7 @@ import Login from './modules/Login';
 import Register from './modules/Register';
 import RegisterDeveloper from './modules/RegisterDeveloper';
 import RegisterOrganization from './modules/RegisterOrganization';
+import ProjectAdd from './modules/ProjectAdd'
 
 function App() {
   return (
@@ -30,6 +31,10 @@ function App() {
           <Route
             path="/projects/:uid"
             element={<ProjectMain />}
+          />
+          <Route
+            path="/addproject"
+            element={<ProjectAdd />}
           />
           <Route
             path="/companies"
