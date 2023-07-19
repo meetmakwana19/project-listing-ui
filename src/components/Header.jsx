@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Logo from './navbar/Logo';
 import NavMenu from './navbar/NavMenu';
 import UserLogin from './navbar/UserLogin';
-import LoggedIn from './navbar/LoggedIn';
 
 const Header = () => {
 	// Header Sticky
@@ -22,14 +21,14 @@ const Header = () => {
 	};
 
 	return (
-		<div className={navbar ? 'header bg-white' : 'header bg-transparent'}>
+		// <div className={navbar ? 'header bg-white' : 'header bg-transparent'}>
+		<div className='header bg-white'>
 			<div className='flex w-full justify-between relative items-center'>
 				<Logo />
 				<div className='flex items-center gap-2'>
 					<NavMenu />
 					<UserLogin />
 				</div>
-				{/* <LoggedIn /> */}
 			</div>
 		</div>
 	);
