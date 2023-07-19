@@ -18,6 +18,14 @@ const ProjectListings = () => {
 		};
 		fetchProjects();
 	}, []);
+
+	const token = localStorage.getItem('authToken');
+	const logOut = () => {
+		console.log('noAuthToken');
+		localStorage.removeItem('authToken');
+		token = null;
+	};
+
 	return (
 		<div className='flex flex-col justify-center w-full'>
 			{/*------------- Background Gradient ------------ */}
@@ -40,16 +48,18 @@ const ProjectListings = () => {
 				</h1>
 
 				{/* ----------------Show Only for Organizations------------ */}
-				<div className='flex my-8 items-center justify-center gap-10 z-[1]'>
-					<div className='flex justify-between  items-center cursor-pointer bg-accent hover:bg-accent/50 rounded-lg text-white font-semibold text-center'>
-						<a
-							href='/projects/create'
-							className='flex p-3 md:p-4 items-center justify-center'
-						>
-							New Project <RiArrowRightSLine className='ml-2 text-md' />
-						</a>
+				{token && (
+					<div className='flex my-8 items-center justify-center gap-10 z-[1]'>
+						<div className='flex justify-between  items-center cursor-pointer bg-accent hover:bg-accent/50 rounded-lg text-white font-semibold text-center'>
+							<a
+								href='/projects/create'
+								className='flex p-3 md:p-4 items-center justify-center'
+							>
+								New Project <RiArrowRightSLine className='ml-2 text-md' />
+							</a>
+						</div>
 					</div>
-				</div>
+				)}
 			</div>
 
 			<div className='flex justify-center my-6 relative mx-3'>
@@ -60,7 +70,7 @@ const ProjectListings = () => {
 					<h1 className='text-2xl text-start font-medium text-slate-800 px-5'>
 						Projects open for development
 					</h1>
-					<div className='flex mt-6 w-full border-b '>
+					<div className='flex mt-6 w-full justify-between border-b '>
 						<div className='tabs'>
 							<a className='tab tab-bordered tab-active '>Best Matches</a>
 							<a className='tab'>Saved Jobs</a>
@@ -95,9 +105,9 @@ const ProjectListings = () => {
 										</button>
 									</div>
 
-												<div
+									<div
 										class={`absolute right-0 mt-2 w-40 origin-top-right rounded-md
-										 bg-white shadow-2xl ring-1 z-20 ring-black ring-opacity-5 focus:outline-none
+										 bg-white shadow-2xl ring-1 z-50 ring-black ring-opacity-5 focus:outline-none
 										 ${isOpen ? '' : 'hidden'}`}
 										role='menu'
 										aria-orientation='vertical'
