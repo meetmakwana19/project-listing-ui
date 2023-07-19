@@ -1,8 +1,25 @@
 import { RiArrowRightSLine } from 'react-icons/ri';
 import { AiFillPlayCircle } from 'react-icons/ai';
 import { MdCelebration } from 'react-icons/md';
+import { useEffect, useState } from 'react';
 
 const Hero = () => {
+	const [projects, setProjects] = useState([]);
+
+	useEffect(() => {
+		const fetchProjects = async () => {
+			const response = await fetch(
+				'https://projekto-backend.onrender.com/projects',
+				{ mode: 'cors' }
+			);
+			const fetchedProjects = await response.json();
+			setProjects(fetchedProjects.data);
+			console.log('fetch Projects------------', fetchedProjects.data);
+			console.log('length Projects------------', projects.length);
+		};
+		fetchProjects();
+	}, []);
+
 	return (
 		<div
 			className=' antialiased flex flex-col py-12 px-6  items-center
@@ -20,7 +37,7 @@ const Hero = () => {
 			animate-bounce border-accent rounded-full text-gray-700 text-md z-10'
 			>
 				<MdCelebration className='mr-2' />
-				More than 6000+ users joined.
+				More than {projects.length}+ projects on the platform.
 			</div>
 
 			{/*------------- Headings ------------ */}
@@ -77,9 +94,10 @@ const Hero = () => {
 				className='text-center text-3xl md:text-4xl
 				 font-semibold my-4'
 			>
-				Completed <span className='blue-gradient'>6,000+</span> applications and
+				Completed <span className='blue-gradient'>{projects.length}+</span>{' '}
+				projects and
 				<br />
-				<span className='blue-gradient'>thousands</span> of users
+				<span className='blue-gradient'>thousands</span> of users on platform
 			</h2>
 		</div>
 	);
