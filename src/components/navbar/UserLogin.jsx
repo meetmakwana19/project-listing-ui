@@ -1,20 +1,35 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { IoMdLogIn } from 'react-icons/io';
+import { RxAvatar } from 'react-icons/rx';
 
 function UserLogin() {
 	return (
-		<div className='hidden md:flex md:space-x-2'>
-			<a
-				href='login'
-				className='w-full text-white bg-accent hover:bg-slate-300  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+		<div className=' hover:text-accent dropdown dropdown-end '>
+			<label
+				tabIndex={0}
+				className='btn text-4xl btn-ghost rounded-btn'
 			>
-				Login
-			</a>
-			<a
-				href='/register'
-				className='w-full text-accent hover:text-accent border border-none bg-white shadow-sm hover:outline-accent font-medium hover:bg-slate-200 rounded-lg text-sm px-5 py-2.5 text-center'
-			>
-				Register
-			</a>
+				<RxAvatar />
+			</label>
+			<ul className='menu dropdown-content z-[15] p-2 shadow bg-base-100 rounded-box w-52 mt-4'>
+				<li>
+					<Link
+						to={'login'}
+						className='w-full text-accent  focus:bg-accent hover:bg-slate-100  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+					>
+						Login
+					</Link>
+				</li>
+				<li>
+					<Link
+						to={'/register'}
+						className='w-full text-accent hover:text-accent bg-white shadow-sm font-medium hover:bg-slate-100 rounded-lg text-sm px-5 py-2.5 text-center'
+					>
+						Register
+					</Link>
+				</li>
+			</ul>
 		</div>
 	);
 }

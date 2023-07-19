@@ -25,11 +25,7 @@ const AppFeatures = () => {
 
 			<div className='flex flex-col md:flex-row my-8 gap-5'>
 				<div className='flex flex-col gap-4 bg-[#0a0c3d] rounded-xl border border-slate-800 p-5'>
-					<img
-						src='/SVG/card-1.svg'
-						alt=''
-						srcset=''
-					/>
+					<img src='/SVG/card-1.svg' />
 					<h2 className='font-semibold text-xl'>User Experience</h2>
 					<p className='opacity-75'>
 						We are a team of experts, and know all the pain points involved with
@@ -40,11 +36,7 @@ const AppFeatures = () => {
 					</p>
 				</div>
 				<div className='flex flex-col gap-4 bg-[#0a0c3d] rounded-xl border border-slate-800 p-5'>
-					<img
-						src='/SVG/card-1.svg'
-						alt=''
-						srcset=''
-					/>
+					<img src='/SVG/card-1.svg' />
 					<h2 className='font-semibold text-xl'>User Experience</h2>
 					<p className='opacity-75'>
 						We are a team of experts, and know all the pain points involved with
@@ -55,11 +47,7 @@ const AppFeatures = () => {
 					</p>
 				</div>
 				<div className='flex flex-col gap-4 bg-[#0a0c3d] rounded-xl border border-slate-800 p-5'>
-					<img
-						src='/SVG/card-1.svg'
-						alt=''
-						srcset=''
-					/>
+					<img src='/SVG/card-1.svg' />
 					<h2 className='font-semibold text-xl'>User Experience</h2>
 					<p className='opacity-75'>
 						We are a team of experts, and know all the pain points involved with

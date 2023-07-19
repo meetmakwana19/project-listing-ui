@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { RxAvatar } from 'react-icons/rx';
 
-function ProfilePicDev() {
+function ProfilePicDev({ formdata, setFormData }) {
 	const [image, setImage] = useState(null);
 	const hiddenFileInput = useRef(null);
+	const formData = new FormData();
 
 	const handleImageChange = (event) => {
 		const file = event.target.files[0];
@@ -31,7 +32,7 @@ function ProfilePicDev() {
 							lastModified: Date.now(),
 						});
 
-						console.log(file);
+						console.log('file came--', file);
 						setImage(file);
 					},
 					'image/jpeg',
@@ -41,32 +42,13 @@ function ProfilePicDev() {
 		};
 	};
 
-	const handleUploadButtonClick = (file) => {
-		var myHeaders = new Headers();
-		const token = 'adhgsdaksdhk938742937423';
-		myHeaders.append('Authorization', `Bearer ${token}`);
-
-		var formdata = new FormData();
-		formdata.append('file', file);
-
-		var requestOptions = {
-			method: 'POST',
-			headers: myHeaders,
-			body: formdata,
-			redirect: 'follow',
-		};
-
-		fetch('https://projekto-backend.onrender.com/developers', requestOptions)
-			.then((response) => response.text())
-			.then((result) => {
-				console.log(JSON.parse(result));
-				const profileurl = JSON.parse(result);
-				setImage(profileurl.img_url);
-			})
-			.catch((error) => console.log('error', error));
+	const handleUploadButtonClick = () => {
+		if (image) {
+			console.log('hiiii', image);
+		}
 	};
 
-	const handleClick = (event) => {
+	const handleClick = () => {
 		hiddenFileInput.current.click();
 	};
 
@@ -101,15 +83,14 @@ function ProfilePicDev() {
 						style={{ display: 'none' }}
 					/>
 				</div>
-
-				<button
-					className='text-lg px-6 py-2 bg-white border my-3 border-accent rounded-lg 
-					font-medium hover:bg-accent hover:text-white transition'
-					onClick={handleUploadButtonClick}
-				>
-					Upload
-				</button>
 			</div>
+			<button
+				className='text-lg px-6 py-2 bg-white border my-3 border-accent rounded-lg 
+					font-medium hover:bg-accent hover:text-white transition'
+				onClick={() => handleUploadButtonClick()}
+			>
+				Upload
+			</button>
 		</div>
 	);
 }
