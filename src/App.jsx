@@ -12,6 +12,10 @@ import Login from './modules/Login';
 import Register from './modules/Register';
 import RegisterDeveloper from './modules/RegisterDeveloper';
 import RegisterOrganization from './modules/RegisterOrganization';
+
+import ProjectAdd from './modules/ProjectAdd'
+
+
 import { DevLogin } from './components/form/login/DevLogin';
 import { OrgLogin } from './components/form/login/OrgLogin';
 
@@ -77,6 +81,7 @@ function App() {
 			</div>
 		</>
 	);
+
 }
 
 export default App;
