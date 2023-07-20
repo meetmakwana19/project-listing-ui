@@ -5,11 +5,11 @@ export default function ProjectAdd() {
 		<>
 			<div className='flex justify-center my-10 items-center h-screen'>
 				<div className='gradient z-0'></div>
-				<div className='max-w-3xl w-full'>
+				<div className='max-w-3xl z-10 w-full'>
 					<form
 						action='#'
 						method='POST'
-						className='bg-white shadow-md px-8 pt-6 pb-8 mb-4 border z-10 border-slate-300 rounded-2xl py-5'
+						className='bg-white/50 shadow-md px-8 pt-6 pb-8 mb-4 border z-10 border-slate-300 rounded-2xl py-5'
 					>
 						<h2
 							className='text-gray-900 text-center text-2xl md:text-3xl mb-5
