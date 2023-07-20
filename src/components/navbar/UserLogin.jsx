@@ -7,11 +7,11 @@ function UserLogin() {
 	const [isOpen, setIsOpen] = useState(false);
 	const token = localStorage.getItem('authToken');
 	const logOut = () => {
-		console.log('yoooooo');
+		// console.log('yoooooo');
 		localStorage.removeItem('authToken');
 		token = null;
 	};
-	console.log('token is -----', token);
+	// console.log('token is -----', token);
 	return (
 		<div className='flex items-center justify-end px-4'>
 			<div className='inline-block items-center relative text-left'>

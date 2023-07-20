@@ -1,8 +1,37 @@
 import { useState } from 'react';
 
-export const FilterButton = ({ filters }) => {
+export const FilterButton = ({ filters, projects, setProjects }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
+	const filterProjects = (filter) => {
+		console.log("Heloooo", filter);
+
+		let queryParam;
+		if(filter.label === "featured"){
+			queryParam = "?featured=true";
+		} else if(filter.label === "Newest first"){
+			queryParam = "?sort=-createdAt"
+		} else if(filter.label === "Open to work"){
+			queryParam = "?open=true"
+		} else if(filter.label === "Sort A-Z"){
+			queryParam = "?sort=title"
+		} else if(filter.label === "Sort Z-A"){
+			queryParam = "?sort=-title"
+		}
+		const filterResponse = async () => {
+			const response = await fetch(
+				`https://projekto-backend.onrender.com/projects${queryParam}`,
+				{ mode: 'cors' }
+			);
+			const filtered = await response.json();
+			setProjects(filtered.data);
+			console.log('fetch filtered projects------------', filtered.data);
+			// console.log('fetch Developers------------', developers);
+		};
+		filterResponse();
+
+		setIsOpen(!isOpen);
+	}
 	return (
 		<>
 			<div className='flex items-center justify-end px-4'>
@@ -48,7 +77,7 @@ export const FilterButton = ({ filters }) => {
 									// Include index as the second argument
 									return (
 										<a
-											onClick={() => setIsOpen(!isOpen)}
+											onClick={() => filterProjects(filters)}
 											key={index}
 											href={filters.property}
 											className='font-medium capitalize hover:bg-slate-100 text-gray-900 block px-4 py-2 text-sm'
