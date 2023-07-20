@@ -10,12 +10,20 @@ const filters = [
 		property: '#featured',
 	},
 	{
-		label: 'open for development',
-		property: '#open_for_development',
+		label: 'Newest first',
+		property: '#newest_first',
 	},
 	{
-		label: 'best rating',
-		property: '#best_rating',
+		label: 'Sort A-Z',
+		property: '#sort_asc',
+	},
+	{
+		label: 'Sort Z-A',
+		property: '#sort_dsc',
+	},
+	{
+		label: 'Open to work',
+		property: '#open_for_development',
 	},
 ];
 
@@ -94,7 +102,7 @@ const ProjectListings = () => {
 						</div>
 
 						{/*--------sort button--------- */}
-						<FilterButton filters={filters} />
+						<FilterButton filters={filters} projects={projects} setProjects={setProjects}/>
 
 						{/*--------sort button END--------- */}
 					</div>
