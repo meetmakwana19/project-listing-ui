@@ -1,24 +1,14 @@
 import { useState } from 'react';
 
-export const FilterButton = ({ filters, projects, setProjects }) => {
+export const FilterButton = ({ filters, setProjects, setOrganizations}) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const filterProjects = (filter) => {
-		console.log("Heloooo", filter);
+		console.log("Heloooo", filter.property);
 
 		let queryParam;
-		if(filter.label === "featured"){
-			queryParam = "?featured=true";
-		} else if(filter.label === "Newest first"){
-			queryParam = "?sort=-createdAt"
-		} else if(filter.label === "Open to work"){
-			queryParam = "?open=true"
-		} else if(filter.label === "Sort A-Z"){
-			queryParam = "?sort=title"
-		} else if(filter.label === "Sort Z-A"){
-			queryParam = "?sort=-title"
-		}
-		const filterResponse = async () => {
+
+		const filterProjects = async () => {
 			const response = await fetch(
 				`https://projekto-backend.onrender.com/projects${queryParam}`,
 				{ mode: 'cors' }
@@ -28,7 +18,48 @@ export const FilterButton = ({ filters, projects, setProjects }) => {
 			console.log('fetch filtered projects------------', filtered.data);
 			// console.log('fetch Developers------------', developers);
 		};
-		filterResponse();
+
+		const filterOrganizations = async () => {
+			console.log("got-", queryParam);
+			const response = await fetch(
+				`https://projekto-backend.onrender.com/organizations${queryParam}`,
+				{ mode: 'cors' }
+			);
+			const filtered = await response.json();
+			setOrganizations(filtered.data);
+			console.log('fetch filtered orgs------------', filtered.data);
+			// console.log('fetch Developers------------', developers);
+		};
+
+		if(filter.label === "featured"){
+			queryParam = "?featured=true";
+			filterProjects();
+		} else if(filter.label === "Newest first"){
+			queryParam = "?sort=-createdAt"
+			filterProjects();
+		} else if(filter.label === "Open to work"){
+			queryParam = "?open=true"
+			filterProjects();
+		} else if(filter.label === "Sort A-Z"){
+			queryParam = "?sort=title"
+			filterProjects();
+		} else if(filter.label === "Sort Z-A"){
+			queryParam = "?sort=-title"
+			filterProjects();
+		} 
+		if(filter.property === "#newest_first_org"){
+			queryParam = "?sort=-createdAt"
+			filterOrganizations();
+		} else if(filter.property === "#hiring"){
+			queryParam = "?hiring=true"
+			filterOrganizations();
+		} else if(filter.property === "#sort_asc_org"){
+			queryParam = "?sort=name"
+			filterOrganizations();
+		} else if(filter.property === "#sort_dsc_org"){
+			queryParam = "?sort=-name"
+			filterOrganizations();
+		}
 
 		setIsOpen(!isOpen);
 	}

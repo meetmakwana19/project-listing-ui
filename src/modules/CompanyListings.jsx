@@ -4,17 +4,21 @@ import { FilterButton } from '../components/navbar/FilterButton';
 import loading from '/SVG/loading.svg';
 
 const filters = [
+	// {
+	// 	label: 'Hiring',
+	// 	property: '#hiring',
+	// },
 	{
-		label: 'featured',
-		property: '#featured',
+		label: 'Newest first',
+		property: '#newest_first_org',
 	},
 	{
-		label: 'Hiring',
-		property: '#hiring',
+		label: 'Sort A-Z',
+		property: '#sort_asc_org',
 	},
 	{
-		label: 'best rating',
-		property: '#best_rating',
+		label: 'Sort Z-A',
+		property: '#sort_dsc_org',
 	},
 ];
 
@@ -108,7 +112,7 @@ const CompanyListings = () => {
 						</div> */}
 
 						{/*--------sort button--------- */}
-						<FilterButton filters={filters} />
+						<FilterButton filters={filters} organizations={organizations} setOrganizations={setOrganizations}/>
 
 						{/*--------sort button END--------- */}
 					</div>
