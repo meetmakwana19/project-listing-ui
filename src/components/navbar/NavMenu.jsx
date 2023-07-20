@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { CgMenuRight, CgClose } from 'react-icons/cg';
 import NavMobile from './NavMobile';
 
 const navigations = [
@@ -23,16 +22,36 @@ const navigations = [
 ];
 
 const NavMenu = () => {
-	const [mobileNav, setMobileNav] = useState(false);
+	{
+		/* const [mobileNav, setMobileNav] = useState(false);
+	const mobileMenuRef = useRef();
+
+	const closeOpenMenus = useCallback(
+		(e) => {
+			if (
+				mobileMenuRef.current &&
+				mobileNav &&
+				!mobileMenuRef.current.contains(e.target)
+			) {
+				setMobileNav(false);
+			}
+		},
+		[mobileNav]
+	);
+
+	useEffect(() => {
+		document.addEventListener('mousedown', closeOpenMenus);
+	}, [closeOpenMenus]);*/
+	}
 
 	return (
 		<div className='flex justify-between'>
-			<div
+			{/*<div
 				onClick={() => setMobileNav(!mobileNav)}
 				className='text-2xl md:hidden lg:text-3xl cursor-pointer'
 			>
 				{mobileNav ? <CgClose /> : <CgMenuRight />}
-			</div>
+			</div>*/}
 			<nav className='hidden md:ml-auto md:mr-auto md:flex md:flex-wrap md:items-center text-base md:justify-center'>
 				<ul className='md:flex md:gap-x-8'>
 					{navigations.map((navigation, index) => {
@@ -55,11 +74,12 @@ const NavMenu = () => {
 				</ul>
 			</nav>
 			<div
-				className={`${
-					mobileNav ? 'left-0' : '-left-full'
-				} md:hidden fixed bottom-0 w-full max-w-xs h-screen transition-all`}
+				className={`
+				
+						md:hidden bottom-0 max-w-xs transition-all`}
 			>
-				<NavMobile />
+				{/* ${mobileNav ? '' : ''} */}
+				<NavMobile navigations={navigations} />
 			</div>
 		</div>
 	);
