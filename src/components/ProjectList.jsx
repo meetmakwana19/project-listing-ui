@@ -2,7 +2,7 @@ import { BsFillBookmarkPlusFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
 const ProjectList = ({ projects_prop = [] }) => {
-	return projects_prop.map((projects) => {
+	return projects_prop.map((projects, index) => {
 		// console.log('developer >>>>>', developer);
 		const {
 			uid,
@@ -22,6 +22,7 @@ const ProjectList = ({ projects_prop = [] }) => {
 			<>
 				{/*---------------- Project List--------------- */}
 				<Link
+					key={index}
 					to={`/projects/${uid}`}
 					className='flex flex-col items-start gap-3 p-5 hover:bg-slate-100 cursor-pointer border-t w-full relative'
 				>

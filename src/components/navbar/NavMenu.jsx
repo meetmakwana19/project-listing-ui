@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { CgMenuRight, CgClose } from 'react-icons/cg';
 import NavMobile from './NavMobile';
@@ -24,6 +24,24 @@ const navigations = [
 
 const NavMenu = () => {
 	const [mobileNav, setMobileNav] = useState(false);
+	const mobileMenuRef = useRef();
+
+	const closeOpenMenus = useCallback(
+		(e) => {
+			if (
+				mobileMenuRef.current &&
+				mobileNav &&
+				!mobileMenuRef.current.contains(e.target)
+			) {
+				setMobileNav(false);
+			}
+		},
+		[mobileNav]
+	);
+
+	useEffect(() => {
+		document.addEventListener('mousedown', closeOpenMenus);
+	}, [closeOpenMenus]);
 
 	return (
 		<div className='flex justify-between'>
