@@ -1,6 +1,6 @@
 import React from 'react';
 
-const OrgInfo = ({formData, setFormData}) => {
+const OrgInfo = ({ formData, setFormData }) => {
 	{
 		/*
 
@@ -23,9 +23,10 @@ website
 				<input
 					placeholder='IT & Engineering'
 					type='text'
-					value={formData.domain} onChange={(e) => setFormData({...formData, domain: e.target.value})}
+					value={formData.domain}
+					onChange={(e) => setFormData({ ...formData, domain: e.target.value })}
 					className='border placeholder-gray-400 focus:outline-none
-		  focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
+		  focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
 		  border-gray-300 rounded-md'
 				/>
 			</div>
@@ -40,9 +41,12 @@ website
 				<input
 					placeholder='example.com'
 					type='text'
-					value={formData.website} onChange={(e) => setFormData({...formData, website: e.target.value})}
+					value={formData.website}
+					onChange={(e) =>
+						setFormData({ ...formData, website: e.target.value })
+					}
 					className='border lowercase placeholder-gray-400 focus:outline-none
-								  focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
+								  focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
 								  border-gray-300 rounded-md'
 				/>
 			</div>
@@ -57,9 +61,10 @@ website
 				<textarea
 					rows='4'
 					placeholder='description...'
-					value={formData.about} onChange={(e) => setFormData({...formData, about: e.target.value})}
+					value={formData.about}
+					onChange={(e) => setFormData({ ...formData, about: e.target.value })}
 					className='border capitalize placeholder-gray-400 focus:outline-none
-								  focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
+								  focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
 								  border-gray-300 rounded-md'
 				/>
 			</div>
