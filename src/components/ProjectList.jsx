@@ -2,26 +2,27 @@ import { BsFillBookmarkPlusFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
 const ProjectList = ({ projects_prop = [] }) => {
-	return projects_prop.map((projects) => {
+	return projects_prop.map((projects, index) => {
 		// console.log('developer >>>>>', developer);
 		const {
 			uid,
 			title,
 			description,
-			featured,
-			board,
 			timeframe,
 			thumbnail,
-			techstack,
-			fixed_price,
 			project_type,
 			required_personnel,
+			featured,
+			board,
+			techstack,
+			fixed_price,
 		} = projects;
 
 		return (
 			<>
 				{/*---------------- Project List--------------- */}
 				<Link
+					key={index}
 					to={`/projects/${uid}`}
 					className='flex flex-col items-start gap-3 p-5 hover:bg-slate-100 cursor-pointer border-t w-full relative'
 				>
@@ -67,7 +68,10 @@ const ProjectList = ({ projects_prop = [] }) => {
 					{/* -------------tech Stack---------------- */}
 					<div className='flex'>
 						<ul className='capitalize text-accent'>
-							<li className='border  bg-accent/5 shadow-sm p-2 text-sm px-2 py-1 rounded-xl'>
+							<li
+								key={index}
+								className='border  bg-accent/5 shadow-sm p-2 text-sm px-2 py-1 rounded-xl'
+							>
 								mobile
 							</li>
 						</ul>

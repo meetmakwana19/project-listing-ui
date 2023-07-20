@@ -1,8 +1,26 @@
 import { useEffect, useState } from 'react';
 import ProjectList from '../components/ProjectList';
 import { RiArrowRightSLine } from 'react-icons/ri';
+import { FilterButton } from '../components/navbar/FilterButton';
+import loading from '/SVG/loading.svg';
+
+const filters = [
+	{
+		label: 'featured',
+		property: '#featured',
+	},
+	{
+		label: 'open for development',
+		property: '#open_for_development',
+	},
+	{
+		label: 'best rating',
+		property: '#best_rating',
+	},
+];
 
 const ProjectListings = () => {
+	const [isOpen, setIsOpen] = useState(false);
 	const [projects, setProjects] = useState([]);
 	useEffect(() => {
 		const fetchProjects = async () => {
@@ -17,6 +35,14 @@ const ProjectListings = () => {
 		};
 		fetchProjects();
 	}, []);
+
+	const token = localStorage.getItem('authToken');
+	const logOut = () => {
+		console.log('noAuthToken');
+		localStorage.removeItem('authToken');
+		token = null;
+	};
+
 	return (
 		<div className='flex flex-col justify-center w-full'>
 			{/*------------- Background Gradient ------------ */}
@@ -39,16 +65,18 @@ const ProjectListings = () => {
 				</h1>
 
 				{/* ----------------Show Only for Organizations------------ */}
-				<div className='flex my-8 items-center justify-center gap-10 z-[1]'>
-					<div className='flex justify-between  items-center cursor-pointer bg-accent hover:bg-accent/50 rounded-lg text-white font-semibold text-center'>
-						<a
-							href='/projects/create'
-							className='flex p-3 md:p-4 items-center justify-center'
-						>
-							New Project <RiArrowRightSLine className='ml-2 text-md' />
-						</a>
+				{token && (
+					<div className='flex my-8 items-center justify-center gap-10 z-[1]'>
+						<div className='flex justify-between  items-center cursor-pointer bg-accent hover:bg-accent/50 rounded-lg text-white font-semibold text-center'>
+							<a
+								href='/projects/create'
+								className='flex p-3 md:p-4 items-center justify-center'
+							>
+								New Project <RiArrowRightSLine className='ml-2 text-md' />
+							</a>
+						</div>
 					</div>
-				</div>
+				)}
 			</div>
 
 			<div className='flex justify-center my-6 relative mx-3'>
@@ -59,11 +87,16 @@ const ProjectListings = () => {
 					<h1 className='text-2xl text-start font-medium text-slate-800 px-5'>
 						Projects open for development
 					</h1>
-					<div className='flex mt-6 w-full border-b '>
+					<div className='flex mt-6 w-full justify-between border-b '>
 						<div className='tabs'>
 							<a className='tab tab-bordered tab-active '>Best Matches</a>
 							<a className='tab'>Saved Jobs</a>
 						</div>
+
+						{/*--------sort button--------- */}
+						<FilterButton filters={filters} />
+
+						{/*--------sort button END--------- */}
 					</div>
 
 					<p className='mx-5 my-2 text-base'>
@@ -73,8 +106,8 @@ const ProjectListings = () => {
 					{projects.length > 0 ? (
 						<ProjectList projects_prop={projects} />
 					) : (
-						<div className='flex w-full justify-center text-slate-500'>
-							Loading.....
+						<div className='flex w-full py-10 justify-center text-slate-500'>
+							<img src={loading} />
 						</div>
 					)}
 				</div>

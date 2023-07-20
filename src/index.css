@@ -35,6 +35,13 @@
 	.description {
 		@apply text-base text-start font-normal text-slate-800;
 	}
+	.mobile-menu {
+		@apply absolute right-0 mt-2 w-40 origin-top-right rounded-md
+		bg-white shadow-2xl ring-1 z-50 ring-black ring-opacity-5 focus:outline-none;
+	}
+	.mobile-item {
+		@apply font-medium capitalize hover:bg-slate-100 text-gray-900 block px-4 py-2 text-sm;
+	}
 }
 
 html {
