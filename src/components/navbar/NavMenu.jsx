@@ -22,36 +22,8 @@ const navigations = [
 ];
 
 const NavMenu = () => {
-	{
-		/* const [mobileNav, setMobileNav] = useState(false);
-	const mobileMenuRef = useRef();
-
-	const closeOpenMenus = useCallback(
-		(e) => {
-			if (
-				mobileMenuRef.current &&
-				mobileNav &&
-				!mobileMenuRef.current.contains(e.target)
-			) {
-				setMobileNav(false);
-			}
-		},
-		[mobileNav]
-	);
-
-	useEffect(() => {
-		document.addEventListener('mousedown', closeOpenMenus);
-	}, [closeOpenMenus]);*/
-	}
-
 	return (
 		<div className='flex justify-between'>
-			{/*<div
-				onClick={() => setMobileNav(!mobileNav)}
-				className='text-2xl md:hidden lg:text-3xl cursor-pointer'
-			>
-				{mobileNav ? <CgClose /> : <CgMenuRight />}
-			</div>*/}
 			<nav className='hidden md:ml-auto md:mr-auto md:flex md:flex-wrap md:items-center text-base md:justify-center'>
 				<ul className='md:flex md:gap-x-8'>
 					{navigations.map((navigation, index) => {
@@ -78,7 +50,6 @@ const NavMenu = () => {
 				
 						md:hidden bottom-0 max-w-xs transition-all`}
 			>
-				{/* ${mobileNav ? '' : ''} */}
 				<NavMobile navigations={navigations} />
 			</div>
 		</div>

@@ -29,6 +29,7 @@ function UserLogin() {
 
 				{isOpen && !token && (
 					<ul
+						onClick={() => setIsOpen(!isOpen)}
 						className='mobile-menu'
 						aria-orientation='vertical'
 					>
@@ -54,6 +55,7 @@ function UserLogin() {
 				{/* ----------for Logged In Users------------------- */}
 				{isOpen && token && (
 					<ul
+						onClick={() => setIsOpen(!isOpen)}
 						className='mobile-menu'
 						aria-orientation='vertical'
 					>
