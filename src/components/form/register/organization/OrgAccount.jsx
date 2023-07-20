@@ -1,6 +1,6 @@
 import React from 'react';
 
-const OrgAccount = ({formData, setFormData}) => {
+const OrgAccount = ({ formData, setFormData }) => {
 	{
 		/*
 Name
@@ -22,9 +22,10 @@ password
 				<input
 					placeholder='Eg. Raw Engineering '
 					type='text'
-					value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})}
+					value={formData.name}
+					onChange={(e) => setFormData({ ...formData, name: e.target.value })}
 					className='border capitalize placeholder-gray-400 focus:outline-none
-                          focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
+                          focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                           border-gray-300 rounded-md'
 				/>
 			</div>
@@ -38,9 +39,12 @@ password
 				<input
 					placeholder='Password'
 					type='password'
-					value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})}
+					value={formData.password}
+					onChange={(e) =>
+						setFormData({ ...formData, password: e.target.value })
+					}
 					className='border placeholder-gray-400 focus:outline-none
-          focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
+          focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
           border-gray-300 rounded-md'
 				/>
 			</div>
@@ -54,9 +58,12 @@ password
 				<input
 					placeholder='Password'
 					type='password'
-					value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})}
+					value={formData.password}
+					onChange={(e) =>
+						setFormData({ ...formData, password: e.target.value })
+					}
 					className='border placeholder-gray-400 focus:outline-none
-          focus:border-black w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
+          focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
           border-gray-300 rounded-md'
 				/>
 			</div>
