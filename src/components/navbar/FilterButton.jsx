@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const FilterButton = ({ filters, setProjects, setOrganizations}) => {
+export const FilterButton = ({ filters, setProjects, setOrganizations, setDevelopers}) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const filterProjects = (filter) => {
@@ -15,19 +15,30 @@ export const FilterButton = ({ filters, setProjects, setOrganizations}) => {
 			);
 			const filtered = await response.json();
 			setProjects(filtered.data);
-			console.log('fetch filtered projects------------', filtered.data);
+			// console.log('fetch filtered projects------------', filtered.data);
 			// console.log('fetch Developers------------', developers);
 		};
 
 		const filterOrganizations = async () => {
-			console.log("got-", queryParam);
 			const response = await fetch(
 				`https://projekto-backend.onrender.com/organizations${queryParam}`,
 				{ mode: 'cors' }
 			);
 			const filtered = await response.json();
 			setOrganizations(filtered.data);
-			console.log('fetch filtered orgs------------', filtered.data);
+			// console.log('fetch filtered orgs------------', filtered.data);
+			// console.log('fetch Developers------------', developers);
+		};
+
+		const filterDevelopers = async () => {
+			console.log("got-", queryParam);
+			const response = await fetch(
+				`https://projekto-backend.onrender.com/developers${queryParam}`,
+				{ mode: 'cors' }
+			);
+			const filtered = await response.json();
+			setDevelopers(filtered.data);
+			console.log('fetch filtered devs------------', filtered.data);
 			// console.log('fetch Developers------------', developers);
 		};
 
@@ -47,6 +58,21 @@ export const FilterButton = ({ filters, setProjects, setOrganizations}) => {
 			queryParam = "?sort=-title"
 			filterProjects();
 		} 
+
+		if(filter.property === "#newest_first_dev"){
+			queryParam = "?sort=createdAt"
+			filterDevelopers();
+		} else if(filter.property === "#open_to_work_dev"){
+			queryParam = "?openToWork=true"
+			filterDevelopers();
+		} else if(filter.property === "#sort_asc_dev"){
+			queryParam = "?sort=fname"
+			filterDevelopers();
+		} else if(filter.property === "#sort_dsc_dev"){
+			queryParam = "?sort=-fname"
+			filterDevelopers();
+		}
+
 		if(filter.property === "#newest_first_org"){
 			queryParam = "?sort=-createdAt"
 			filterOrganizations();
