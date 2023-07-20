@@ -10,7 +10,7 @@ export const AboutSection = () => {
 					IdeaBox
 				</h1>
 				<p className='flex items-center text-lg text-slate-600 font-medium'>
-					Built with{' '}
+					Made with{' '}
 					<span className='px-2'>
 						{' '}
 						<TiHeartFullOutline className='text-red-700 ' />
