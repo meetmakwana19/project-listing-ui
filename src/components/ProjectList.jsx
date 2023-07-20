@@ -8,14 +8,14 @@ const ProjectList = ({ projects_prop = [] }) => {
 			uid,
 			title,
 			description,
-			featured,
-			board,
 			timeframe,
 			thumbnail,
-			techstack,
-			fixed_price,
 			project_type,
 			required_personnel,
+			featured,
+			board,
+			techstack,
+			fixed_price,
 		} = projects;
 
 		return (
@@ -68,7 +68,10 @@ const ProjectList = ({ projects_prop = [] }) => {
 					{/* -------------tech Stack---------------- */}
 					<div className='flex'>
 						<ul className='capitalize text-accent'>
-							<li className='border  bg-accent/5 shadow-sm p-2 text-sm px-2 py-1 rounded-xl'>
+							<li
+								key={index}
+								className='border  bg-accent/5 shadow-sm p-2 text-sm px-2 py-1 rounded-xl'
+							>
 								mobile
 							</li>
 						</ul>
