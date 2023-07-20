@@ -50,6 +50,11 @@ html {
 	background-color: white;
 }
 
+::selection {
+	color: white;
+	background: #6c47ff;
+}
+
 .navbar {
 	background-color: transparent;
 }
