@@ -17,15 +17,46 @@ const ProjectDetails = () => {
 			);
 			const fetchedProject = await response.json();
 			setProject(fetchedProject.data);
-			console.log('fetch Projects------------', fetchedProject.data);
+			// console.log('fetch Projects------------', fetchedProject.data);
 			// console.log('fetch Projects------------', projects);
 		};
 		fetchProject();
 	}, []);
 
-	const clickApply = () => {
-		console.log("applying");
-		alert("Applied for project successfully.")
+	const dev_id = localStorage.getItem("isDev")
+	const proposeProject = async (project_id) => {
+		let proposalData = {
+			project: project_id,
+			developer: dev_id
+		}
+		const response = await fetch(
+			'https://projekto-backend.onrender.com/proposals',
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					"authorization": localStorage.getItem("authToken")
+				},
+				body: JSON.stringify(proposalData),
+			}
+		)
+			.then((response) => response.json())
+			.then((data) => {
+				// console.log('POSTED --> ', data);
+				// navigate("/");
+				alert(`${data.message}`)
+				// window.location.reload();
+			}
+			)
+			.catch((error) => {
+				console.log('POSTING error --> ', error);
+			});
+
+	};
+	const clickApply = (id) => {
+		proposeProject(id);
+		alert("Applied for project successfully --", id)
+		// console.log("applying - ", id);
 	}
 
 	if (!Object.keys(project).length > 0)
@@ -144,7 +175,7 @@ const ProjectDetails = () => {
 					<div className='flex items-center justify-center w-1/2'>
 						<Link
 							className='flex bg-accent px-4 py-2 w-full items-center justify-center text-white
-						hover:bg-white hover:text-accent hover:border-accent font-medium border border-slate-300 rounded-full' onClick={clickApply}
+						hover:bg-white hover:text-accent hover:border-accent font-medium border border-slate-300 rounded-full' onClick={() => clickApply(project._id)}
 						>
 							Apply Now
 						</Link>
