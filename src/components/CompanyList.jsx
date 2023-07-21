@@ -1,4 +1,5 @@
 import { BsFillBookmarkPlusFill } from 'react-icons/bs';
+import { AiFillStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
 const CompanyList = ({ organizations_prop = [] }) => {
@@ -24,33 +25,12 @@ const CompanyList = ({ organizations_prop = [] }) => {
 							<h1 className='text-xl font-medium text-slate-900'>{name}</h1>
 
 							{/*------------ Rating ------------- */}
-							<div className='rating md:rating-sm rating-xs'>
-								<input
-									type='radio'
-									name='rating-2'
-									className='mask mask-star-2 bg-orange-400'
-								></input>
-								<input
-									type='radio'
-									name='rating-2'
-									className='mask mask-star-2 bg-orange-400'
-									checked
-								/>
-								<input
-									type='radio'
-									name='rating-2'
-									className='mask mask-star-2 bg-orange-400'
-								/>
-								<input
-									type='radio'
-									name='rating-2'
-									className='mask mask-star-2 bg-orange-400'
-								/>
-								<input
-									type='radio'
-									name='rating-2'
-									className='mask mask-star-2 bg-orange-400'
-								/>
+							<div className='rating mt-2 md:rating-sm rating-xs'>
+								<AiFillStar />
+								<AiFillStar />
+								<AiFillStar />
+								<AiFillStar />
+								<AiFillStar />
 							</div>
 							<div className='flex my-5'>
 								<div className='flex flex-col w-1/2 items-start justify-start gap-3'>

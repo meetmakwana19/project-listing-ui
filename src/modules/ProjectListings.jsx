@@ -3,6 +3,7 @@ import ProjectList from '../components/ProjectList';
 import { RiArrowRightSLine } from 'react-icons/ri';
 import { FilterButton } from '../components/navbar/FilterButton';
 import loading from '/SVG/loading.svg';
+import Search from '../components/navbar/Search';
 
 const filters = [
 	{
@@ -44,7 +45,7 @@ const ProjectListings = () => {
 		fetchProjects();
 	}, []);
 
-	const token = localStorage.getItem('authToken');
+	let token = localStorage.getItem('authToken');
 	const logOut = () => {
 		console.log('noAuthToken');
 		localStorage.removeItem('authToken');
@@ -96,13 +97,19 @@ const ProjectListings = () => {
 						Projects open for development
 					</h1>
 					<div className='flex mt-6 w-full justify-between border-b '>
-						<div className='tabs'>
+						<div className='tabs px-2 gap-4'>
 							<a className='tab tab-bordered tab-active '>Best Matches</a>
 							<a className='tab'>Saved Jobs</a>
 						</div>
 
 						{/*--------sort button--------- */}
-						<FilterButton filters={filters} projects={projects} setProjects={setProjects}/>
+						<div className='flex items-center'>
+							<FilterButton
+								filters={filters}
+								projects={projects}
+								setProjects={setProjects}
+							/>
+						</div>
 
 						{/*--------sort button END--------- */}
 					</div>
@@ -111,6 +118,9 @@ const ProjectListings = () => {
 						Browse projects that match your experience to a client's hiring
 						preferences. Ordered by most relevant.
 					</p>
+					<div className='flex w-full px-4 py-2'>
+						<Search />
+					</div>
 					{projects.length > 0 ? (
 						<ProjectList projects_prop={projects} />
 					) : (

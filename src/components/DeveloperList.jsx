@@ -107,9 +107,10 @@ const DeveloperList = ({ developers_prop = [] }) => {
 				{/* -------------Skill---------------- */}
 				<div className='flex flex-wrap'>
 					<ul className='flex flex-wrap  gap-2 capitalize text-accent'>
-						{skills.map((skill) => {
+						{skills.map((skill, index) => {
 							return (
 								<li
+									key={index}
 									className='border border-slate-300 px-2 
 									py-1 bg-accent/5 text-sm rounded-2xl'
 								>
