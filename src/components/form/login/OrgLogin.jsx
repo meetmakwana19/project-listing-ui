@@ -23,10 +23,13 @@ export const OrgLogin = () => {
 				if (data.data.access_token) {
 					// console.log("token is ", data.data.access_token);
 					localStorage.setItem('authToken', data.data.access_token);
+					localStorage.setItem('isOrg', data.data.organization._id);
 					navigate('/');
 					alert(`${data.message}`);
 					window.location.reload();
 				}
+				// console.log("ORG----------", data);
+				// console.log("ORG id ----------", localStorage.getItem("isOrg"));
 			})
 			.catch((error) => {
 				console.log('POSTING error --> ', error);

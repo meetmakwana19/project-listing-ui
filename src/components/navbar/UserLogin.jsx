@@ -7,10 +7,16 @@ import { MdOutlineLogout } from 'react-icons/md';
 function UserLogin() {
 	const [isOpen, setIsOpen] = useState(false);
 	const token = localStorage.getItem('authToken');
+	const orgToken = localStorage.getItem('isOrg');
+	const devToken = localStorage.getItem('isDev');
 	const logOut = () => {
 		// console.log('yoooooo');
 		localStorage.removeItem('authToken');
+		localStorage.getItem("isOrg") ? localStorage.removeItem('isOrg') : null;
+		localStorage.getItem("isDev") ? localStorage.removeItem('isDev') : null;
 		token = null;
+		orgToken = null;
+		devToken = null;
 	};
 	// console.log('token is -----', token);
 	return (

@@ -23,6 +23,11 @@ const ProjectDetails = () => {
 		fetchProject();
 	}, []);
 
+	const clickApply = () => {
+		console.log("applying");
+		alert("Applied for project successfully.")
+	}
+
 	if (!Object.keys(project).length > 0)
 		return (
 			<div className='flex justify-center text-slate-500'>Loading.....</div>
@@ -139,7 +144,7 @@ const ProjectDetails = () => {
 					<div className='flex items-center justify-center w-1/2'>
 						<Link
 							className='flex bg-accent px-4 py-2 w-full items-center justify-center text-white
-						hover:bg-white hover:text-accent hover:border-accent font-medium border border-slate-300 rounded-full'
+						hover:bg-white hover:text-accent hover:border-accent font-medium border border-slate-300 rounded-full' onClick={clickApply}
 						>
 							Apply Now
 						</Link>

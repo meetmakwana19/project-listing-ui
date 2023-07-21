@@ -47,7 +47,7 @@ const ProjectListings = () => {
 		fetchProjects();
 	}, [searchInput]);
 
-	const token = localStorage.getItem('authToken');
+	const orgToken = localStorage.getItem('isOrg');
 
 	return (
 		<div className='flex flex-col justify-center w-full'>
@@ -71,7 +71,7 @@ const ProjectListings = () => {
 				</h1>
 
 				{/* ----------------Show Only for Organizations------------ */}
-				{token && (
+				{orgToken && (
 					<div className='flex my-8 items-center justify-center gap-10 z-[1]'>
 						<div className='flex justify-between  items-center cursor-pointer bg-accent hover:bg-accent/50 rounded-lg text-white font-semibold text-center'>
 							<a

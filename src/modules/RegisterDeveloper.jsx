@@ -69,6 +69,7 @@ const RegisterDeveloper = () => {
 					if(data.data.access_token){
 						// console.log("token is ", data.data.access_token);
 						localStorage.setItem("authToken", data.data.access_token)
+						localStorage.setItem('isDev', data.data.developer._id);
 						navigate("/");
 						alert(`${data.message}`)
 						window.location.reload();
