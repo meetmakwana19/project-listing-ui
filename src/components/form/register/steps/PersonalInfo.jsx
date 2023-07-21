@@ -20,6 +20,7 @@ const PersonalInfo = ({ formData, setFormData }) => {
 				<input
 					placeholder='+91-9876543210'
 					type='tel'
+					required = "true"
 					value={formData.phone}
 					onChange={(event) =>
 						setFormData({ ...formData, phone: event.target.value })

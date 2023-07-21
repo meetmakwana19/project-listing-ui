@@ -42,7 +42,7 @@ export const OrgLogin = () => {
 						UID
 					</p>
 					<input
-						placeholder='Eg. org_41961242'
+						placeholder='Eg. org_24157813'
 						type='text'
 						value={form.uid}
 						onChange={(e) => setForm({ ...form, uid: e.target.value })}

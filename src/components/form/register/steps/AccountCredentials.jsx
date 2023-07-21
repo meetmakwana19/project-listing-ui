@@ -21,6 +21,7 @@ const AccountCredentials = ({ formData, setFormData }) => {
 					<input
 						placeholder='John'
 						type='text'
+						required="true"
 						value={formData.fname}
 						onChange={(event) =>
 							setFormData({ ...formData, fname: event.target.value })
@@ -40,6 +41,7 @@ const AccountCredentials = ({ formData, setFormData }) => {
 					<input
 						placeholder='John'
 						type='text'
+						required="true"
 						value={formData.lname}
 						onChange={(event) =>
 							setFormData({ ...formData, lname: event.target.value })
@@ -57,6 +59,7 @@ const AccountCredentials = ({ formData, setFormData }) => {
 				<input
 					placeholder='johndoe@example.com'
 					type='text'
+					required="true"
 					value={formData.email}
 					onChange={(event) =>
 						setFormData({ ...formData, email: event.target.value })
@@ -76,6 +79,7 @@ const AccountCredentials = ({ formData, setFormData }) => {
 				<input
 					placeholder='Password'
 					type='password'
+					required="true"
 					value={formData.password}
 					onChange={(event) =>
 						setFormData({ ...formData, password: event.target.value })
@@ -95,6 +99,7 @@ const AccountCredentials = ({ formData, setFormData }) => {
 				<input
 					placeholder='Password'
 					type='password'
+					required="true"
 					value={formData.password}
 					onChange={(event) =>
 						setFormData({ ...formData, password: event.target.value })

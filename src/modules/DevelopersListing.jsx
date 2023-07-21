@@ -5,18 +5,30 @@ import loading from '/SVG/loading.svg';
 import Search from '../components/navbar/Search';
 
 const filters = [
+	// {
+	// 	label: 'featured',
+	// 	property: '#featured',
+	// },
 	{
-		label: 'featured',
-		property: '#featured',
+		label: 'Newest first',
+		property: '#newest_first_dev',
 	},
 	{
 		label: 'open for work',
-		property: '#open_to_work',
+		property: '#open_to_work_dev',
 	},
 	{
-		label: 'best rating',
-		property: '#best_rating',
+		label: 'Sort A-Z',
+		property: '#sort_asc_dev',
 	},
+	{
+		label: 'Sort Z-A',
+		property: '#sort_dsc_dev',
+	},
+	// {
+	// 	label: 'best rating',
+	// 	property: '#best_rating',
+	// },
 ];
 
 const DevelopersListing = () => {
@@ -68,7 +80,7 @@ const DevelopersListing = () => {
 						</div> */}
 
 							{/*--------sort button--------- */}
-							<FilterButton filters={filters} />
+							<FilterButton filters={filters} setDevelopers={setDevelopers}/>
 
 							{/*--------sort button END--------- */}
 						</div>
