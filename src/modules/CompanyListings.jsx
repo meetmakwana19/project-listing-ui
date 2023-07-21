@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import CompanyList from '../components/CompanyList';
 import { FilterButton } from '../components/navbar/FilterButton';
 import loading from '/SVG/loading.svg';
+import Search from '../components/navbar/Search';
 
 const filters = [
 	// {
@@ -115,6 +116,9 @@ const CompanyListings = () => {
 						<FilterButton filters={filters} organizations={organizations} setOrganizations={setOrganizations}/>
 
 						{/*--------sort button END--------- */}
+					</div>
+					<div className='flex w-full px-4 py-2'>
+						<Search />
 					</div>
 					{organizations.length > 0 ? (
 						<CompanyList organizations_prop={organizations} />
