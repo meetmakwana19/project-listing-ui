@@ -3,6 +3,7 @@ import { BiSolidMap } from 'react-icons/bi';
 import { LuEdit } from 'react-icons/lu';
 import { BsPersonFillCheck } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
+import UpdateModal from './UpdateModal';
 
 const DevProfile = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +48,9 @@ const DevProfile = () => {
 								className='inline-block object-cover aspect-square  h-full p-0 shadow shadow-accent rounded-full'
 							/>
 						</div>
-						{isOpen ? (
+						<UpdateModal />
+
+						{/* {isOpen ? (
 							<BsPersonFillCheck
 								onClick={() => setIsOpen(!isOpen)}
 								className='absolute right-8 top-9 text-2xl text-accent hover:bg-accent/10 '
@@ -57,7 +60,7 @@ const DevProfile = () => {
 								onClick={() => setIsOpen(!isOpen)}
 								className='absolute right-8 top-9 text-2xl text-accent hover:bg-accent/10 '
 							/>
-						)}
+						)} */}
 
 						<div className='flex flex-col justify-between lg:pb-16 h-full  gap-3'>
 							{/* --------Developer Name------------------- */}
@@ -177,7 +180,7 @@ const DevProfile = () => {
 								mockups into visually appealing interfaces. I understand the
 								importance of creating intuitive user experiences that engage
 								and captivate visitors, ultimately leading to increased
-								conversion rates and customer satisfaction.
+								conversion rates and customer satisfaction.kkkk
 							</p>
 						</div>
 					</div>

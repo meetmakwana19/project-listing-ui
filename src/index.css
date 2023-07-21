@@ -42,12 +42,54 @@
 	.mobile-item {
 		@apply font-medium capitalize hover:bg-slate-100 text-gray-900 block px-4 py-2 text-sm;
 	}
+	.modalbackdrop {
+		@apply z-[-1] flex fixed inset-0 w-[100vw] h-[100vh] items-center justify-stretch text-transparent cursor-default;
+	}
+	.scrollbar::-webkit-scrollbar {
+		width: 5px;
+		height: 20px;
+	}
+
+	.scrollbar::-webkit-scrollbar-track {
+		border-radius: 100vh;
+		background: #6c47ff13;
+	}
+
+	.scrollbar::-webkit-scrollbar-thumb {
+		background: #6c47ff48;
+		border-radius: 100vh;
+		border: 1px solid #6c47ff13;
+	}
+
+	.scrollbar::-webkit-scrollbar-thumb:hover {
+		background: #6c47ff;
+	}
 }
 
 html {
 	scroll-behavior: smooth;
 	padding: 0%;
 	background-color: white;
+
+	/* .scrollbar::-webkit-scrollbar {
+		width: 20px;
+		height: 20px;
+	}
+
+	.scrollbar::-webkit-scrollbar-track {
+		border-radius: 100vh;
+		background: #f7f4ed;
+	}
+
+	.scrollbar::-webkit-scrollbar-thumb {
+		background: #e0cbcb;
+		border-radius: 100vh;
+		border: 3px solid #f6f7ed;
+	}
+
+	.scrollbar::-webkit-scrollbar-thumb:hover {
+		background: #b4b4b4;
+	} */
 }
 
 ::selection {

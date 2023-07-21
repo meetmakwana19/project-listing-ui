@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import DeveloperList from '../components/DeveloperList';
 import { FilterButton } from '../components/navbar/FilterButton';
 import loading from '/SVG/loading.svg';
+import Search from '../components/navbar/Search';
 
 const filters = [
 	{
@@ -70,6 +71,9 @@ const DevelopersListing = () => {
 							<FilterButton filters={filters} />
 
 							{/*--------sort button END--------- */}
+						</div>
+						<div className='flex w-full px-4 py-2'>
+							<Search />
 						</div>
 						{/*---------------- Developer List--------------- */}
 						{developers.length > 0 ? (
