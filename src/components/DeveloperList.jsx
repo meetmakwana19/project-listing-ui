@@ -1,6 +1,7 @@
 import { BsFillBookmarkPlusFill } from 'react-icons/bs';
+import { AiFillStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import DeveloperPic from './image/DeveloperPic';
+// import DeveloperPic from './image/DeveloperPic';
 
 const DeveloperList = ({ developers_prop = [] }) => {
 	// console.log('Developer has --------------', developers_prop);
@@ -39,33 +40,12 @@ const DeveloperList = ({ developers_prop = [] }) => {
 						</h1>
 
 						{/*------------ Rating ------------- */}
-						<div className='rating md:rating-sm rating-xs'>
-							<input
-								type='radio'
-								name='rating-2'
-								className='mask mask-star-2 bg-orange-400'
-							></input>
-							<input
-								type='radio'
-								name='rating-2'
-								className='mask mask-star-2 bg-orange-400'
-								checked
-							/>
-							<input
-								type='radio'
-								name='rating-2'
-								className='mask mask-star-2 bg-orange-400'
-							/>
-							<input
-								type='radio'
-								name='rating-2'
-								className='mask mask-star-2 bg-orange-400'
-							/>
-							<input
-								type='radio'
-								name='rating-2'
-								className='mask mask-star-2 bg-orange-400'
-							/>
+						<div className='rating mt-2 md:rating-sm rating-xs'>
+							<AiFillStar />
+							<AiFillStar />
+							<AiFillStar />
+							<AiFillStar />
+							<AiFillStar />
 						</div>
 						<div className='flex my-5'>
 							<div className='flex flex-col w-1/2 items-start justify-start gap-3'>
