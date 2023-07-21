@@ -12,11 +12,12 @@ import Login from './modules/Login';
 import Register from './modules/Register';
 import RegisterDeveloper from './modules/RegisterDeveloper';
 import RegisterOrganization from './modules/RegisterOrganization';
-import AboutUs from './modules/AboutUs'
+import AboutUs from './modules/AboutUs';
 import ProjectAdd from './modules/ProjectAdd';
 
 import { DevLogin } from './components/form/login/DevLogin';
 import { OrgLogin } from './components/form/login/OrgLogin';
+import DevProfile from './components/profile/DevProfile';
 
 function App() {
 	return (
@@ -38,7 +39,7 @@ function App() {
 					/>
 					<Route
 						path='/about'
-						element={<AboutUs/>}
+						element={<AboutUs />}
 					/>
 					<Route
 						path='/projects/:uid'
@@ -52,6 +53,11 @@ function App() {
 						path='/companies/:uid'
 						element={<CompanyMain />}
 					/>
+					{/* -------------Company Profile----------------- */}
+					<Route
+						path='/companies/:id'
+						element={<CompanyMain />}
+					/>
 					<Route
 						path='/developers'
 						element={<DevelopersListing />}
@@ -59,6 +65,12 @@ function App() {
 					<Route
 						path='/developers/:uid'
 						element={<DeveloperMain />}
+					/>
+
+					{/* -------------Dev Profile----------------- */}
+					<Route
+						path='/developers/profile'
+						element={<DevProfile />}
 					/>
 					<Route
 						path='/login'

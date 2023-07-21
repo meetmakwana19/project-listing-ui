@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IoMdLogIn } from 'react-icons/io';
 import { RxAvatar } from 'react-icons/rx';
+import { MdOutlineLogout } from 'react-icons/md';
 
 function UserLogin() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -60,12 +61,21 @@ function UserLogin() {
 						aria-orientation='vertical'
 					>
 						<li className='py-1'>
+							{/*   ----------------------- TODO: Here Add a method to redirect to Dev or Org based on loggedIn user-------------  */}
+							<Link
+								to={'/developers/profile'}
+								className='flex items-center justify-start gap-3 mobile-item'
+							>
+								<RxAvatar className='text-xl' /> My Account
+							</Link>
+						</li>
+						<li className='py-1'>
 							<Link
 								to={'/'}
-								className='mobile-item'
+								className='mobile-item flex items-center justify-start gap-3 mobile-item'
 								onClick={() => logOut()}
 							>
-								Logout
+								<MdOutlineLogout className='text-xl' /> Logout
 							</Link>
 						</li>
 					</ul>
