@@ -25,10 +25,15 @@ const filters = [
 
 const CompanyListings = () => {
 	const [organizations, setOrganizations] = useState([]);
+	const [searchInput, setSearchInput] = useState({searchString: ""})
+
 	useEffect(() => {
+		console.log("searching------", searchInput);
 		const fetchOrganizations = async () => {
+			const searchName = `?name=${searchInput.searchString}`
+			console.log("------", searchName);
 			const response = await fetch(
-				'https://projekto-backend.onrender.com/organizations',
+				`https://projekto-backend.onrender.com/organizations${searchName}`,
 				{ mode: 'cors' }
 			);
 			const fetchedOrganizations = await response.json();
@@ -37,7 +42,7 @@ const CompanyListings = () => {
 			// console.log('fetch Organizations------------', organizations);
 		};
 		fetchOrganizations();
-	}, []);
+	}, [searchInput]);
 	return (
 		<div className='flex flex-col justify-center w-full'>
 			{/*------------- Background Gradient ------------ */}
@@ -118,7 +123,8 @@ const CompanyListings = () => {
 						{/*--------sort button END--------- */}
 					</div>
 					<div className='flex w-full px-4 py-2'>
-						<Search />
+						<Search searchInput={searchInput} setSearchInput={setSearchInput}/>
+						{/* <Search /> */}
 					</div>
 					{organizations.length > 0 ? (
 						<CompanyList organizations_prop={organizations} />
