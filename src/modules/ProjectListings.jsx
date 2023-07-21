@@ -78,7 +78,7 @@ const ProjectListings = () => {
 								href='/projects/create'
 								className='flex p-3 md:p-4 items-center justify-center'
 							>
-								New Project <RiArrowRightSLine className='ml-2 text-md' />
+								Add Project <RiArrowRightSLine className='ml-2 text-md' />
 							</a>
 						</div>
 					</div>

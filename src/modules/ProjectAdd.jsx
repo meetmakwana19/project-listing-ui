@@ -1,14 +1,52 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function ProjectAdd() {
+	let navigate = useNavigate();
+	const [formData, setFormData] = useState({
+		title: "",
+		description: "",
+		timeframe: "",
+		techStack: "",
+		board: "",
+		project_type: "",
+		required_personnel: "",
+		open: false
+	})
+	// console.log("Form data ---- ", formData);
+
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		console.log("hiiiii");
+		fetch("https://projekto-backend.onrender.com/projects", {
+			method: "POST",
+			headers: {
+				"Content-Type" : "application/json",
+				"authorization": localStorage.getItem("authToken")
+			},
+			body: JSON.stringify(formData)
+		})
+		.then((response) => response.json())
+		.then((data) => {
+			console.log("Posting project-- ", data);
+			if(data.error){
+				alert(`${data.message}: ${data.error}`)
+			} else {
+				alert(`${data.message}`)
+			}
+			navigate("/")
+		})
+		.catch((error) => {
+			console.log("Error posting the project.");
+		})
+
+	}
 	return (
 		<>
 			<div className='flex justify-center my-10 items-center h-screen'>
 				<div className='gradient z-0'></div>
 				<div className='max-w-3xl z-10 w-full'>
 					<form
-						action='#'
-						method='POST'
 						className='bg-white/50 shadow-md px-8 pt-6 pb-8 mb-4 border z-10 border-slate-300 rounded-2xl py-5'
 					>
 						<h2
@@ -42,9 +80,11 @@ export default function ProjectAdd() {
 							<input
 								type='text'
 								name='title'
+								value={formData.title}
+								onChange={(e) => setFormData({ ...formData, title: e.target.value })}
 								id='title'
 								className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-								placeholder='Enter 	Project title'
+								placeholder='Enter Project title'
 							/>
 						</div>
 						<div className='mb-4'>
@@ -57,6 +97,8 @@ export default function ProjectAdd() {
 							<textarea
 								id='description'
 								name='description'
+								value={formData.description}
+								onChange={(e) => setFormData({ ...formData, description: e.target.value })}
 								rows='3'
 								className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
 								placeholder='Enter description'
@@ -73,11 +115,13 @@ export default function ProjectAdd() {
 								type='text'
 								name='timeframe'
 								id='timeframe'
+								value={formData.timeframe}
+								onChange={(e) => setFormData({ ...formData, timeframe: e.target.value })}
 								className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
 								placeholder='Enter timeframe like one week/two months/one year'
 							/>
 						</div>
-						<div className='mb-4'>
+						{/* <div className='mb-4'>
 							<label
 								htmlFor='timeframe'
 								className='block text-gray-700 text-sm font-bold mb-2 flex-left'
@@ -118,7 +162,7 @@ export default function ProjectAdd() {
 									className='hidden'
 								/>
 							</label>
-						</div>
+						</div> */}
 						<div className='mb-4'>
 							<label
 								htmlFor='techStack'
@@ -130,6 +174,8 @@ export default function ProjectAdd() {
 								type='text'
 								name='techStack'
 								id='techStack'
+								value={formData.techStack}
+								onChange={(e) => setFormData({ ...formData, techStack: e.target.value })}
 								className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
 								placeholder='MERN / MEAN / ROR....'
 							/>
@@ -141,16 +187,20 @@ export default function ProjectAdd() {
 							>
 								Project Board
 							</label>
-							<select className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'>
+							<select className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+								value={formData.board}
+								onChange={(e) => setFormData({ ...formData, board: e.target.value })}
+
+							>
 								<option
 									disabled
 									selected
 								>
 									Pick the suitable board
 								</option>
-								<option>Scrum</option>
-								<option>Agile</option>
-								<option>Kanban</option>
+								<option value ="Scrum">Scrum</option>
+								<option value ="Agile">Agile</option>
+								<option value ="Kanban">Kanban</option>
 							</select>
 						</div>
 						<div className='mb-4'>
@@ -164,6 +214,8 @@ export default function ProjectAdd() {
 								type='text'
 								name='project_type'
 								id='project_type'
+								value={formData.project_type}
+								onChange={(e) => setFormData({ ...formData, project_type: e.target.value })}
 								className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
 								placeholder='One-time/long-time'
 							/>
@@ -179,6 +231,8 @@ export default function ProjectAdd() {
 								type='text'
 								name='required_personnel'
 								id='required_personnel'
+								value={formData.required_personnel}
+								onChange={(e) => setFormData({ ...formData, required_personnel: e.target.value })}
 								className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
 								placeholder='UI/UX Engineer?'
 							/>
@@ -197,6 +251,9 @@ export default function ProjectAdd() {
 									type='checkbox'
 									role='switch'
 									id='flexSwitchChecked'
+									checked={formData.open}
+									onChange={(e) => setFormData({...formData, open: e.target.checked})}
+	
 								/>
 							</div>
 						</div>
@@ -204,6 +261,7 @@ export default function ProjectAdd() {
 							<button
 								type='submit'
 								className='w-full text-white bg-accent hover:bg-accent/75 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center '
+								onClick={(e) => handleSubmit(e)}
 							>
 								Add Project
 							</button>
