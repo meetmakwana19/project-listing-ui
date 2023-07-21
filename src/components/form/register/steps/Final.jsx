@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ProfilePicDev from './ProfilePicDev';
-import Avatar from 'react-avatar-edit';
+// import ProfilePicDev from './ProfilePicDev';
+// import Avatar from 'react-avatar-edit';
 import { RxAvatar } from 'react-icons/rx';
 
 const Final = () => {
