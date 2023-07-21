@@ -3,7 +3,17 @@ import { AiFillStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
 const CompanyList = ({ organizations_prop = [] }) => {
-	return organizations_prop.map((organization) => {
+	const authToken = localStorage.getItem("authToken");
+	
+	let limitedOrganizations;
+	if(!authToken) {
+		// const maxToShow = 4;
+		limitedOrganizations = organizations_prop.slice(0, 4);
+	} else {
+		limitedOrganizations = organizations_prop
+	}
+
+	return limitedOrganizations.map((organization) => {
 		// console.log('developer >>>>>', developer);
 		const { uid, name, about, website, domain, banner_img } = organization;
 		return (

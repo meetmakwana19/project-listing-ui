@@ -2,7 +2,17 @@ import { BsFillBookmarkPlusFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
 const ProjectList = ({ projects_prop = [] }) => {
-	return projects_prop.map((projects, index) => {
+	const authToken = localStorage.getItem("authToken");
+	
+	let limitedProjects;
+	if(!authToken) {
+		// const maxToShow = 4;
+		limitedProjects = projects_prop.slice(0, 4);
+	} else {
+		limitedProjects = projects_prop
+	}
+
+	return limitedProjects.map((projects, index) => {
 		// console.log('developer >>>>>', developer);
 		const {
 			uid,
