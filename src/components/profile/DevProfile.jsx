@@ -16,7 +16,6 @@ const DevProfile = () => {
 		if (localStorage.getItem("isDev")) {
 			id = localStorage.getItem("isDev");
 			url = `developers?_id=${id}`;
-			console.log("url is ", url);
 		} else if (localStorage.getItem("isOrg")) {
 			id = localStorage.getItem("isOrg");
 			url = `organizations?_id=${id}`;
@@ -32,15 +31,13 @@ const DevProfile = () => {
 				setDeveloper(fetched.data[0]);
 			} else if (localStorage.getItem("isOrg")) {
 				setOrganization(fetched.data[0])
-				console.log("yooooooo");
 			}
-			console.log('fetched info------------', fetched.data[0]);
+			// console.log('fetched info------------', fetched.data[0]);
 		};
 		fetchProfile();
 	}, []);
 
 	const skills = developer?.skills;
-	console.log("skills----", developer);
 	if (!Object.keys(developer).length > 0 && !Object.keys(organization).length > 0){
 		return (
 			<div className='flex w-full justify-center text-slate-500'>
@@ -206,7 +203,6 @@ const DevProfile = () => {
 		);
 	}
 	else {
-		console.log("yessss");
 		return (
 			<CompanyDetails org_data={organization} />
 		);
