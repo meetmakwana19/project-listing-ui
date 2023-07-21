@@ -33,7 +33,9 @@ const filters = [
 
 const DevelopersListing = () => {
 	const [developers, setDevelopers] = useState([]);
-	const [searchInput, setSearchInput] = useState({searchString: ""})
+	const [searchInput, setSearchInput] = useState({ searchString: "" })
+
+	const authToken = localStorage.getItem("authToken");
 
 	useEffect(() => {
 		const fetchDevelopers = async () => {
@@ -44,7 +46,7 @@ const DevelopersListing = () => {
 			);
 			const fetchedDevelopers = await response.json();
 			setDevelopers(fetchedDevelopers.data);
-			console.log('fetch Developers------------', fetchedDevelopers.data);
+			// console.log('fetch Developers------------', fetchedDevelopers.data);
 			// console.log('fetch Developers------------', developers);
 		};
 		fetchDevelopers();
@@ -83,12 +85,12 @@ const DevelopersListing = () => {
 						</div> */}
 
 							{/*--------sort button--------- */}
-							<FilterButton filters={filters} setDevelopers={setDevelopers}/>
+							<FilterButton filters={filters} setDevelopers={setDevelopers} />
 
 							{/*--------sort button END--------- */}
 						</div>
 						<div className='flex w-full px-4 py-2'>
-						<Search searchInput={searchInput} setSearchInput={setSearchInput} searchPlaceholder="Type first name to search.."/>
+							<Search searchInput={searchInput} setSearchInput={setSearchInput} searchPlaceholder="Type first name to search.." />
 						</div>
 						{/*---------------- Developer List--------------- */}
 						{developers.length > 0 ? (
@@ -98,6 +100,9 @@ const DevelopersListing = () => {
 								<img src={loading} />
 							</div>
 						)}
+						{!authToken ? (
+							<h1 className=' blue-gradient text-center text-3xl md:text-4xl font-semibold ml-5'>Please login to see more...</h1>
+						) : null}
 					</div>
 				</div>
 			</div>

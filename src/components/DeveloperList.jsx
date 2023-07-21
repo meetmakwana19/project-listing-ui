@@ -4,8 +4,16 @@ import { Link } from 'react-router-dom';
 // import DeveloperPic from './image/DeveloperPic';
 
 const DeveloperList = ({ developers_prop = [] }) => {
-	// console.log('Developer has --------------', developers_prop);
-	return developers_prop.map((developer) => {
+	const authToken = localStorage.getItem("authToken");
+	
+	let limitedDevelopers;
+	if(!authToken) {
+		// const maxToShow = 4;
+		limitedDevelopers = developers_prop.slice(0, 4);
+	} else {
+		limitedDevelopers = developers_prop
+	}
+	return limitedDevelopers.map((developer) => {
 		// console.log('developer >>>>>', developer);
 		const {
 			fname,
@@ -100,7 +108,7 @@ const DeveloperList = ({ developers_prop = [] }) => {
 						})}
 					</ul>
 				</div>
-			</Link>
+			</Link>			
 		);
 	});
 };
