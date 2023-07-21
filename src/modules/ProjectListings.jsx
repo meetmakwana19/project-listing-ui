@@ -94,13 +94,17 @@ const ProjectListings = () => {
 						Projects open for development
 					</h1>
 					<div className='flex mt-6 w-full justify-between border-b '>
-						<div className='tabs'>
-							<a className='tab tab-bordered tab-active '>Best Matches</a>
+						<div className='tabs gap-4 pl-6'>
+							<a className='tab tab-bordered tab-active'>Best Matches</a>
 							<a className='tab'>Saved Jobs</a>
 						</div>
 
 						{/*--------sort button--------- */}
-						<FilterButton filters={filters} projects={projects} setProjects={setProjects}/>
+						<FilterButton
+							filters={filters}
+							projects={projects}
+							setProjects={setProjects}
+						/>
 
 						{/*--------sort button END--------- */}
 					</div>

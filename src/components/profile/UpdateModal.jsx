@@ -35,7 +35,7 @@ const UpdateModal = () => {
 						Update Profile
 					</h1>
 					<div
-						className='w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8 h-[60vh] overflow-y-scroll scroll-smooth
+						className='w-full my-6 mr-0 ml-0 relative space-y-8 h-[60vh] overflow-y-scroll scroll-smooth
 					 z-10 scrollbar px-3'
 					>
 						<div className='flex flex-auto gap-5 w-full items-center justify-between'>
@@ -176,14 +176,52 @@ const UpdateModal = () => {
 								/>
 							</label>
 						</div> */}
-						<button
-							onClick={() => handleClick('next')}
-							className='cursor-pointer inline-block  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500
-				rounded-lg transition duration-200 hover:bg-indigo-600 ease w-full'
-						>
-							Update
-						</button>
+						<div className='relative'>
+							<p
+								className='bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
+                  absolute'
+							>
+								About
+							</p>
+							<textarea
+								placeholder='About yourself...'
+								type='text'
+								value={formData.password}
+								onChange={(event) =>
+									setFormData({ ...formData, password: event.target.value })
+								}
+								className='border placeholder-gray-400 focus:outline-none
+                  focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
+                  border-gray-300 rounded-md'
+							/>
+						</div>
+						<div className='relative'>
+							<p
+								className='bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
+                  absolute'
+							>
+								Skills
+							</p>
+							<textarea
+								placeholder='Enter skills comma (,) separated..'
+								type='text'
+								value={formData.password}
+								onChange={(event) =>
+									setFormData({ ...formData, password: event.target.value })
+								}
+								className='border placeholder-gray-400 focus:outline-none
+                  focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
+                  border-gray-300 rounded-md'
+							/>
+						</div>
 					</div>
+					<button
+						onClick={() => {}}
+						className='cursor-pointer inline-block  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500
+				rounded-lg transition duration-200 hover:bg-indigo-600 ease w-full'
+					>
+						Update
+					</button>
 				</form>
 				<form method='dialog'>
 					<button className='modalbackdrop'>close</button>
