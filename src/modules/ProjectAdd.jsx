@@ -17,7 +17,7 @@ export default function ProjectAdd() {
 						>
 							Create Project
 						</h2>
-						<div className='mb-4'>
+						{/* <div className='mb-4'>
 							<label
 								htmlFor='project_name'
 								className='block text-gray-700 text-sm font-bold mb-2'
@@ -31,20 +31,20 @@ export default function ProjectAdd() {
 								className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
 								placeholder='Enter project name'
 							/>
-						</div>
+						</div> */}
 						<div className='mb-4'>
 							<label
 								htmlFor='title'
 								className='block text-gray-700 text-sm font-bold mb-2'
 							>
-								Title
+								Project Title
 							</label>
 							<input
 								type='text'
 								name='title'
 								id='title'
 								className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-								placeholder='Enter title'
+								placeholder='Enter 	Project title'
 							/>
 						</div>
 						<div className='mb-4'>
@@ -74,7 +74,7 @@ export default function ProjectAdd() {
 								name='timeframe'
 								id='timeframe'
 								className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-								placeholder='Enter timeframe'
+								placeholder='Enter timeframe like one week/two months/one year'
 							/>
 						</div>
 						<div className='mb-4'>
@@ -121,6 +121,36 @@ export default function ProjectAdd() {
 						</div>
 						<div className='mb-4'>
 							<label
+								htmlFor='techStack'
+								className='block text-gray-700 text-sm font-bold mb-2'
+							>
+								Project's Tech-stack
+							</label>
+							<input
+								type='text'
+								name='techStack'
+								id='techStack'
+								className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+								placeholder='MERN / MEAN / ROR....'
+							/>
+						</div>
+						<div className='mb-4'>
+							<label
+								htmlFor='board'
+								className='block text-gray-700 text-sm font-bold mb-2'
+							>
+								Project Board
+							</label>
+							<input
+								type='text'
+								name='board'
+								id='board'
+								className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+								placeholder='Scrum/Agile/Kanban...'
+							/>
+						</div>
+						<div className='mb-4'>
+							<label
 								htmlFor='project_type'
 								className='block text-gray-700 text-sm font-bold mb-2'
 							>
@@ -131,7 +161,7 @@ export default function ProjectAdd() {
 								name='project_type'
 								id='project_type'
 								className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-								placeholder='Enter project type'
+								placeholder='One-time/long-time'
 							/>
 						</div>
 						<div className='mb-4'>
@@ -146,7 +176,21 @@ export default function ProjectAdd() {
 								name='required_personnel'
 								id='required_personnel'
 								className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-								placeholder='Enter required personnel'
+								placeholder='UI/UX Engineer?'
+							/>
+						</div>
+						<div className='mb-4'>
+							<label
+								htmlFor='open'
+								className='block text-gray-700 text-sm font-bold mb-2'
+							>
+								Project Open to work ?
+							</label>
+							<input
+								type='radio'
+								name='open'
+								id='open'
+								className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
 							/>
 						</div>
 						<div className='flex items-center justify-between glass'>
