@@ -116,12 +116,12 @@ const CompanyListings = () => {
 						</div> */}
 
 						{/*--------sort button--------- */}
-						<FilterButton filters={filters} organizations={organizations} setOrganizations={setOrganizations}/>
+						<FilterButton filters={filters} organizations={organizations} setOrganizations={setOrganizations} />
 
 						{/*--------sort button END--------- */}
 					</div>
 					<div className='flex w-full px-4 py-2'>
-						<Search searchInput={searchInput} setSearchInput={setSearchInput}/>
+						<Search searchInput={searchInput} setSearchInput={setSearchInput} searchPlaceholder="Type company name to search.."/>
 					</div>
 					{organizations.length === 0 ? (
 						<h1>No Organizations found.</h1>

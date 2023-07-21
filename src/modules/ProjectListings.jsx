@@ -114,7 +114,7 @@ const ProjectListings = () => {
 						preferences. Ordered by most relevant.
 					</p>
 					<div className='flex w-full px-4 py-2'>
-						<Search searchInput={searchInput} setSearchInput={setSearchInput}/>
+						<Search searchInput={searchInput} setSearchInput={setSearchInput} searchPlaceholder="Type project title to search.."/>
 						{/* <Search /> */}
 					</div>
 
