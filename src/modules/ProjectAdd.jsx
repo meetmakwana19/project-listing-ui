@@ -17,7 +17,6 @@ export default function ProjectAdd() {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		console.log("hiiiii");
 		fetch("https://projekto-backend.onrender.com/projects", {
 			method: "POST",
 			headers: {
@@ -28,7 +27,7 @@ export default function ProjectAdd() {
 		})
 		.then((response) => response.json())
 		.then((data) => {
-			console.log("Posting project-- ", data);
+			// console.log("Posting project-- ", data);
 			if(data.error){
 				alert(`${data.message}: ${data.error}`)
 			} else {
