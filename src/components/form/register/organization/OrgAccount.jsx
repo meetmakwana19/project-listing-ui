@@ -22,6 +22,7 @@ password
 				<input
 					placeholder='Eg. Raw Engineering '
 					type='text'
+					required="true"
 					value={formData.name}
 					onChange={(e) => setFormData({ ...formData, name: e.target.value })}
 					className='border capitalize placeholder-gray-400 focus:outline-none
@@ -39,6 +40,7 @@ password
 				<input
 					placeholder='Password'
 					type='password'
+					required="true"
 					value={formData.password}
 					onChange={(e) =>
 						setFormData({ ...formData, password: e.target.value })
@@ -58,6 +60,7 @@ password
 				<input
 					placeholder='Password'
 					type='password'
+					required="true"
 					value={formData.password}
 					onChange={(e) =>
 						setFormData({ ...formData, password: e.target.value })
