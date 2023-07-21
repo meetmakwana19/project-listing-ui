@@ -33,10 +33,13 @@ const filters = [
 
 const DevelopersListing = () => {
 	const [developers, setDevelopers] = useState([]);
+	const [searchInput, setSearchInput] = useState({searchString: ""})
+
 	useEffect(() => {
 		const fetchDevelopers = async () => {
+			const searchName = `?fname=${searchInput.searchString}`
 			const response = await fetch(
-				'https://projekto-backend.onrender.com/developers',
+				`https://projekto-backend.onrender.com/developers${searchName}`,
 				{ mode: 'cors' }
 			);
 			const fetchedDevelopers = await response.json();
@@ -45,7 +48,7 @@ const DevelopersListing = () => {
 			// console.log('fetch Developers------------', developers);
 		};
 		fetchDevelopers();
-	}, []);
+	}, [searchInput]);
 	return (
 		<>
 			<div className='flex flex-col justify-center w-full'>
@@ -85,7 +88,7 @@ const DevelopersListing = () => {
 							{/*--------sort button END--------- */}
 						</div>
 						<div className='flex w-full px-4 py-2'>
-							<Search />
+						<Search searchInput={searchInput} setSearchInput={setSearchInput} searchPlaceholder="Type first name to search.."/>
 						</div>
 						{/*---------------- Developer List--------------- */}
 						{developers.length > 0 ? (

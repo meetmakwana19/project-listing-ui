@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Search = ({ searchInput, setSearchInput }) => {
+const Search = ({ searchInput, setSearchInput, searchPlaceholder }) => {
 	const onSearch = (event) => {
 		event.preventDefault();
 		setSearchInput({ ...searchInput, searchString: event.target.value });
@@ -9,7 +9,7 @@ const Search = ({ searchInput, setSearchInput }) => {
 		<div className='flex gap-0 items-center w-full rounded-xl p-0 h-10 justify-center'>
 			<input
 				type='text'
-				placeholder='Type here to search...'
+				placeholder={searchPlaceholder}
 				value={searchInput.searchString}
 				onChange={(e) => onSearch(e)}
 				className='px-3 h-full outline-1 border w-full rounded-xl text-center border-slate-300 outline-slate-300/50 '
