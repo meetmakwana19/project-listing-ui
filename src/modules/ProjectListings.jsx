@@ -3,6 +3,7 @@ import ProjectList from '../components/ProjectList';
 import { RiArrowRightSLine } from 'react-icons/ri';
 import { FilterButton } from '../components/navbar/FilterButton';
 import loading from '/SVG/loading.svg';
+import Search from '../components/navbar/Search';
 
 const filters = [
 	{
@@ -30,20 +31,21 @@ const filters = [
 const ProjectListings = () => {
 	// const [isOpen, setIsOpen] = useState(false);
 	const [projects, setProjects] = useState([]);
-	const [searchInput, SearchInput] = useState(null)
+	const [searchInput, setSearchInput] = useState({searchString: ""})
 	useEffect(() => {
 		const fetchProjects = async () => {
+			const searchTitle = `?title=${searchInput.searchString}`
 			const response = await fetch(
-				'https://projekto-backend.onrender.com/projects',
+				`https://projekto-backend.onrender.com/projects${searchTitle}`,
 				{ mode: 'cors' }
 			);
 			const fetchedProjects = await response.json();
 			setProjects(fetchedProjects.data);
-			console.log('fetch Projects------------', fetchedProjects.data);
+			// console.log('fetch Projects------------', fetchedProjects.data);
 			// console.log('fetch Projects------------', projects);
 		};
 		fetchProjects();
-	}, []);
+	}, [searchInput]);
 
 	const token = localStorage.getItem('authToken');
 
@@ -107,6 +109,14 @@ const ProjectListings = () => {
 						Browse projects that match your experience to a client's hiring
 						preferences. Ordered by most relevant.
 					</p>
+					<div className='flex w-full px-4 py-2'>
+						<Search searchInput={searchInput} setSearchInput={setSearchInput}/>
+						{/* <Search /> */}
+					</div>
+
+					{projects.length === 0 ? (
+						<h1>No Projects Found.</h1>
+					) : null}
 					{projects.length > 0 ? (
 						<ProjectList projects_prop={projects} />
 					) : (
