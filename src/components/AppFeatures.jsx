@@ -37,7 +37,7 @@ const AppFeatures = () => {
 				</div>
 				<div className='flex flex-col gap-4 bg-[#0a0c3d] rounded-xl border border-slate-800 p-5'>
 					<img src='/SVG/card-1.svg' />
-					<h2 className='font-semibold text-xl'>User Experience</h2>
+					<h2 className='font-semibold text-xl'>Built with Trust</h2>
 					<p className='opacity-75'>
 						We are a team of experts, and know all the pain points involved with
 						search of project. We’ve painstakingly built the freelancing
@@ -48,7 +48,7 @@ const AppFeatures = () => {
 				</div>
 				<div className='flex flex-col gap-4 bg-[#0a0c3d] rounded-xl border border-slate-800 p-5'>
 					<img src='/SVG/card-1.svg' />
-					<h2 className='font-semibold text-xl'>User Experience</h2>
+					<h2 className='font-semibold text-xl'>Responsive and Sleek Design</h2>
 					<p className='opacity-75'>
 						We are a team of experts, and know all the pain points involved with
 						search of project. We’ve painstakingly built the freelancing
