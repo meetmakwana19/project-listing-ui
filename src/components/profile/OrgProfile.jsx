@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-function CompanyMain() {
+const OrgProfile = () => {
 	const [organization, setOrganization] = useState([]);
 	const { uid } = useParams();
 	useEffect(() => {
@@ -27,12 +27,9 @@ function CompanyMain() {
 
 	return (
 		<div>
-			<CompanyDetails
-				edit='hidden'
-				org_data={organization}
-			/>
+			<CompanyDetails org_data={organization} />
 		</div>
 	);
-}
+};
 
-export default CompanyMain;
+export default OrgProfile;

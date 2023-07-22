@@ -1,59 +1,6 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-// import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { LuEdit } from 'react-icons/lu';
 
-function UpdateModal({ developer, setDeveloper }) {
-	const navigate = useNavigate();
-	const uid = localStorage.getItem('dev_uid');
-
-	// useEffect(() => {
-	//   const fetchDetails = async () => {
-	//     const response = await fetch(`https://projekto-backend.onrender.com/developers/${uid}`);
-	//     const fetched = await response.json();
-	//     console.log("fetched=======", fetched);
-	//     setDeveloper({
-	//       fname: fetched.data[0].fname,
-	//     });
-	//   };
-	//   fetchDetails();
-	// }, []);
-	console.log('fname is ----', developer.fname);
-
-	const handleSkills = (event) => {
-		console.log('skills');
-		const { name, value } = event.target;
-		setDeveloper({
-			...developer,
-			[name]: name === 'skills' ? value.split(', ') : value,
-		});
-	};
-	console.log('------', developer);
-	console.log('devUID------', localStorage.getItem('dev_uid'));
-
-	const handleUpdate = (event) => {
-		event.preventDefault();
-
-		// const dev_id = localStorage.
-		fetch(`https://projekto-backend.onrender.com/developers/${uid}`, {
-			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json',
-				authorization: localStorage.getItem('authToken'),
-			},
-			body: JSON.stringify(developer),
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				// console.log('POSTED --> ', data);
-				alert(`${data.message}`);
-				navigate('/');
-				// window.location.reload();
-			})
-			.catch((error) => {
-				console.log('POSTING error --> ', error);
-			});
-	};
+const CompanyUpdateModal = () => {
 	return (
 		<>
 			{/* Open the modal using ID.showModal() method */}
@@ -76,47 +23,46 @@ function UpdateModal({ developer, setDeveloper }) {
 						Update Profile
 					</h1>
 					<div className='w-full my-6 mr-0 ml-0 relative space-y-8 h-[60vh] overflow-y-scroll scroll-smooth z-10 scrollbar px-3'>
-						<div className='flex flex-auto gap-5 w-full items-center justify-between'>
-							<div className='relative w-full  pt-3'>
-								<p className='bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute'>
-									First Name
-								</p>
-								<input
-									placeholder='John'
-									type='text'
-									value={developer.fname}
-									onChange={(event) =>
-										setDeveloper({ ...developer, fname: event.target.value })
-									}
-									className='border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md'
-								/>
-							</div>
-							<div className='relative w-full'>
-								<p className='bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute'>
-									Last Name
-								</p>
-								<input
-									placeholder='Doe'
-									type='text'
-									value={developer.lname}
-									onChange={(event) =>
-										setDeveloper({ ...developer, lname: event.target.value })
-									}
-									className='border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md'
-								/>
-							</div>
-						</div>
-						<div className='relative'>
+						<div className='relative lg:w-[700px] w-[60vw] pt-3'>
 							<p className='bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute'>
-								Email
+								Company Name
 							</p>
 							<input
-								placeholder='johndoe@example.com'
+								placeholder='Google'
 								type='text'
-								value={developer.email}
-								onChange={(event) =>
-									setDeveloper({ ...developer, email: event.target.value })
-								}
+								// value={developer.fname}
+								// onChange={(event) =>
+								// 	setDeveloper({ ...developer, fname: event.target.value })
+								// }
+								className='border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md'
+							/>
+						</div>
+						<div className='relative w-full'>
+							<p className='bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute'>
+								New Password
+							</p>
+							<input
+								placeholder='Password'
+								type='password'
+								// value={developer.lname}
+								// onChange={(event) =>
+								// 	setDeveloper({ ...developer, lname: event.target.value })
+								// }
+								className='border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md'
+							/>
+						</div>
+
+						<div className='relative'>
+							<p className='bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute'>
+								Website
+							</p>
+							<input
+								placeholder='e.g example.com'
+								type='text'
+								// value={developer.email}
+								// onChange={(event) =>
+								// 	setDeveloper({ ...developer, email: event.target.value })
+								// }
 								className='border lowercase placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md'
@@ -124,15 +70,15 @@ function UpdateModal({ developer, setDeveloper }) {
 						</div>
 						<div className='relative'>
 							<p className='bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute'>
-								Phone
+								Industry
 							</p>
 							<input
-								placeholder='+91 84597 25190'
+								placeholder='e.g I.T Engineering'
 								type='phone'
-								value={developer.phone}
-								onChange={(event) =>
-									setDeveloper({ ...developer, phone: event.target.value })
-								}
+								// value={developer.phone}
+								// onChange={(event) =>
+								// 	setDeveloper({ ...developer, phone: event.target.value })
+								// }
 								className='border lowercase placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md'
@@ -145,34 +91,16 @@ function UpdateModal({ developer, setDeveloper }) {
 							<input
 								placeholder='Mumbai'
 								type='text'
-								value={developer.city}
-								onChange={(event) =>
-									setDeveloper({ ...developer, city: event.target.value })
-								}
+								// value={developer.city}
+								// onChange={(event) =>
+								// 	setDeveloper({ ...developer, city: event.target.value })
+								// }
 								className='border lowercase placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md'
 							/>
 						</div>
-						<div className='relative'>
-							<p className='bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute'>
-								Technical Role
-							</p>
-							<input
-								placeholder='Full stack web developer'
-								type='text'
-								value={developer.technical_role}
-								onChange={(event) =>
-									setDeveloper({
-										...developer,
-										technical_role: event.target.value,
-									})
-								}
-								className='border lowercase placeholder-gray-400 focus:outline-none
-                  focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                  border-gray-300 rounded-md'
-							/>
-						</div>
+
 						{/* ----------------Image Update-------------- */}
 						{/* <div className="relative">
               <p
@@ -239,14 +167,14 @@ function UpdateModal({ developer, setDeveloper }) {
 								className='bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
                   absolute'
 							>
-								Skills
+								Domains
 							</p>
 							<input
 								placeholder='Enter skills comma (,) separated..'
 								type='text'
-								value={developer.skills.join(', ')}
+								// value={developer.skills.join(', ')}
 								name='skills'
-								onChange={handleSkills}
+								// onChange={handleSkills}
 								className='border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md'
 							/>
 						</div>
@@ -255,7 +183,7 @@ function UpdateModal({ developer, setDeveloper }) {
 								htmlFor='flexSwitchChecked'
 								className='block text-gray-700 text-sm font-bold mb-2'
 							>
-								Open to work ?
+								Hiring ?
 							</label>
 
 							<div className='form-control'>
@@ -264,17 +192,17 @@ function UpdateModal({ developer, setDeveloper }) {
 									type='checkbox'
 									role='switch'
 									id='flexSwitchChecked'
-									checked={developer.openToWork}
-									onChange={(e) =>
-										setDeveloper({ ...developer, openToWork: e.target.checked })
-									}
+									// checked={developer.openToWork}
+									// onChange={(e) =>
+									// 	setDeveloper({ ...developer, openToWork: e.target.checked })
+									// }
 								/>
 							</div>
 						</div>
 					</div>
 					<button
 						type='button'
-						onClick={(e) => handleUpdate(e)}
+						// onClick={(e) => handleUpdate(e)}
 						className='cursor-pointer inline-block  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg duration-200 hover:bg-indigo-600 ease w-full'
 					>
 						Update
@@ -291,6 +219,6 @@ function UpdateModal({ developer, setDeveloper }) {
 			</dialog>
 		</>
 	);
-}
+};
 
-export default UpdateModal;
+export default CompanyUpdateModal;
