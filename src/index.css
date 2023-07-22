@@ -64,6 +64,10 @@
 	.scrollbar::-webkit-scrollbar-thumb:hover {
 		background: #6c47ff;
 	}
+
+	.contact-dev {
+		@apply description flex items-center justify-start gap-3 break-words hover:text-accent;
+	}
 }
 
 html {
