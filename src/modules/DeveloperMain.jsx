@@ -104,7 +104,7 @@ function DeveloperMain() {
 						</div>
 					</div>
 					{/* ----------Col-2----------------*/}
-					<div className='flex flex-col border-b md:border-l pl-2 border-slate-300 gap-6 md:w-2/3 pb-10'>
+					<div className='flex flex-col border-b md:border-l md:pl-2 border-slate-300 gap-6 md:w-2/3 pb-10'>
 						<div className='flex flex-col gap-2 px-5 py-7'>
 							{/* ---------Domain------------ */}
 							<h1 className='text-2xl font-semibold mb-3'>
