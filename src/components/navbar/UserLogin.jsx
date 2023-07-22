@@ -9,14 +9,17 @@ function UserLogin() {
 	const token = localStorage.getItem('authToken');
 	const orgToken = localStorage.getItem('isOrg');
 	const devToken = localStorage.getItem('isDev');
+	const dev_uid = localStorage.getItem('dev_uid');
 	const logOut = () => {
 		// console.log('yoooooo');
 		localStorage.removeItem('authToken');
 		localStorage.getItem("isOrg") ? localStorage.removeItem('isOrg') : null;
 		localStorage.getItem("isDev") ? localStorage.removeItem('isDev') : null;
+		localStorage.getItem("dev_uid") ? localStorage.removeItem('dev_uid') : null;
 		token = null;
 		orgToken = null;
 		devToken = null;
+		dev_uid = null;
 	};
 	// console.log('token is -----', token);
 	return (

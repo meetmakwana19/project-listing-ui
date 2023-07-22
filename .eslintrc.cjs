@@ -28,5 +28,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     "react/prop-types": "off",
     "react/no-array-index-key": "off",
+    "no-alert": "off",
+    "no-underscore-dangle": "off",
   },
 };
