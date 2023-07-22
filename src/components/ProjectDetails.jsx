@@ -4,6 +4,7 @@ import { FaCircleDollarToSlot } from 'react-icons/fa6';
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import Container from './Container';
 import { useEffect, useState } from 'react';
+import Members from './Members';
 
 const ProjectDetails = () => {
 	const { uid } = useParams();
@@ -23,19 +24,19 @@ const ProjectDetails = () => {
 		fetchProject();
 	}, []);
 
-	const dev_id = localStorage.getItem("isDev")
+	const dev_id = localStorage.getItem('isDev');
 	const proposeProject = async (project_id) => {
 		let proposalData = {
 			project: project_id,
-			developer: dev_id
-		}
+			developer: dev_id,
+		};
 		const response = await fetch(
 			'https://projekto-backend.onrender.com/proposals',
 			{
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					"authorization": localStorage.getItem("authToken")
+					authorization: localStorage.getItem('authToken'),
 				},
 				body: JSON.stringify(proposalData),
 			}
@@ -44,20 +45,18 @@ const ProjectDetails = () => {
 			.then((data) => {
 				// console.log('POSTED --> ', data);
 				// navigate("/");
-				alert(`${data.message}`)
+				alert(`${data.message}`);
 				// window.location.reload();
-			}
-			)
+			})
 			.catch((error) => {
 				console.log('POSTING error --> ', error);
 			});
-
 	};
 	const clickApply = (id) => {
 		proposeProject(id);
-		alert("Applied for project successfully --", id)
+		alert('Applied for project successfully --', id);
 		// console.log("applying - ", id);
-	}
+	};
 
 	if (!Object.keys(project).length > 0)
 		return (
@@ -82,7 +81,10 @@ const ProjectDetails = () => {
 								{project?.title}
 							</h1>
 							{/* Domain */}
-							<Link className='text-accent px-6 my-2 text-base font-medium underline'>
+							<Link
+								to={'/'}
+								className='text-accent px-6 my-2 text-base font-medium underline'
+							>
 								Posted by Google
 							</Link>
 							{/* Timestamp */}
@@ -153,7 +155,45 @@ const ProjectDetails = () => {
 							</ul>
 						</div>
 					</div>
-
+					<div className='flex flex-col md:flex-row md:gap-64 gap-8 w-full border-t py-3 px-6'>
+						<div className='flex flex-col items-start justify-start gap-3'>
+							<h1
+								className='text-xl font-semibold
+							text-slate-800'
+							>
+								Project Leader
+							</h1>
+							<Members
+								to='/developers'
+								image='/developers/Haider_Patanwala.jpg'
+								name='Haider Patanwala'
+								className='font-medium text-lg md:text-2xl'
+								imageclass='w-[10vw] md:w-20'
+							/>
+						</div>
+						<div className='flex flex-col items-start justify-start gap-3'>
+							<h1
+								className='text-xl font-semibold
+							text-slate-800'
+							>
+								Project Members
+							</h1>
+							<Members
+								to='/developers'
+								image='/developers/Haider_Patanwala.jpg'
+								name='Haider Patanwala'
+								className='font-medium'
+								imageclass='w-[10vw] md:w-14'
+							/>
+							<Members
+								to='/developers'
+								image='/developers/Haider_Patanwala.jpg'
+								name='Haider Patanwala'
+								className='font-medium'
+								imageclass='w-[10vw] md:w-14'
+							/>
+						</div>
+					</div>
 					<div className='flex flex-col w-full border-t py-3 px-6 gap-4'>
 						<p className='flex items-center text-lg my-3 text-start font-medium text-slate-800'>
 							Upgrade your membership to see bid range
@@ -175,7 +215,8 @@ const ProjectDetails = () => {
 					<div className='flex items-center justify-center w-1/2'>
 						<Link
 							className='flex bg-accent px-4 py-2 w-full items-center justify-center text-white
-						hover:bg-white hover:text-accent hover:border-accent font-medium border border-slate-300 rounded-full' onClick={() => clickApply(project._id)}
+						hover:bg-white hover:text-accent hover:border-accent font-medium border border-slate-300 rounded-full'
+							onClick={() => clickApply(project._id)}
 						>
 							Apply Now
 						</Link>
