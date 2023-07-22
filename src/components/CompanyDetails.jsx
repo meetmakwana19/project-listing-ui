@@ -1,7 +1,7 @@
 import { BiSolidMap } from 'react-icons/bi';
 import { LuEdit } from 'react-icons/lu';
 
-const CompanyDetails = ({ org_data }) => {
+const CompanyDetails = ({ org_data, update, edit }) => {
 	console.log('got orgData ---------', org_data);
 	return (
 		<>
@@ -20,6 +20,7 @@ const CompanyDetails = ({ org_data }) => {
 							/>
 						</div>
 						{/* <LuEdit className='absolute right-8 top-9 text-2xl text-accent hover:bg-accent/10' /> */}
+						<div className={` absolute right-0 top-0 ${edit}`}>{update} </div>
 						<div className='flex flex-col justify-between items-start gap-3'>
 							{/* --------Company Name------------------- */}
 							<h1 className='text-3xl font-medium text-slate-900'>
