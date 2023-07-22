@@ -20,86 +20,86 @@ import { OrgLogin } from './components/form/login/OrgLogin';
 import DevProfile from './components/profile/DevProfile';
 
 function App() {
-  return (
-    <>
-      <Header />
-      <div className="pt-20">
-        <Routes>
-          <Route
-            path="/"
-            element={<Home />}
-          />
-          <Route
-            path="/projects"
-            element={<ProjectListings />}
-          />
-          <Route
-            path="/projects/create"
-            element={<ProjectAdd />}
-          />
-          <Route
-            path="/about"
-            element={<AboutUs />}
-          />
-          <Route
-            path="/projects/:uid"
-            element={<ProjectMain />}
-          />
-          <Route
-            path="/companies"
-            element={<CompanyListings />}
-          />
-          <Route
-            path="/companies/:uid"
-            element={<CompanyMain />}
-          />
-          {/* -------------Company Profile----------------- */}
-          <Route
-            path="/companies/:id"
-            element={<CompanyMain />}
-          />
-          <Route
-            path="/developers"
-            element={<DevelopersListing />}
-          />
-          <Route
-            path="/developers/:uid"
-            element={<DeveloperMain />}
-          />
+	return (
+		<>
+			<Header />
+			<div className='pt-20'>
+				<Routes>
+					<Route
+						path='/'
+						element={<Home />}
+					/>
+					<Route
+						path='/projects'
+						element={<ProjectListings />}
+					/>
+					<Route
+						path='/projects/create'
+						element={<ProjectAdd />}
+					/>
+					<Route
+						path='/about'
+						element={<AboutUs />}
+					/>
+					<Route
+						path='/projects/:uid'
+						element={<ProjectMain />}
+					/>
+					<Route
+						path='/companies'
+						element={<CompanyListings />}
+					/>
+					<Route
+						path='/companies/:uid'
+						element={<CompanyMain />}
+					/>
+					{/* -------------Company Profile----------------- */}
+					<Route
+						path='/companies/:id'
+						element={<CompanyMain />}
+					/>
+					<Route
+						path='/developers'
+						element={<DevelopersListing />}
+					/>
+					<Route
+						path='/developers/:uid'
+						element={<DeveloperMain />}
+					/>
 
-          {/* -------------Dev Profile----------------- */}
-          <Route
-            path="/developers/profile"
-            element={<DevProfile />}
-          />
-          <Route
-            path="/login"
-            element={<Login />}
-          />
-          <Route
-            path="/login/developer"
-            element={<DevLogin />}
-          />
-          <Route
-            path="/login/company"
-            element={<OrgLogin />}
-          />
-          <Route
-            path="/register"
-            element={<Register />}
-          />
-          <Route
-            path="/register/developer"
-            element={<RegisterDeveloper />}
-          />
-          <Route
-            path="/register/company"
-            element={<RegisterOrganization />}
-          />
-        </Routes>
-      </div>
-    </>
-  );
+					{/* -------------Dev Profile----------------- */}
+					<Route
+						path='/profile'
+						element={<DevProfile />}
+					/>
+					<Route
+						path='/login'
+						element={<Login />}
+					/>
+					<Route
+						path='/login/developer'
+						element={<DevLogin />}
+					/>
+					<Route
+						path='/login/company'
+						element={<OrgLogin />}
+					/>
+					<Route
+						path='/register'
+						element={<Register />}
+					/>
+					<Route
+						path='/register/developer'
+						element={<RegisterDeveloper />}
+					/>
+					<Route
+						path='/register/company'
+						element={<RegisterOrganization />}
+					/>
+				</Routes>
+			</div>
+		</>
+	);
 }
 
 export default App;

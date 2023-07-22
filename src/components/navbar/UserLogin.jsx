@@ -13,9 +13,9 @@ function UserLogin() {
 	const logOut = () => {
 		// console.log('yoooooo');
 		localStorage.removeItem('authToken');
-		localStorage.getItem("isOrg") ? localStorage.removeItem('isOrg') : null;
-		localStorage.getItem("isDev") ? localStorage.removeItem('isDev') : null;
-		localStorage.getItem("dev_uid") ? localStorage.removeItem('dev_uid') : null;
+		localStorage.getItem('isOrg') ? localStorage.removeItem('isOrg') : null;
+		localStorage.getItem('isDev') ? localStorage.removeItem('isDev') : null;
+		localStorage.getItem('dev_uid') ? localStorage.removeItem('dev_uid') : null;
 		token = null;
 		orgToken = null;
 		devToken = null;
@@ -72,7 +72,7 @@ function UserLogin() {
 						<li className='py-1'>
 							{/*   ----------------------- TODO: Here Add a method to redirect to Dev or Org based on loggedIn user-------------  */}
 							<Link
-								to={'/developers/profile'}
+								to={'/profile'}
 								className='flex items-center justify-start gap-3 mobile-item'
 							>
 								<RxAvatar className='text-xl' /> My Account
