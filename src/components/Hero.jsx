@@ -89,7 +89,12 @@ const Hero = () => {
 			</div>
 			{/*------------- Screenshots ------------ */}
 
-			<img src='/new-hero.svg' />
+			<div className='flex md:px-[10%]'>
+				<img
+					src='/new-hero.png'
+					className=''
+				/>
+			</div>
 			<h2
 				className='text-center text-3xl md:text-4xl
 				 font-semibold my-4'
