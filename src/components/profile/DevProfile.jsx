@@ -3,6 +3,7 @@ import { BiSolidMap } from 'react-icons/bi';
 // import { LuEdit } from 'react-icons/lu';
 // import { BsPersonFillCheck } from 'react-icons/bs';
 // import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import UpdateModal from './UpdateModal';
 import CompanyDetails from '../CompanyDetails';
 import CompanyUpdateModal from './CompanyUpdateModal';
@@ -103,24 +104,24 @@ function DevProfile() {
             <div className="flex flex-col gap-6 px-5 py-7  mr-2  w-1/3">
               <div className="flex flex-col gap-2  ">
                 <h1 className="text-lg text-slate-900 font-medium">
-                  Experience
+                  Role
                 </h1>
-                <p className="description">3+ Years Expert</p>
-              </div>
-              <div className="flex flex-col gap-2">
-                <h1 className="text-lg text-slate-900 font-medium">
-                  Languages
-                </h1>
-                <p className="description">English | Hindi | Marathi</p>
+                <p className="description">{developer?.technical_role}</p>
               </div>
               <div className="flex flex-col gap-2">
                 <h1 className="text-lg text-slate-900 font-medium">
                   Education
                 </h1>
-                <h1 className="text-base text-slate-900 font-medium">
-                  VIVA Institute of Technology
-                </h1>
                 <p className="description">{developer?.qualification}</p>
+              </div>
+              <div className="flex flex-col gap-2">
+                <h1 className="text-lg text-slate-900 font-medium">
+                  Contact
+                </h1>
+                <p className="description">{developer?.email}</p>
+                <p className="description">{developer?.phone}</p>
+                <Link to={developer?.linkedin} target="_blank" className="text-accent">{developer?.linkedin}</Link>
+                <Link to={developer?.github} target="_blank" className="text-accent">{developer?.github}</Link>
               </div>
             </div>
             {/* ----------Col-2----------------*/}
