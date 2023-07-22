@@ -51,7 +51,7 @@ function CompanyDetails({ org_data, update, edit }) {
 						</div>
 					</div>
 					{/* ----------Col-2----------------*/}
-					<div className='flex flex-col border-b md:border-l md:pl-2 border-slate-300 md:gap-6 md:w-2/3 pb-10'>
+					<div className='flex flex-col border-b md:border-b-0 md:border-l md:pl-2 border-slate-300 md:gap-6 md:w-2/3 pb-10'>
 						<div className='flex flex-col gap-2 px-5 py-7'>
 							{/* ---------Company Name------------ */}
 							<h1 className='text-2xl font-semibold mb-3'>
