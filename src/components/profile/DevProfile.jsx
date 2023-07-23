@@ -213,7 +213,6 @@ function DevProfile() {
 						</div>
 					</div>
 				</div>
-
 				{/* ---------------Proposals---------------- */}
 				{/* -------Delete Button------- */}
 				{deleteBtn && (
@@ -222,6 +221,7 @@ function DevProfile() {
 						delete={() => setDeleteBtn(!deleteBtn)}
 					/>
 				)}
+				{/* ---------!Make this div Visible only if dev has applied for proposals-------------- */}
 				<div
 					className='flex w-full lg:w-3/5 md:w-4/5 flex-col justify-center
             items-center border z-10 relative
@@ -261,7 +261,6 @@ function DevProfile() {
 						))}
 					</div>
 				</div>
-
 				<div
 					className='flex w-full lg:w-3/5 md:w-4/5 flex-col justify-center
             items-center border z-10 relative
