@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
-import { BiSolidMap } from 'react-icons/bi';
+// import { BiSolidMap } from 'react-icons/bi';
 
 function CompanyDetails({ org_data, update, edit }) {
-  console.log('got orgData ---------', org_data);
+//   console.log('got orgData ---------', org_data);
   return (
     <div className="flex flex-col max-w-screen-sm md:max-w-none lg:max-w-none items-center justify-center mx-3">
       <div
@@ -30,9 +30,9 @@ function CompanyDetails({ org_data, update, edit }) {
               {org_data.name}
             </h1>
             <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
-              <BiSolidMap />
+              {/* <BiSolidMap /> */}
               {/* ------------------------ Company Location-------------------------- */}
-              <p>India</p>
+              {/* <p>India</p> */}
             </div>
           </div>
         </div>
@@ -72,17 +72,7 @@ function CompanyDetails({ org_data, update, edit }) {
                   <li
                     className="border border-slate-300 px-2 py-1 bg-accent/5 text-sm rounded-2xl"
                   >
-                    Consultancy
-                  </li>
-                  <li
-                    className="border border-slate-300 px-2 py-1 bg-accent/5 text-sm rounded-2xl"
-                  >
-                    Cybersecurity
-                  </li>
-                  <li
-                    className="border border-slate-300 px-2 py-1 bg-accent/5 text-sm rounded-2xl"
-                  >
-                    Machine Learning
+                    {org_data.domain}
                   </li>
                 </ul>
               </div>
