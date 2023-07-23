@@ -14,12 +14,12 @@ const FormContainer = ({ children, image }) => {
 							/>
 						</div>
 					</div>
-					<div className='w-full flex items-center mt-5 mx-0  relative z-10 max-w-2xl lg:mt-0 lg:w-1/2'>
+					<div className='w-full flex items-center mx-0  relative z-10 max-w-2xl lg:mt-0 lg:w-1/2'>
 						<div
-							className='flex w-full flex-col items-start h-[80vh] md:h-[80vh] justify-start p-10 bg-white shadow-2xl rounded-xl
+							className='flex w-full flex-col items-start h-[80vh] md:h-[80vh] justify-start p-5 lg:p-10 bg-white shadow-2xl rounded-xl
             relative z-10'
 						>
-							<p className='w-full text-4xl font-medium text-center leading-snug relative'>
+							<p className='w-full text-2xl xl:text-4xl font-medium text-center leading-snug relative'>
 								Sign up for an account
 							</p>
 							{children}
