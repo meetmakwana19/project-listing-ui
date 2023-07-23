@@ -10,6 +10,8 @@ function ProjectDetails() {
   const { uid } = useParams();
   const [project, setProject] = useState([]);
 
+  const dev = localStorage.getItem("isDev");
+
   useEffect(() => {
     const fetchProject = async () => {
       const response = await fetch(
@@ -213,6 +215,8 @@ function ProjectDetails() {
         </div>
       </Container>
       {/* Apply Button */}
+      {dev
+      && (
       <div className="flex md:relative 2xl:absolute 2xl:w-96 md:w-4/5 2xl:bg-transparent 2xl:-top-[79%] 2xl:right-[21%] fixed bottom-0 bg-white gap-2 w-full border-t md:border-0 md:bottom-4 border-slate-300 py-2 items-center justify-center z-10 px-3">
         <div className="flex items-center justify-center w-1/2">
           <button
@@ -230,6 +234,7 @@ function ProjectDetails() {
           </button>
         </div>
       </div>
+      )}
     </div>
   );
 }
