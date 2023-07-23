@@ -8,15 +8,12 @@ function UpdateModal({ developer, setDeveloper }) {
   const uid = localStorage.getItem('dev_uid');
 
   const handleSkills = (event) => {
-    console.log('skills');
     const { name, value } = event.target;
     setDeveloper({
       ...developer,
       [name]: name === 'skills' ? value.split(', ') : value,
     });
   };
-  console.log('------', developer);
-  console.log('devUID------', localStorage.getItem('dev_uid'));
 
   const handleUpdate = (event) => {
     event.preventDefault();
