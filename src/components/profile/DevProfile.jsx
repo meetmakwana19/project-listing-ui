@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BiSolidMap } from 'react-icons/bi';
 // import { LuEdit } from 'react-icons/lu';
 // import { BsPersonFillCheck } from 'react-icons/bs';
@@ -11,6 +11,33 @@ import CompanyUpdateModal from './CompanyUpdateModal';
 function DevProfile() {
   const [developer, setDeveloper] = useState([]);
   const [organization, setOrganization] = useState([]);
+  const [proposals, setProposals] = useState([]);
+
+  // using useRef hook create a reference to the developer state variable and access its updated value immediately after it is updated by setDeveloper.
+  // useRef allows you to store a mutable value that persists across renders without causing a re-render when the value changes.
+  const developerRef = useRef(developer);
+  const proposalsRef = useRef(proposals);
+
+  const fetchProposals = async () => {
+    // The developerRef.current will always have the most recent value of developer without triggering a re-render.
+    const url = `?developer=${developerRef.current.uid}`;
+    const response = await fetch(
+      `https://projekto-backend.onrender.com/proposals${url}`,
+      // `https://projekto-backend.onrender.com/proposals`,
+      { mode: 'cors', headers: { authorization: localStorage.getItem('authToken') } },
+    );
+    const fetched = await response.json();
+    console.log('fetched ------------>', fetched.data);
+    console.log('fetched 1 for ------------', fetched.data[0].developer.fname);
+    console.log('fetched 2 for ------------', fetched.data[1].developer.fname);
+    setProposals(fetched.data);
+    console.log('proposals>>>>>>>>>', proposalsRef.current);
+  };
+
+  useEffect(() => {
+    developerRef.current = developer;
+    proposalsRef.current = proposals;
+  }, [developer, proposals]);
 
   useEffect(() => {
     let id;
@@ -24,13 +51,13 @@ function DevProfile() {
     }
     const fetchProfile = async () => {
       const response = await fetch(
-        // ! change link, This link should send data of logged in user
         `https://projekto-backend.onrender.com/${url}`,
         { mode: 'cors' },
       );
       const fetched = await response.json();
       if (localStorage.getItem('isDev')) {
-        setDeveloper(fetched.data[0]);
+        await setDeveloper(fetched.data[0]);
+        fetchProposals();
       } else if (localStorage.getItem('isOrg')) {
         setOrganization(fetched.data[0]);
       }
@@ -150,8 +177,8 @@ function DevProfile() {
                 <h1 className="text-lg font-semibold mb-3">Skills</h1>
                 <div className="flex flex-wrap">
                   <ul className="flex flex-wrap  gap-2 capitalize text-accent">
-                    {skills.map((skill) => (
-                      <li className="border border-slate-300 px-2 py-1 bg-accent/5 text-sm rounded-2xl">
+                    {skills.map((skill, i) => (
+                      <li key={i} className="border border-slate-300 px-2 py-1 bg-accent/5 text-sm rounded-2xl">
                         {skill}
                       </li>
                     ))}
@@ -166,12 +193,34 @@ function DevProfile() {
             items-center border z-10 relative
            border-slate-300  bg-white/50 rounded-2xl my-6 mb-10"
         >
+          <h1 className="text-2xl font-semibold mb-3">Your proposals</h1>
+          {proposals.map((proposal) => (
+            <div className="flex flex-col px-5 py-7">
+              <div className="border-b py-5 border-slate-300 ">
+                <h2 className="text-xl font-semibold mb-3">
+                  {proposal.project.title}
+                </h2>
+                <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
+                  {/* ------------------------ Developer City-------------------------- */}
+                  <p>{proposal.project.uid}</p>
+                </div>
+                <p className="description">{proposal.project.thumbnail}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div
+          className="flex w-full lg:w-3/5 md:w-4/5 flex-col justify-center
+            items-center border z-10 relative
+           border-slate-300  bg-white/50 rounded-2xl my-6 mb-10"
+        >
           <div className="flex flex-col px-5 py-7">
             <h1 className="text-2xl font-semibold mb-3">Project History</h1>
             {/* ---------TODO: Project History------------ */}
             <div className="border-b py-5 border-slate-300 ">
               <h2 className="text-xl font-semibold mb-3">
-                Web Developer | Freelance
+                Web Developer | Freelance |
               </h2>
               <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
                 {/* ------------------------ Developer City-------------------------- */}
