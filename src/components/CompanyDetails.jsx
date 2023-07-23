@@ -1,6 +1,8 @@
 /* eslint-disable camelcase */
 // import { BiSolidMap } from 'react-icons/bi';
 
+import { Link } from "react-router-dom";
+
 function CompanyDetails({ org_data, update, edit }) {
 //   console.log('got orgData ---------', org_data);
   return (
@@ -89,17 +91,24 @@ function CompanyDetails({ org_data, update, edit }) {
           <h1 className="text-2xl font-semibold mb-3">Company Projects</h1>
           {/* ---------TODO: Comapny Projects------------ */}
           <div className="border-b py-5 border-slate-300 ">
-            {org_data.org_projects.map((project) => (
-              <>
-                <h2 className="text-xl font-semibold mt-3">{project.title}</h2>
-                <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
-                  {/* ------------------------ Developer City-------------------------- */}
-                  <p>{project.uid}</p>
+            {org_data.org_projects && org_data.org_projects.map((project) => (
+              <div className="flex items-center">
+                <img
+                  src={project.thumbnail}
+                  alt=""
+                  className="w-[10vw] md:w-20 rounded-full  object-cover aspect-square mx-8"
+                />
+                <div>
+                  <Link to={`/projects/${project.uid}`} className="text-xl font-semibold mt-3 hover:text-accent">{project.title}</Link>
+                  <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
+                    {/* ------------------------ Developer City-------------------------- */}
+                    <p>{project.uid}</p>
+                  </div>
+                  <p className="description mb-4">
+                    {project.description}
+                  </p>
                 </div>
-                <p className="description">
-                  {project.description}
-                </p>
-              </>
+              </div>
             ))}
           </div>
         </div>
