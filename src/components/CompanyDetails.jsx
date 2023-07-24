@@ -4,7 +4,6 @@
 import { Link } from "react-router-dom";
 
 function CompanyDetails({ org_data, update, edit }) {
-//   console.log('got orgData ---------', org_data);
   return (
     <div className="flex flex-col max-w-screen-sm md:max-w-none lg:max-w-none items-center justify-center mx-3">
       <div
@@ -72,6 +71,7 @@ function CompanyDetails({ org_data, update, edit }) {
               <div className="flex flex-wrap">
                 <ul className="flex flex-wrap  gap-2 capitalize text-accent">
                   <li
+                    key={org_data.uid}
                     className="border border-slate-300 px-2 py-1 bg-accent/5 text-sm rounded-2xl"
                   >
                     {org_data.domain}
@@ -92,7 +92,7 @@ function CompanyDetails({ org_data, update, edit }) {
           {/* ---------TODO: Comapny Projects------------ */}
           <div className="border-b py-5 border-slate-300 ">
             {org_data.org_projects && org_data.org_projects.map((project) => (
-              <div className="flex items-center">
+              <div className="flex items-center my-5" key={project.uid}>
                 <img
                   src={project.thumbnail}
                   alt=""
