@@ -20,17 +20,18 @@ function ProjectDetails() {
       );
       const fetchedProject = await response.json();
       setProject(fetchedProject.data);
-      console.log('fetch Projects------------', fetchedProject.data);
+      // console.log('fetch Projects------------', fetchedProject.data);
       // console.log('fetch Projects------------', projects);
     };
     fetchProject();
   }, []);
 
   const devId = localStorage.getItem('isDev');
-  const proposeProject = async (projectId) => {
+  const proposeProject = async (projectId, OrgId) => {
     const proposalData = {
       project: projectId,
       developer: devId,
+      organization: OrgId,
     };
     fetch('https://projekto-backend.onrender.com/proposals', {
       method: 'POST',
@@ -52,9 +53,9 @@ function ProjectDetails() {
       });
   };
 
-  const clickApply = (id) => {
-    proposeProject(id);
-    // console.log("applying - ", id);
+  const clickApply = (id, projOrg) => {
+    proposeProject(id, projOrg._id);
+    // console.log("applying - ", projOrg._id);
   };
 
   if (!Object.keys(project).length > 0) {
@@ -222,7 +223,7 @@ function ProjectDetails() {
           <button
             type="button"
             className="flex bg-accent px-4 py-2 w-full items-center justify-center text-white hover:bg-white hover:text-accent hover:border-accent font-medium border border-slate-300 rounded-full"
-            onClick={() => clickApply(project._id)}
+            onClick={() => clickApply(project._id, project.proj_organization)}
           >
             Apply Now
           </button>
