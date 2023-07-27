@@ -20,14 +20,22 @@ function DevProfile() {
   // need this state variable to keep track of the uid got from delete button click
   const [selectedUID, setSelectedUID] = useState([]);
 
+  // --------------!Can avoid this useRef part as it is was later on not needed.
   // using useRef hook create a reference to the developer state variable and access its updated value immediately after it is updated by setDeveloper.
   // useRef allows you to store a mutable value that persists across renders without causing a re-render when the value changes.
   const developerRef = useRef(developer);
   const proposalsRef = useRef(proposals);
 
+  useEffect(() => {
+    developerRef.current = developer;
+    proposalsRef.current = proposals;
+  }, [developer, proposals]);
+
   const fetchProposals = async () => {
     // The developerRef.current will always have the most recent value of developer without triggering a re-render.
-    const url = `?developer=${developerRef.current.uid}`;
+    // console.log("current is ------", developerRef.current._id);
+    // const url = `?developer=${developerRef.current._id}`;
+    const url = `?developer=${localStorage.getItem('isDev')}`;
     const response = await fetch(
       `https://projekto-backend.onrender.com/proposals${url}`,
       // `https://projekto-backend.onrender.com/proposals`,
@@ -43,11 +51,6 @@ function DevProfile() {
     setProposals(fetched.data);
     // console.log('proposals>>>>>>>>>', proposalsRef.current);
   };
-
-  useEffect(() => {
-    developerRef.current = developer;
-    proposalsRef.current = proposals;
-  }, [developer, proposals]);
 
   useEffect(() => {
     let id;

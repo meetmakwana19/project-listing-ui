@@ -2,7 +2,7 @@ import { LuEdit } from 'react-icons/lu';
 import { useNavigate } from 'react-router-dom';
 
 function CompanyUpdateModal({ organization, setOrganization }) {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // ued for navigation
   const handleUpdate = (e) => {
     e.preventDefault();
     fetch(`https://projekto-backend.onrender.com/organizations/${organization.uid}`, {

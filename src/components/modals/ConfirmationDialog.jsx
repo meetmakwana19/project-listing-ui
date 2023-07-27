@@ -1,18 +1,19 @@
-import React from 'react';
+import React from "react";
 
 function ConfirmationDialog({
-  cancel, deleteBtn, setDeleteBtn, propUid, onDeleteSuccess,
+  cancel,
+  deleteBtn,
+  setDeleteBtn,
+  propUid,
+  onDeleteSuccess,
 }) {
   const requestDelete = async (uid) => {
-    fetch(
-      `https://projekto-backend.onrender.com/proposals/${uid}`,
-      {
-        method: "DELETE",
-        headers: {
-          authorization: localStorage.getItem('authToken'),
-        },
+    fetch(`https://projekto-backend.onrender.com/proposals/${uid}`, {
+      method: "DELETE",
+      headers: {
+        authorization: localStorage.getItem("authToken"),
       },
-    )
+    })
       .then((response) => response.json())
       .then(() => {
         onDeleteSuccess();

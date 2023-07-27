@@ -1,7 +1,7 @@
 import React from 'react';
 
-const DevProposal = () => {
-	return <div>DevProposal</div>;
-};
+function DevProposal() {
+  return <div>DevProposal</div>;
+}
 
 export default DevProposal;

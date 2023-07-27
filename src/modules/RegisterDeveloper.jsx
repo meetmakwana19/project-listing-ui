@@ -7,8 +7,8 @@ import AccountCredentials from '../components/form/register/steps/AccountCredent
 import PersonalInfo from '../components/form/register/steps/PersonalInfo';
 import Final from '../components/form/register/steps/Final';
 import FormContainer from '../components/form/FormContainer';
-// import developer from "../../../../../../../../developer.svg";
 import developer from "../../public/developer.svg";
+// import developer from "../../../../../../../../developer.svg";
 
 function RegisterDeveloper() {
   const navigate = useNavigate();

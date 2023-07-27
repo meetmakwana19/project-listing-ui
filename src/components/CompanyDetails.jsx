@@ -7,8 +7,8 @@ import { Link, useParams } from "react-router-dom";
 function CompanyDetails({ org_data, update, edit }) {
   const [orgProposals, setOrgProposals] = useState([]);
 
-  // it will get empty object for /profile page
-  // but it will get {uid : xxx} object for /companies/:uid page
+  // it will get empty object for `/profile` page.
+  // but it will get {uid : xxx} object for `/companies/:uid` page
   const profile = useParams();
 
   useEffect(() => {

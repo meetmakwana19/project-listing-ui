@@ -193,6 +193,7 @@ function ProjectDetails() {
             </h1>
             {project.members.map((member) => (
               <Members
+                key={member.uid}
                 to={`/developers/${member.uid}`}
                 image={member.profile_pic}
                 name={`${member.fname} ${member.lname}`}
@@ -202,17 +203,17 @@ function ProjectDetails() {
             ))}
           </div>
         </div>
-        <div className="flex flex-col w-full border-t py-3 px-6 gap-4">
+        <div className="flex flex-row items-center w-full border-t py-3 px-6 gap-4">
           <p className="flex items-center text-lg my-3 text-start font-medium text-slate-800">
             Upgrade your membership to see bid range
             {/* ----------TODO: Tooltip Style ----! pending */}
-            <div
-              className="tooltip"
-              data-tip="Hello"
-            >
-              <AiFillQuestionCircle className="text-base text-accent ml-2" />
-            </div>
           </p>
+          <div
+            className="tooltip"
+            data-tip="Hello"
+          >
+            <AiFillQuestionCircle className="text-base text-accent ml-2" />
+          </div>
         </div>
       </Container>
       {/* Apply Button */}

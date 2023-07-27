@@ -1,5 +1,5 @@
-import React from 'react';
+import React from "react";
 
-export const ModalDropdown = () => {
-	return <div>ModalDropdown</div>;
-};
+export default function ModalDropdown() {
+  return <div>ModalDropdown</div>;
+}
