@@ -55,3 +55,10 @@ Open http://localhost:5173 to view it in your browser.
 Unnecessary errors by ESLint :
 
 > 'React' must be in scope when using JSX - eslint (react/react-in-jsx-scope) : this is making us import react in every component file.
+
+[Company banner](src/components/image/CompanyBanner.jsx)
+[ModalDropdown](src/components/modals/ModalDropdown.jsx)
+
+---
+
+[Changed major arrow body styling](src/components/navbar/NavMenu.jsx)
