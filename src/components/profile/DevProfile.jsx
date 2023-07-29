@@ -52,7 +52,7 @@ function DevProfile() {
     // console.log('proposals>>>>>>>>>', proposalsRef.current);
   };
 
-  useEffect(() => {
+  const fetchProfile = async () => {
     let id;
     let url;
     if (localStorage.getItem('isDev')) {
@@ -62,20 +62,22 @@ function DevProfile() {
       id = localStorage.getItem('isOrg');
       url = `organizations?_id=${id}`;
     }
-    const fetchProfile = async () => {
-      const response = await fetch(
-        `https://projekto-backend.onrender.com/${url}`,
-        { mode: 'cors' },
-      );
-      const fetched = await response.json();
-      if (localStorage.getItem('isDev')) {
-        await setDeveloper(fetched.data[0]);
-        fetchProposals();
-      } else if (localStorage.getItem('isOrg')) {
-        setOrganization(fetched.data[0]);
-      }
-      // console.log('fetched info------------', fetched.data[0]);
-    };
+
+    const response = await fetch(
+      `https://projekto-backend.onrender.com/${url}`,
+      { mode: 'cors' },
+    );
+    const fetched = await response.json();
+    if (localStorage.getItem('isDev')) {
+      await setDeveloper(fetched.data[0]);
+      fetchProposals();
+    } else if (localStorage.getItem('isOrg')) {
+      setOrganization(fetched.data[0]);
+    }
+    // console.log('fetched info------------', fetched.data[0]);
+  };
+
+  useEffect(() => {
     fetchProfile();
   }, []);
 
@@ -303,6 +305,7 @@ function DevProfile() {
   return (
     <CompanyDetails
       org_data={organization}
+      fetchOrg={fetchProfile}
       edit=""
       update={(
         <CompanyUpdateModal

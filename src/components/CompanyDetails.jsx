@@ -2,16 +2,22 @@
 // import { BiSolidMap } from 'react-icons/bi';
 
 import { useEffect, useState } from "react";
+import { IoTrashBinOutline } from "react-icons/io5";
 import { Link, useParams } from "react-router-dom";
+import ProjectDeleteConfirmationDialog from "./modals/ProjectDeleteConfirmationDialog";
 
-function CompanyDetails({ org_data, update, edit }) {
+function CompanyDetails({
+  org_data, update, edit, fetchOrg,
+}) {
   const [orgProposals, setOrgProposals] = useState([]);
+  const [deleteBtn, setDeleteBtn] = useState(false);
+  const [selectedUID, setSelectedUID] = useState([]);
 
   // it will get empty object for `/profile` page.
   // but it will get {uid : xxx} object for `/companies/:uid` page
   const profile = useParams();
 
-  useEffect(() => {
+  const fetchProposals = () => {
     const orgId = localStorage.getItem("isOrg");
     fetch(
       `https://projekto-backend.onrender.com/proposals?organization=${orgId}`,
@@ -25,7 +31,23 @@ function CompanyDetails({ org_data, update, edit }) {
       .then((data) => {
         setOrgProposals(data.data);
       });
+  };
+
+  useEffect(() => {
+    fetchProposals();
   }, []);
+
+  const deleteProject = (uid) => {
+    setSelectedUID(uid);
+    setDeleteBtn(!deleteBtn);
+  };
+
+  // Callback function to be passed to the ConfirmationDialog
+  const handleDeleteSuccess = () => {
+    // Fetch the updated proposals from the server
+    fetchOrg();
+  };
+
   return (
     <div className="flex flex-col max-w-screen-sm md:max-w-none lg:max-w-none items-center justify-center mx-3">
       <div
@@ -104,6 +126,19 @@ function CompanyDetails({ org_data, update, edit }) {
           </div>
         </div>
       </div>
+
+      {/* keep thiss dialog component ouotside here so that it doesnt overlap with other components */}
+      {/* render ConfirmationDialog only if selectedUID && deleteBtn are available */}
+      {selectedUID && deleteBtn && (
+      <ProjectDeleteConfirmationDialog
+        cancel={() => setDeleteBtn(!deleteBtn)}
+        deleteBtn={deleteBtn}
+        setDeleteBtn={setDeleteBtn}
+        propUid={selectedUID}
+        onDeleteSuccess={handleDeleteSuccess}
+      />
+      )}
+
       <div
         className="flex w-full lg:w-3/5 md:w-4/5 flex-col justify-center
             items-center border z-10 relative
@@ -130,6 +165,16 @@ function CompanyDetails({ org_data, update, edit }) {
                     {project.description}
                   </p>
                 </div>
+                {/* -------Delete Button------- */}
+
+                <button
+                  type="button"
+                  onClick={() => deleteProject(project.uid)}
+                  className="text-red-500 text-2xl hover:bg-red-500 hover:text-white p-3 rounded-xl"
+                >
+                  <IoTrashBinOutline />
+                </button>
+
               </div>
             ))}
           </div>

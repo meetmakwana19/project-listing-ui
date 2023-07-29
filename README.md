@@ -58,7 +58,7 @@ Unnecessary errors by ESLint :
 
 [Company banner](src/components/image/CompanyBanner.jsx)
 [ModalDropdown](src/components/modals/ModalDropdown.jsx)
-
+[OrgProfile](src/components/profile/OrgProfile.jsx)
 ---
 
 [Changed major arrow body styling](src/components/navbar/NavMenu.jsx)
