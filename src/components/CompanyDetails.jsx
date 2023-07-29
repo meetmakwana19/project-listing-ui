@@ -29,7 +29,7 @@ function CompanyDetails({
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log("proposals : ", data);
+        // console.log("proposals : ", data);
         setOrgProposals(data.data);
       });
   };
@@ -47,6 +47,60 @@ function CompanyDetails({
   const handleDeleteSuccess = () => {
     // Fetch the updated proposals from the server
     fetchOrg();
+  };
+
+  const patchProposal = async (uid, body) => {
+    const response = await fetch(`https://projekto-backend.onrender.com/proposals/${uid}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem('authToken'),
+      },
+      body: JSON.stringify(body),
+    });
+    const result = await response.json();
+    if (result.error) {
+      alert(`${result.error}`);
+    }
+    alert(`${result.message}`);
+    // console.log("PATCHED ? ", result);
+    fetchProposals();
+  };
+
+  const handleProposal = (action, uid) => {
+    // console.log("Proposal action : ", action);
+    // console.log("Proposal uid : ", uid);
+
+    let body;
+    if (action === "accept") {
+      body = {
+        accepted: true,
+        pending: false,
+        rejected: false,
+      };
+    } else if (action === "reject") {
+      body = {
+        rejected: true,
+        pending: false,
+        accepted: false,
+      };
+    } else if (action === "pending") {
+      body = {
+        rejected: false,
+        pending: true,
+        accepted: false,
+      };
+    }
+    patchProposal(uid, body);
+  };
+
+  const getStatusText = (proposal) => {
+    if (proposal.pending) {
+      return "Pending";
+    } if (proposal.accepted) {
+      return "Accepted";
+    }
+    return "Rejected";
   };
 
   return (
@@ -189,7 +243,7 @@ function CompanyDetails({
             items-center border z-10 relative
            border-slate-300  bg-white/50 rounded-2xl my-6 mb-10"
           >
-            <div className="flex flex-col px-5 py-7">
+            <div className="flex flex-col px-1 py-7">
               <h1 className="text-2xl font-semibold mb-3">Company&apos;s Projects Proposals</h1>
               {/* ---------TODO: Comapny Projects------------ */}
               <div className="border-b py-5 border-slate-300 ">
@@ -213,7 +267,7 @@ function CompanyDetails({
                     // eslint-disable-next-line no-nested-ternary
                         className={`border border-slate-300 px-2 py-1 bg-accent/5 text-sm rounded-2xl text-accent ${proposal.pending ? "bg-yellow-100 text-orange-600 border-orange-300" : proposal.accepted ? "bg-green-100 text-green-800 border-green-300" : "bg-red-100 text-red-800 border-red-300"}`}
                       >
-                        {proposal.pending ? "Pending" : "Accepted"}
+                        {getStatusText(proposal)}
                       </p>
 
                       <Link to={`/projects/${proposal.project.uid}`} className="text-xl font-semibold mt-3 hover:text-accent">{proposal.project.title}</Link>
@@ -233,6 +287,11 @@ function CompanyDetails({
                         {proposal.developer.lname}
                       </p>
                     </div>
+                    <button type="button" className={`rflex bg-[green] px-4 py-2 items-center justify-center text-white hover:bg-white hover:text-[green] hover:border-[green] font-medium border border-slate-300 rounded-full ${proposal.accepted ? "cursor-not-allowed opacity-50" : ""}`} onClick={() => handleProposal("accept", proposal.uid)} disabled={proposal.accepted}>Accept</button>
+
+                    <button type="button" className={`rflex text-orange-600 bg-yellow-300 px-4 py-2 mx-2 items-center justify-center hover:bg-orange-400 hover:text-[yellow] hover:border-[yellow] font-medium border border-slate-300 rounded-full ${proposal.pending ? "cursor-not-allowed opacity-50" : ""}`} onClick={() => handleProposal("pending", proposal.uid)} disabled={proposal.pending}>Pending</button>
+
+                    <button type="button" className={`flex bg-[red] px-4 py-2 mx-2 items-center justify-center text-white hover:bg-white hover:text-[red] hover:border-[red] font-medium border border-slate-300 rounded-full ${proposal.rejected ? "cursor-not-allowed opacity-50" : ""}`} disabled={proposal.rejected} onClick={() => handleProposal("reject", proposal.uid)}>Reject</button>
                   </div>
                 ))}
               </div>
