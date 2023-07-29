@@ -25,6 +25,7 @@ export default function OrgLogin() {
           // console.log("token is ", data.data.access_token);
           localStorage.setItem('authToken', data.data.access_token);
           localStorage.setItem('isOrg', data.data.organization._id);
+          localStorage.setItem('orgUID', data.data.organization.uid);
           navigate('/');
           alert(`${data.message}`);
           window.location.reload();

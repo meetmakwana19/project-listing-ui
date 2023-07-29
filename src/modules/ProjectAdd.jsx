@@ -12,9 +12,37 @@ export default function ProjectAdd() {
     project_type: "",
     required_personnel: "",
     open: false,
+    proj_organization: localStorage.getItem("isOrg"),
   });
   // console.log("Form data ---- ", formData);
 
+  const patchORG = (projId, projMessage) => {
+    fetch(`https://projekto-backend.onrender.com/organizations/${localStorage.getItem("orgUID")}`)
+      .then((response) => response.json())
+      .then((orgData) => {
+        // update the org_projects array with newly added project to that organization :
+        const existingProjects = orgData.data.org_projects ? orgData.data.org_projects.map((project) => project._id) : [];
+        const updatedProjects = [...existingProjects, projId];
+
+        fetch(`https://projekto-backend.onrender.com/organizations/${localStorage.getItem("orgUID")}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: localStorage.getItem("authToken"),
+          },
+          body: JSON.stringify({ org_projects: updatedProjects }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // console.log("Done patching ----", data);
+            alert(`${projMessage} Also ${data.message}`);
+            navigate("/");
+          })
+          .catch((error) => {
+            console.log("Error updating organization : ", error);
+          });
+      });
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     fetch("https://projekto-backend.onrender.com/projects", {
@@ -27,13 +55,13 @@ export default function ProjectAdd() {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log("Posting project-- ", data);
         if (data.error) {
           alert(`${data.message}: ${data.error}`);
         } else {
-          alert(`${data.message}`);
+          patchORG(data.data._id, data.message);
+          // alert(`${data.message}`);
         }
-        navigate("/");
+        // navigate("/");
       })
       .catch((error) => {
         console.log("Error posting the project : ", error);
