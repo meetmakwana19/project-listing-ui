@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { IoTrashBinOutline } from "react-icons/io5";
+import { TiThumbsUp, TiThumbsDown } from "react-icons/ti";
 import { Link, useParams } from "react-router-dom";
 import ProjectDeleteConfirmationDialog from "./modals/ProjectDeleteConfirmationDialog";
 
@@ -163,7 +164,7 @@ function CompanyDetails({
                       <p>{project.uid}</p>
                     </div>
                   </div>
-                  <div className="lg:w-[60%] ">
+                  <div className="lg:w-[60%] md:pl-6">
                     <Link to={`/projects/${project.uid}`} className="hidden md:flex text-xl font-semibold  hover:text-accent">{project.title}</Link>
                     <div className="hidden md:flex place-content-start items-center w-full text-slate-600 gap-1">
                       {/* ------------------------ Project Description-------------------------- */}
@@ -196,42 +197,45 @@ function CompanyDetails({
         ? (
           <div
             className="flex w-full lg:w-3/5 md:w-4/5 flex-col justify-center
-            items-center border z-10 relative
-           border-slate-300  bg-white/50 rounded-2xl my-6 mb-10"
+            items-start border z-10 relative
+           border-slate-300  bg-white/50  rounded-2xl my-6 mb-10"
           >
-            <div className="flex flex-col px-5 py-7">
-              <h1 className="text-2xl font-semibold mb-3">Company&apos;s Projects Proposals</h1>
+            <div className="flex flex-col   w-full ">
+              <h1 className="text-2xl px-5 font-semibold my-7">Company&apos;s Projects Proposals</h1>
               {/* ---------TODO: Comapny Projects------------ */}
-              <div className="border-b py-5 border-slate-300 ">
+              <div className="border-t px-5 py-5 border-slate-300 justify-between gap-5 relative">
                 {orgProposals && orgProposals.map((proposal) => (
-                  <div className="flex items-center my-5" key={proposal.uid}>
-                    <img
-                      src={proposal.project.thumbnail}
-                      alt=""
-                      className="w-[10vw] md:w-20 rounded-full  object-cover aspect-square mr-[-15%]"
-                    />
-                    <Link to={`/developers/${proposal.developer.uid}`}>
+                  <div className="flex items-start justify-start md:items-start md:justify-start my-5 relative" key={proposal.uid}>
+                    {/* -----------Thumbnail------------ */}
+                    <div className="flex order-1 w-1/3 md:w-1/6 relative">
                       <img
-                        src={proposal.developer.profile_pic}
+                        src={proposal.project.thumbnail}
                         alt=""
-                        className="w-[10vw] md:w-20 rounded-full  object-cover aspect-square mx-8"
+                        className="absolute w-[50%] md:w-[75%] h-fit left-0 z-20 rounded-full  object-cover aspect-square"
                       />
-                    </Link>
-                    <div className="flex flex-col items-start">
+                      <Link to={`/developers/${proposal.developer.uid}`}>
+                        <img
+                          src={proposal.developer.profile_pic}
+                          alt=""
+                          className="absolute w-[50%] md:w-[75%] h-fit left-6 z-30 rounded-full  object-cover aspect-square"
+                        />
+                      </Link>
+                    </div>
+                    <div className="flex  order-2 w-1/2 md:pl-6 flex-col items-start">
                       {/* badge for proposal status */}
                       <p
                     // eslint-disable-next-line no-nested-ternary
-                        className={`border border-slate-300 px-2 py-1 bg-accent/5 text-sm rounded-2xl text-accent ${proposal.pending ? "bg-yellow-100 text-orange-600 border-orange-300" : proposal.accepted ? "bg-green-100 text-green-800 border-green-300" : "bg-red-100 text-red-800 border-red-300"}`}
+                        className={`border py-0.5 px-1 md:px-2 md:py-1 bg-accent/5 text-xs md:text-sm rounded-2xl text-accent ${proposal.pending ? "bg-yellow-100/50 text-orange-600 border-orange-300" : proposal.accepted ? "bg-green-100 text-green-800 border-green-300" : "bg-red-100 text-red-800 border-red-300"}`}
                       >
                         {proposal.pending ? "Pending" : "Accepted"}
                       </p>
 
-                      <Link to={`/projects/${proposal.project.uid}`} className="text-xl font-semibold mt-3 hover:text-accent">{proposal.project.title}</Link>
+                      <Link to={`/projects/${proposal.project.uid}`} className="text-lg md:text-xl font-semibold md:mt-3 hover:text-accent">{proposal.project.title}</Link>
                       <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
                         {/* ------------------------ Developer City-------------------------- */}
-                        <p>{proposal.project.uid}</p>
+                        <p className="text-xs md:text-sm">{proposal.project.uid}</p>
                       </div>
-                      <p className="description mb-4">
+                      <p className="description mb-4 text-xs md:text-sm">
                         Proposal :
                         {' '}
                         {proposal.uid}
@@ -243,7 +247,26 @@ function CompanyDetails({
                         {proposal.developer.lname}
                       </p>
                     </div>
+                    <div className="absolute top-0 right-0 md:flex">
+                      <div className="flex gap-2">
+                        <button
+                          type="button"
+                          // onClick={() => deleteProject(project.uid)}
+                          className="text-green-500 text-xl lg:text-2xl bg-green-50 hover:bg-green-500 hover:text-white p-3 rounded-xl"
+                        >
+                          <TiThumbsUp />
+                        </button>
+                        <button
+                          type="button"
+                          // onClick={() => deleteProject(project.uid)}
+                          className="text-red-500 text-xl lg:text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-xl"
+                        >
+                          <TiThumbsDown />
+                        </button>
+                      </div>
+                    </div>
                   </div>
+
                 ))}
               </div>
             </div>
