@@ -246,11 +246,11 @@ export default function DevProfile() {
             items-center border z-10 relative
            border-slate-300 bg-white/50 rounded-2xl my-6 mb-10"
         >
-          <h1 className="flex w-full pl-5 pt-6 capitalize justify-start text-2xl  font-semibold mb-2">
+          <h1 className="flex w-full pl-5 pt-6 capitalize justify-start text-2xl  font-semibold mb-5">
             Your Project Proposals
           </h1>
           <div className="flex w-full flex-col pt-2">
-            <div className="w-full border -mb-[1px] border-b border-white z-10" />
+            {/* <div className="w-full border -mb-[1px] border-b border-white z-10" /> */}
             {proposals.length === 0 && (
             <h3 className="text-lg lg:text-xl ms-5 font-semibold mb-3 text-slate-800">
               No proposals found.
@@ -278,7 +278,7 @@ export default function DevProfile() {
                   {/* badge for proposal status */}
                   <span
                     // eslint-disable-next-line no-nested-ternary
-                    className={`border border-slate-300 px-2 py-1 bg-accent/5 text-sm rounded-2xl text-accent ${proposal.pending ? "bg-yellow-100 text-orange-600 border-orange-300" : proposal.accepted ? "bg-green-100 text-green-800 border-green-300" : "bg-red-100 text-red-800 border-red-300"}`}
+                    className={`border  px-2 py-1 bg-accent/5 text-sm rounded-2xl text-accent ${proposal.pending ? "bg-yellow-100 text-orange-600 border-orange-300" : proposal.accepted ? "bg-green-100 text-green-800 border-green-300" : "bg-red-100 text-red-800 border-red-300"}`}
                   >
                     {proposal.pending ? "Pending" : "Accepted"}
                   </span>
@@ -298,7 +298,7 @@ export default function DevProfile() {
                 <button
                   type="button"
                   onClick={() => deleteProposal(proposal.uid)}
-                  className="text-red-500 text-2xl hover:bg-red-500 hover:text-white p-3 rounded-xl"
+                  className="text-red-500 text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-xl"
                 >
                   <IoTrashBinOutline />
                 </button>

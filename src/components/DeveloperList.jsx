@@ -2,10 +2,9 @@
 import { BsFillBookmarkPlusFill } from 'react-icons/bs';
 import { AiFillStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-// import DeveloperPic from './image/DeveloperPic';
 
 const DeveloperList = ({ developersProp = [] }) => {
-  const authToken = localStorage.getItem("authToken");
+  const authToken = localStorage.getItem('authToken');
 
   let limitedDevelopers;
   if (!authToken) {
@@ -33,9 +32,7 @@ const DeveloperList = ({ developersProp = [] }) => {
       >
         <div className="flex w-full gap-6 items-center relative">
           <BsFillBookmarkPlusFill className="absolute w-7 h-7  top-2 border-spacing-4 right-3 z-30 hover:text-accent" />
-          <div
-            className="flex items-center relative justify-center h-40 w-56 p-0 m-0"
-          >
+          <div className="flex items-center relative justify-center h-40 w-56 p-0 m-0">
             {/* -------Developer Pic-------- */}
             <img
               alt="profile"

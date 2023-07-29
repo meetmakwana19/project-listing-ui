@@ -60,9 +60,9 @@ function DeveloperMain() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col-reverse md:flex-row justify-start w-full items-start place-content-start">
+        <div className="flex flex-col-reverse md:flex-row justify-start w-full items-start place-content-start relative">
           {/* ----------Col-1----------------*/}
-          <div className="flex flex-col gap-6 px-5 py-7  mr-2  md:w-1/3">
+          <div className="flex flex-col gap-6 px-5 py-7 relative flex-wrap  mr-2  md:w-1/3">
             <div className="flex flex-col gap-2  ">
               <h1 className="text-lg text-slate-900 font-medium">Role</h1>
               <p className="description">{developer?.technical_role}</p>
@@ -71,7 +71,7 @@ function DeveloperMain() {
               <h1 className="text-lg text-slate-900 font-medium">Education</h1>
               <p className="description">{developer?.qualification}</p>
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex w-full flex-col gap-2 relative">
               <h1 className="text-lg text-slate-900 font-medium">Contact</h1>
               <Link
                 to={`mailto:${developer?.email}`}
@@ -90,19 +90,25 @@ function DeveloperMain() {
               <Link
                 to={developer?.linkedin}
                 target="_blank"
-                className="contact-dev"
+                className="contact-dev relative w-full"
               >
-                <BsLinkedin />
-                {developer?.linkedin}
+                <p>
+                  <BsLinkedin />
+                </p>
+                <p className="break-words w-full">{developer?.linkedin}</p>
               </Link>
+
               <Link
                 to={developer?.github}
                 target="_blank"
-                className="contact-dev"
+                className="contact-dev relative w-full"
               >
-                <BsGithub />
-                {developer?.github}
+                <p>
+                  <BsGithub />
+                </p>
+                <p className="break-words w-full">{developer?.github}</p>
               </Link>
+
             </div>
           </div>
           {/* ----------Col-2----------------*/}
@@ -148,6 +154,7 @@ function DeveloperMain() {
       >
         <div className="flex flex-col px-5 py-7">
           <h1 className="text-2xl font-semibold mb-3">Project History</h1>
+
           {/* ---------TODO: Project History------------ */}
           <div className="border-b py-5 border-slate-300 ">
             <h2 className="text-xl font-semibold mb-3">
