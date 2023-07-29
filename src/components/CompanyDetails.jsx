@@ -145,36 +145,46 @@ function CompanyDetails({
             items-center border z-10 relative
            border-slate-300  bg-white/50 rounded-2xl my-6 mb-10"
       >
-        <div className="flex flex-col px-5 py-7">
-          <h1 className="text-2xl font-semibold mb-3">Company Projects</h1>
+        <div className="flex w-full flex-col">
+          <h1 className="text-2xl font-semibold px-5 pt-7 mb-3">Company Projects</h1>
           {/* ---------TODO: Comapny Projects------------ */}
-          <div className="border-b py-5 border-slate-300 ">
+          <div className=" py-5  ">
             {org_data.org_projects && org_data.org_projects.map((project) => (
-              <div className="flex items-center my-5" key={project.uid}>
-                <img
-                  src={project.thumbnail}
-                  alt=""
-                  className="w-[10vw] md:w-20 rounded-full  object-cover aspect-square mx-8"
-                />
-                <div>
-                  <Link to={`/projects/${project.uid}`} className="text-xl font-semibold mt-3 hover:text-accent">{project.title}</Link>
-                  <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
-                    {/* ------------------------ Developer City-------------------------- */}
-                    <p>{project.uid}</p>
+              <div className="flex w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300" key={project.uid}>
+                <div className="flex flex-col md:flex-row gap-6 md:gap-0">
+                  <div className="flex items-start justify-start">
+                    <img
+                      src={project.thumbnail}
+                      alt=""
+                      className="w-[30vw]  md:w-40 rounded-lg  object-cover aspect-video mr-8"
+                    />
+                    <div className="flex flex-col md:hidden">
+                      <Link to={`/projects/${project.uid}`} className=" text-xl font-semibold  hover:text-accent">{project.title}</Link>
+                      <p>{project.uid}</p>
+                    </div>
                   </div>
-                  <p className="description mb-4">
-                    {project.description}
-                  </p>
+                  <div className="lg:w-[60%] ">
+                    <Link to={`/projects/${project.uid}`} className="hidden md:flex text-xl font-semibold  hover:text-accent">{project.title}</Link>
+                    <div className="hidden md:flex place-content-start items-center w-full text-slate-600 gap-1">
+                      {/* ------------------------ Project Description-------------------------- */}
+                      <p>{project.uid}</p>
+                    </div>
+                    <p className="description mb-4  w-full md:w-[90%]">
+                      {project.description}
+                    </p>
+                  </div>
                 </div>
                 {/* -------Delete Button------- */}
 
-                <button
-                  type="button"
-                  onClick={() => deleteProject(project.uid)}
-                  className="text-red-500 text-2xl hover:bg-red-500 hover:text-white p-3 rounded-xl"
-                >
-                  <IoTrashBinOutline />
-                </button>
+                <div className="absolute top-6 right-3 md:flex">
+                  <button
+                    type="button"
+                    onClick={() => deleteProject(project.uid)}
+                    className="text-red-500 text-xl lg:text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-xl"
+                  >
+                    <IoTrashBinOutline />
+                  </button>
+                </div>
 
               </div>
             ))}
