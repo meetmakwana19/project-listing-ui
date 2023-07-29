@@ -92,6 +92,15 @@ export default function DevProfile() {
     fetchProposals();
   };
 
+  const getStatusText = (proposal) => {
+    if (proposal.pending) {
+      return "Pending";
+    } if (proposal.accepted) {
+      return "Accepted";
+    }
+    return "Rejected";
+  };
+
   const skills = developer?.skills;
   if (
     !Object.keys(developer).length > 0 && !Object.keys(organization).length > 0
@@ -280,7 +289,8 @@ export default function DevProfile() {
                     // eslint-disable-next-line no-nested-ternary
                     className={`border border-slate-300 px-2 py-1 bg-accent/5 text-sm rounded-2xl text-accent ${proposal.pending ? "bg-yellow-100 text-orange-600 border-orange-300" : proposal.accepted ? "bg-green-100 text-green-800 border-green-300" : "bg-red-100 text-red-800 border-red-300"}`}
                   >
-                    {proposal.pending ? "Pending" : "Accepted"}
+                    {/* {proposal.pending ? "Pending" : "Accepted"} */}
+                    {getStatusText(proposal)}
                   </span>
 
                 </div>
