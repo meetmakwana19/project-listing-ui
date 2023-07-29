@@ -154,6 +154,7 @@ function DeveloperMain() {
       >
         <div className="flex flex-col px-5 py-7">
           <h1 className="text-2xl font-semibold mb-3">Project History</h1>
+
           {/* ---------TODO: Project History------------ */}
           <div className="border-b py-5 border-slate-300 ">
             <h2 className="text-xl font-semibold mb-3">
