@@ -29,6 +29,7 @@ function CompanyDetails({
     )
       .then((response) => response.json())
       .then((data) => {
+        console.log("proposals : ", data);
         setOrgProposals(data.data);
       });
   };
@@ -192,36 +193,44 @@ function CompanyDetails({
               <h1 className="text-2xl font-semibold mb-3">Company&apos;s Projects Proposals</h1>
               {/* ---------TODO: Comapny Projects------------ */}
               <div className="border-b py-5 border-slate-300 ">
-                {orgProposals && orgProposals.map((project) => (
-                  <div className="flex items-center my-5" key={project.uid}>
+                {orgProposals && orgProposals.map((proposal) => (
+                  <div className="flex items-center my-5" key={proposal.uid}>
                     <img
-                      src={project.project.thumbnail}
+                      src={proposal.project.thumbnail}
                       alt=""
                       className="w-[10vw] md:w-20 rounded-full  object-cover aspect-square mr-[-15%]"
                     />
-                    <Link to={`/developers/${project.developer.uid}`}>
+                    <Link to={`/developers/${proposal.developer.uid}`}>
                       <img
-                        src={project.developer.profile_pic}
+                        src={proposal.developer.profile_pic}
                         alt=""
                         className="w-[10vw] md:w-20 rounded-full  object-cover aspect-square mx-8"
                       />
                     </Link>
-                    <div>
-                      <Link to={`/projects/${project.project.uid}`} className="text-xl font-semibold mt-3 hover:text-accent">{project.project.title}</Link>
+                    <div className="flex flex-col items-start">
+                      {/* badge for proposal status */}
+                      <p
+                    // eslint-disable-next-line no-nested-ternary
+                        className={`border border-slate-300 px-2 py-1 bg-accent/5 text-sm rounded-2xl text-accent ${proposal.pending ? "bg-yellow-100 text-orange-600 border-orange-300" : proposal.accepted ? "bg-green-100 text-green-800 border-green-300" : "bg-red-100 text-red-800 border-red-300"}`}
+                      >
+                        {proposal.pending ? "Pending" : "Accepted"}
+                      </p>
+
+                      <Link to={`/projects/${proposal.project.uid}`} className="text-xl font-semibold mt-3 hover:text-accent">{proposal.project.title}</Link>
                       <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
                         {/* ------------------------ Developer City-------------------------- */}
-                        <p>{project.project.uid}</p>
+                        <p>{proposal.project.uid}</p>
                       </div>
                       <p className="description mb-4">
                         Proposal :
                         {' '}
-                        {project.uid}
+                        {proposal.uid}
                         {' '}
                         by
                         {' '}
-                        {project.developer.fname}
+                        {proposal.developer.fname}
                         {" "}
-                        {project.developer.lname}
+                        {proposal.developer.lname}
                       </p>
                     </div>
                   </div>

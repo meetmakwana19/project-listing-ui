@@ -17,7 +17,7 @@ import ProjectAdd from './modules/ProjectAdd';
 
 import DevLogin from './components/form/login/DevLogin';
 import OrgLogin from './components/form/login/OrgLogin';
-import DevProfile from './components/profile/DevProfile';
+import Profile from './components/profile/Profile';
 
 function App() {
   return (
@@ -70,7 +70,7 @@ function App() {
           {/* -------------Dev Profile----------------- */}
           <Route
             path="/profile"
-            element={<DevProfile />}
+            element={<Profile />}
           />
           <Route
             path="/login"

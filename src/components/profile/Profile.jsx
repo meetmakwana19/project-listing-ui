@@ -12,7 +12,7 @@ import CompanyDetails from '../CompanyDetails';
 import CompanyUpdateModal from './CompanyUpdateModal';
 import ConfirmationDialog from '../modals/ConfirmationDialog';
 
-function DevProfile() {
+export default function DevProfile() {
   const [developer, setDeveloper] = useState([]);
   const [organization, setOrganization] = useState([]);
   const [proposals, setProposals] = useState([]);
@@ -272,9 +272,17 @@ function DevProfile() {
                   <h2 className="text-lg lg:text-2xl font-semibold mb-3 text-slate-800">
                     {proposal.project.title}
                   </h2>
-                  <p className="text-sm lg:text-lg font-normal text-slate-600">
+                  <p className="text-sm lg:text-lg font-normal text-slate-600 mb-2">
                     {proposal.project.uid}
                   </p>
+                  {/* badge for proposal status */}
+                  <span
+                    // eslint-disable-next-line no-nested-ternary
+                    className={`border border-slate-300 px-2 py-1 bg-accent/5 text-sm rounded-2xl text-accent ${proposal.pending ? "bg-yellow-100 text-orange-600 border-orange-300" : proposal.accepted ? "bg-green-100 text-green-800 border-green-300" : "bg-red-100 text-red-800 border-red-300"}`}
+                  >
+                    {proposal.pending ? "Pending" : "Accepted"}
+                  </span>
+
                 </div>
                 {/* -------Delete Button------- */}
                 {/* render ConfirmationDialog only if selectedUID && deleteBtn are available */}
@@ -316,5 +324,3 @@ function DevProfile() {
     />
   );
 }
-
-export default DevProfile;
