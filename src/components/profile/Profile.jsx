@@ -7,13 +7,14 @@ import { IoTrashBinOutline } from 'react-icons/io5';
 // import { BsPersonFillCheck } from 'react-icons/bs';
 // import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { LuEdit } from 'react-icons/lu';
 import UpdateModal from './UpdateModal';
 import CompanyDetails from '../CompanyDetails';
 import CompanyUpdateModal from './CompanyUpdateModal';
 import ConfirmationDialog from '../modals/ConfirmationDialog';
 import ProjectHistoryUpdate from '../modals/ProjectHistoryUpdate';
 
-export default function DevProfile() {
+export default function Profile() {
   const [developer, setDeveloper] = useState([]);
   const [organization, setOrganization] = useState([]);
   const [proposals, setProposals] = useState([]);
@@ -113,6 +114,7 @@ export default function DevProfile() {
   const handleDeleteSuccess = () => {
     // Fetch the updated proposals from the server
     fetchProposals();
+    fetchHistory();
   };
 
   const getStatusText = (proposal) => {
@@ -122,6 +124,15 @@ export default function DevProfile() {
       return "Accepted";
     }
     return "Rejected";
+  };
+
+  const updateProject = (uid) => {
+    console.log("Updating ", uid);
+  };
+  const deleteProject = (uid) => {
+    setDeleteBtn(!deleteBtn);
+    setSelectedUID(uid);
+    console.log("Deleting ", uid);
   };
 
   const skills = developer?.skills;
@@ -361,7 +372,7 @@ export default function DevProfile() {
                     {project.title}
                   </h2>
                   {/* ------------------------ Project timeline-------------------------- */}
-                  <div className="flex place-content-start items-center w-full text-slate-600 gap-1 mb-2">
+                  <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
                     <p>
                       {project.startDate}
                     &nbsp;to&nbsp;
@@ -378,6 +389,41 @@ export default function DevProfile() {
                   <p className="description">
                     {project.description}
                   </p>
+                </div>
+                <div>
+                  {/* -------Delete Button------- */}
+                  {/* render ConfirmationDialog only if selectedUID && deleteBtn are available */}
+                  {selectedUID && deleteBtn && (
+                  <ConfirmationDialog
+                    cancel={() => setDeleteBtn(!deleteBtn)}
+                    deleteBtn={deleteBtn}
+                    setDeleteBtn={setDeleteBtn}
+                    propUid={selectedUID}
+                    onDeleteSuccess={handleDeleteSuccess}
+                  />
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => updateProject(project.uid)}
+                    // onClick={() => window.ProjectHistoryUpdate.showModal()}
+                  >
+                    <LuEdit className="absolute text-3xl text-accent hover:bg-accent/10 " />
+                  </button>
+                  &nbsp;
+                  &nbsp;
+                  &nbsp;
+                  &nbsp;
+                  &nbsp;
+                  &nbsp;
+                  &nbsp;
+
+                  <button
+                    type="button"
+                    onClick={() => deleteProject(project.uid)}
+                    className="text-red-500 text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-xl"
+                  >
+                    <IoTrashBinOutline />
+                  </button>
                 </div>
               </div>
             ))}

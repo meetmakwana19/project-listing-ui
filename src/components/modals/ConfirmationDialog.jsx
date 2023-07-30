@@ -8,16 +8,31 @@ function ConfirmationDialog({
   onDeleteSuccess,
 }) {
   const requestDelete = async (uid) => {
-    fetch(`https://projekto-backend.onrender.com/proposals/${uid}`, {
-      method: "DELETE",
-      headers: {
-        authorization: localStorage.getItem("authToken"),
-      },
-    })
-      .then((response) => response.json())
-      .then(() => {
-        onDeleteSuccess();
-      });
+    // giving 2 functionalities to same component
+    // so checking here if the incoming uid is of history projects
+    if (uid.startsWith("hist")) {
+      fetch(`https://projekto-backend.onrender.com/project-histories/${uid}`, {
+        method: "DELETE",
+        headers: {
+          authorization: localStorage.getItem("authToken"),
+        },
+      })
+        .then((response) => response.json())
+        .then(() => {
+          onDeleteSuccess();
+        });
+    } else {
+      fetch(`https://projekto-backend.onrender.com/proposals/${uid}`, {
+        method: "DELETE",
+        headers: {
+          authorization: localStorage.getItem("authToken"),
+        },
+      })
+        .then((response) => response.json())
+        .then(() => {
+          onDeleteSuccess();
+        });
+    }
     setDeleteBtn(!deleteBtn);
   };
 
