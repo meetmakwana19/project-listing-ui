@@ -122,7 +122,7 @@ function CompanyDetails({
             />
           </div>
           {/* <LuEdit className='absolute right-8 top-9 text-2xl text-accent hover:bg-accent/10' /> */}
-          <div className={` absolute right-0 top-0 ${edit}`}>
+          <div className={` absolute -top-12 -right-5 md:right-0  md:top-0 ${edit}`}>
             {update}
             {' '}
           </div>

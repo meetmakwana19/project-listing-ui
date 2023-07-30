@@ -11,6 +11,7 @@ import UpdateModal from './UpdateModal';
 import CompanyDetails from '../CompanyDetails';
 import CompanyUpdateModal from './CompanyUpdateModal';
 import ConfirmationDialog from '../modals/ConfirmationDialog';
+import ProjectHistoryUpdate from '../modals/ProjectHistoryUpdate';
 
 export default function DevProfile() {
   const [developer, setDeveloper] = useState([]);
@@ -316,6 +317,66 @@ export default function DevProfile() {
             ))}
           </div>
         </div>
+        {/* ----------Project History----------- */}
+        <div
+          className="flex w-full lg:w-3/5 md:w-4/5 flex-col justify-center
+            items-center border z-10 relative
+           border-slate-300  bg-white/50 rounded-2xl my-6 mb-10"
+        >
+          <div className="flex flex-col px-5 py-7 relative">
+            <h1 className="text-2xl font-semibold mb-3">Project History</h1>
+            <div className={` absolute -top-12 -right-5 md:right-0  md:top-0 `}>
+              <ProjectHistoryUpdate />
+            </div>
+
+            {/* ---------TODO: Project History------------ */}
+            <div className="border-b py-5 border-slate-300 ">
+              {/* ------------------------ Project title-------------------------- */}
+              <h2 className="text-xl font-semibold mb-3">
+                Web Developer | Freelance
+              </h2>
+              {/* ------------------------ Project timeline-------------------------- */}
+              <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
+
+                <p>January 2020 - December 2022</p>
+              </div>
+              <p className="description">
+                Key Responsibilities:
+                {' '}
+                <br />
+                Hello!, I&apos;m full stack developer seeking side projects, My
+                skill set extends beyond technical proficiency. I have a keen eye
+                for design, allowing me to effectively transform wireframes and
+                mockups into visually appealing interfaces. I understand the
+                importance of creating intuitive user experiences that engage and
+                captivate visitors, ultimately leading to increased conversion
+                rates and customer satisfaction.
+              </p>
+            </div>
+            <div className="border-b py-5 border-slate-300">
+              <h2 className="text-xl font-semibold mb-3">
+                Web Developer | Freelance
+              </h2>
+              <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
+                {/* ------------------------ Project Timeline-------------------------- */}
+                <p>January 2020 - December 2022</p>
+              </div>
+              <p className="description">
+                Key Responsibilities:
+                {' '}
+                <br />
+                Hello!, I&apos;m full stack developer seeking side projects, My
+                skill set extends beyond technical proficiency. I have a keen eye
+                for design, allowing me to effectively transform wireframes and
+                mockups into visually appealing interfaces. I understand the
+                importance of creating intuitive user experiences that engage and
+                captivate visitors, ultimately leading to increased conversion
+                rates and customer satisfaction.
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
     );
   }
