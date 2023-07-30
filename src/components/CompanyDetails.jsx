@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import { IoTrashBinOutline } from "react-icons/io5";
 import { TiThumbsUp, TiThumbsDown } from "react-icons/ti";
+import { MdPendingActions } from "react-icons/md";
 import { Link, useParams } from "react-router-dom";
 import ProjectDeleteConfirmationDialog from "./modals/ProjectDeleteConfirmationDialog";
 
@@ -257,11 +258,11 @@ function CompanyDetails({
             <div className="flex flex-col   w-full ">
               <h1 className="text-2xl px-5 font-semibold my-7">Company&apos;s Projects Proposals</h1>
               {/* ---------TODO: Comapny Projects------------ */}
-              <div className="border-t px-5 py-5 border-slate-300 justify-between gap-5 relative">
+              <div className="border-t px-5 py-5 border-slate-300 justify-start md:justify-between gap-2 md:gap-5 relative">
                 {orgProposals && orgProposals.map((proposal) => (
                   <div className="flex items-start justify-start md:items-start md:justify-start my-5 relative" key={proposal.uid}>
                     {/* -----------Thumbnail------------ */}
-                    <div className="flex order-1 w-1/3 md:w-1/6 relative">
+                    <div className="flex order-1 w-[25%] m-0 md:w-1/6 relative">
                       <img
                         src={proposal.project.thumbnail}
                         alt=""
@@ -275,7 +276,7 @@ function CompanyDetails({
                         />
                       </Link>
                     </div>
-                    <div className="flex  order-2 w-1/2 md:pl-6 flex-col items-start">
+                    <div className="flex order-2 md:w-1/2 md:pl-6 flex-col items-start">
                       {/* badge for proposal status */}
                       <p
                     // eslint-disable-next-line no-nested-ternary
@@ -301,26 +302,38 @@ function CompanyDetails({
                         {proposal.developer.lname}
                       </p>
                     </div>
-                    <button type="button" className={`rflex bg-[green] px-4 py-2 items-center justify-center text-white hover:bg-white hover:text-[green] hover:border-[green] font-medium border border-slate-300 rounded-full ${proposal.accepted ? "cursor-not-allowed opacity-50" : ""}`} onClick={() => handleProposal("accept", proposal.uid)} disabled={proposal.accepted}>Accept</button>
 
-                    <button type="button" className={`rflex text-orange-600 bg-yellow-300 px-4 py-2 mx-2 items-center justify-center hover:bg-orange-400 hover:text-[yellow] hover:border-[yellow] font-medium border border-slate-300 rounded-full ${proposal.pending ? "cursor-not-allowed opacity-50" : ""}`} onClick={() => handleProposal("pending", proposal.uid)} disabled={proposal.pending}>Pending</button>
-
-                    <button type="button" className={`flex bg-[red] px-4 py-2 mx-2 items-center justify-center text-white hover:bg-white hover:text-[red] hover:border-[red] font-medium border border-slate-300 rounded-full ${proposal.rejected ? "cursor-not-allowed opacity-50" : ""}`} disabled={proposal.rejected} onClick={() => handleProposal("reject", proposal.uid)}>Reject</button>
                     <div className="absolute top-0 right-0 md:flex">
                       <div className="flex gap-2">
                         <button
+                          onClick={() => handleProposal("accept", proposal.uid)}
+                          disabled={proposal.accepted}
                           type="button"
-                          // onClick={() => deleteProject(project.uid)}
-                          className="text-green-500 text-xl lg:text-2xl bg-green-50 hover:bg-green-500 hover:text-white p-3 rounded-xl"
+                          className={`flex items-center text-green-500 text-xl lg:text-2xl bg-green-50 hover:bg-green-500
+                           hover:text-white p-3 rounded-xl ${proposal.accepted ? 'hidden' : ''}`}
                         >
+                          <p className="text-sm md:text-base pr-1 md:px-2">Accept</p>
                           <TiThumbsUp />
                         </button>
                         <button
+                          disabled={proposal.rejected}
+                          onClick={() => handleProposal("reject", proposal.uid)}
                           type="button"
-                          // onClick={() => deleteProject(project.uid)}
-                          className="text-red-500 text-xl lg:text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-xl"
+                          className={`flex items-center text-red-500 text-xl lg:text-2xl bg-red-50 hover:bg-red-500
+                           hover:text-white p-3 rounded-xl  ${proposal.rejected ? 'hidden' : ''}`}
                         >
+                          <p className="text-sm md:text-base pr-1 md:px-2">Reject</p>
                           <TiThumbsDown />
+                        </button>
+                        <button
+                          onClick={() => handleProposal("pending", proposal.uid)}
+                          disabled={proposal.pending}
+                          type="button"
+                          className={`flex items-center text-orange-500 text-xl lg:text-2xl bg-yellow-50 hover:bg-yellow-500
+                           hover:text-white p-3 rounded-xl  ${proposal.pending ? 'hidden' : ''}`}
+                        >
+                          <p className="text-sm md:text-base pr-1 md:px-2">Pending</p>
+                          <MdPendingActions />
                         </button>
                       </div>
                     </div>
