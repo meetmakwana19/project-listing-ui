@@ -122,7 +122,7 @@ function CompanyDetails({
             />
           </div>
           {/* <LuEdit className='absolute right-8 top-9 text-2xl text-accent hover:bg-accent/10' /> */}
-          <div className={` absolute right-0 top-0 ${edit}`}>
+          <div className={` absolute -top-12 -right-5 md:right-0  md:top-0 ${edit}`}>
             {update}
             {' '}
           </div>
@@ -312,7 +312,7 @@ function CompanyDetails({
                           className={`flex items-center text-green-500 text-xl lg:text-2xl bg-green-50 hover:bg-green-500
                            hover:text-white p-3 rounded-xl ${proposal.accepted ? 'hidden' : ''}`}
                         >
-                          <p className="text-sm md:text-base pr-1 md:px-2">Accept</p>
+                          <p className="hidden md:flex text-sm md:text-base pr-1 md:px-2">Accept</p>
                           <TiThumbsUp />
                         </button>
                         <button
@@ -322,7 +322,7 @@ function CompanyDetails({
                           className={`flex items-center text-red-500 text-xl lg:text-2xl bg-red-50 hover:bg-red-500
                            hover:text-white p-3 rounded-xl  ${proposal.rejected ? 'hidden' : ''}`}
                         >
-                          <p className="text-sm md:text-base pr-1 md:px-2">Reject</p>
+                          <p className="hidden md:flex text-sm md:text-base pr-1 md:px-2">Reject</p>
                           <TiThumbsDown />
                         </button>
                         <button
@@ -332,7 +332,7 @@ function CompanyDetails({
                           className={`flex items-center text-orange-500 text-xl lg:text-2xl bg-yellow-50 hover:bg-yellow-500
                            hover:text-white p-3 rounded-xl  ${proposal.pending ? 'hidden' : ''}`}
                         >
-                          <p className="text-sm md:text-base pr-1 md:px-2">Pending</p>
+                          <p className="hidden md:flex text-sm md:text-base pr-1 md:px-2">Pending</p>
                           <MdPendingActions />
                         </button>
                       </div>

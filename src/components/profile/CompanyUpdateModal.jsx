@@ -27,7 +27,6 @@ function CompanyUpdateModal({ organization, setOrganization }) {
       {/* Open the modal using ID.showModal() method */}
       <button
         type="button"
-        className="btn"
         onClick={() => window.my_modal_2.showModal()}
       >
         <LuEdit className="absolute right-8 top-9 text-2xl text-accent hover:bg-accent/10 " />
