@@ -2,9 +2,8 @@ import { LuEdit } from 'react-icons/lu';
 // import { useNavigate } from 'react-router-dom';
 // Initialization for ES Users
 
-function ProjectHistoryUpdate(
-  // { projectHistory, setProjectHistory }
-) {
+function ProjectHistoryUpdate() {
+// function ProjectHistoryUpdate( { projectHistory, setProjectHistory }) {
 //   const navigate = useNavigate(); // ued for navigation
 //   const handleUpdate = (e) => {
 //     e.preventDefault();
@@ -54,7 +53,7 @@ function ProjectHistoryUpdate(
               <input
                 minLength={1}
                 maxLength={50}
-                required="true"
+                required
                 placeholder="Google"
                 type="text"
                 // value={projectHistory.name}
