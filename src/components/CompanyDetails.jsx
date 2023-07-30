@@ -233,6 +233,8 @@ function CompanyDetails({
                 {/* -------Delete Button------- */}
 
                 <div className="absolute top-6 right-3 md:flex">
+                  {localStorage.getItem("isOrg")
+                  && (
                   <button
                     type="button"
                     onClick={() => deleteProject(project.uid)}
@@ -240,6 +242,7 @@ function CompanyDetails({
                   >
                     <IoTrashBinOutline />
                   </button>
+                  )}
                 </div>
 
               </div>
