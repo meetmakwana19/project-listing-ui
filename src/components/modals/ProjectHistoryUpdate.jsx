@@ -1,29 +1,44 @@
+import { useState } from 'react';
 import { LuEdit } from 'react-icons/lu';
 // import { useNavigate } from 'react-router-dom';
 // Initialization for ES Users
 
-function ProjectHistoryUpdate() {
+function ProjectHistoryUpdate({ fetchHistory }) {
 // function ProjectHistoryUpdate( { projectHistory, setProjectHistory }) {
-//   const navigate = useNavigate(); // ued for navigation
-//   const handleUpdate = (e) => {
-//     e.preventDefault();
-//     fetch(`https://projekto-backend.onrender.com/developers/${developer.uid}`, {
-//       method: 'PATCH',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         authorization: localStorage.getItem('authToken'),
-//       },
-//       body: JSON.stringify(projectHistory),
-//     })
-//       .then((response) => response.json())
-//       .then((data) => {
-//         alert(`${data.message}`);
-//         navigate("/");
-//       })
-//       .catch((error) => {
-//         console.log('POSTING error --> ', error);
-//       });
-//   };
+  const [formData, setFormData] = useState({
+    title: "",
+    link: "",
+    description: "",
+    startDate: "",
+    endDate: "",
+    developer: localStorage.getItem("isDev"),
+  });
+  // console.log("FromData : ", formData);
+
+  const postProject = async () => {
+    console.log("Posting started");
+    fetch(`https://projekto-backend.onrender.com/project-histories`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem("authToken"),
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log("History -----", data);
+        if (data.error) {
+          alert(`${data.message} : ${data.error}`);
+        }
+        alert(data.message);
+        fetchHistory();
+      });
+  };
+  const handleSubmit = () => {
+    console.log("clicked");
+    postProject();
+  };
   return (
     <>
       {/* Open the modal using ID.showModal() method */}
@@ -39,10 +54,10 @@ function ProjectHistoryUpdate() {
       >
         <form
           method="dialog"
-          className="modal-box  bg-white rounded-2xl p-10"
+          className="modal-box bg-white rounded-2xl p-10"
         >
           <h1 className="flex items-center justify-center w-full text-2xl font-semibold border-b pb-4 text-slate-800">
-            Update Projects
+            Add your Project in History
           </h1>
           <div className="w-full my-6 mr-0 ml-0 relative space-y-8 h-[60vh] overflow-y-scroll scroll-smooth z-10 scrollbar px-3">
             {/* ------Project title--------- */}
@@ -56,9 +71,9 @@ function ProjectHistoryUpdate() {
                 required
                 placeholder="Google"
                 type="text"
-                // value={projectHistory.name}
-                // onChange={(event) => setProjectHistory({ ...projectHistory, name: event.target.value })}
-                className="border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+                value={formData.title}
+                onChange={(event) => setFormData({ ...formData, title: event.target.value })}
+                className="border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
               />
             </div>
             {/* ------Project Link--------- */}
@@ -69,8 +84,8 @@ function ProjectHistoryUpdate() {
               <input
                 placeholder="e.g example.com"
                 type="text"
-                // value={projectHistory.website}
-                // onChange={(event) => setProjectHistory({ ...projectHistory, website: event.target.value })}
+                value={formData.link}
+                onChange={(event) => setFormData({ ...formData, link: event.target.value })}
                 className="border lowercase placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
@@ -86,9 +101,9 @@ function ProjectHistoryUpdate() {
                 maxLength={350}
                 placeholder="e.g key responsibilities"
                 type="text"
-                // value={projectHistory.website}
-                // onChange={(event) => setProjectHistory({ ...projectHistory, website: event.target.value })}
-                className="border lowercase placeholder-gray-400 focus:outline-none
+                value={formData.description}
+                onChange={(event) => setFormData({ ...formData, description: event.target.value })}
+                className="border placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
               />
@@ -102,8 +117,8 @@ function ProjectHistoryUpdate() {
                 <input
                   placeholder="e.g example.com"
                   type="date"
-                // value={projectHistory.website}
-                // onChange={(event) => setProjectHistory({ ...projectHistory, website: event.target.value })}
+                  value={formData.startDate}
+                  onChange={(event) => setFormData({ ...formData, startDate: event.target.value })}
                   className="border lowercase placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
@@ -117,8 +132,8 @@ function ProjectHistoryUpdate() {
                 <input
                   placeholder="e.g example.com"
                   type="date"
-                // value={projectHistory.website}
-                // onChange={(event) => setProjectHistory({ ...projectHistory, website: event.target.value })}
+                  value={formData.endDate}
+                  onChange={(event) => setFormData({ ...formData, endDate: event.target.value })}
                   className="border lowercase placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
@@ -128,11 +143,11 @@ function ProjectHistoryUpdate() {
           </div>
           <button
             type="button"
-            // onClick={(e) => handleUpdate(e)}
+            onClick={(e) => handleSubmit(e)}
             className="cursor-pointer inline-block  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center
              text-white bg-indigo-500 rounded-lg duration-200 hover:bg-indigo-600 ease w-full"
           >
-            Update
+            Add
           </button>
         </form>
         <form method="dialog">

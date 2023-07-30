@@ -17,6 +17,7 @@ export default function DevProfile() {
   const [developer, setDeveloper] = useState([]);
   const [organization, setOrganization] = useState([]);
   const [proposals, setProposals] = useState([]);
+  const [projectHistory, setProjectHistory] = useState([]);
   const [deleteBtn, setDeleteBtn] = useState(false);
   // need this state variable to keep track of the uid got from delete button click
   const [selectedUID, setSelectedUID] = useState([]);
@@ -77,9 +78,30 @@ export default function DevProfile() {
     }
     // console.log('fetched info------------', fetched.data[0]);
   };
+  const fetchHistory = async () => {
+    let id;
+    let url;
+    if (localStorage.getItem('isDev')) {
+      id = localStorage.getItem('isDev');
+      url = `?developer=${id}`;
+    } else {
+      url = ``;
+    }
+
+    const response = await fetch(
+      `https://projekto-backend.onrender.com/project-histories${url}`,
+      { mode: 'cors' },
+    );
+    const fetched = await response.json();
+    if (localStorage.getItem('isDev')) {
+      await setProjectHistory(fetched.data);
+    }
+    // console.log('fetched info------------', fetched.data);
+  };
 
   useEffect(() => {
     fetchProfile();
+    fetchHistory();
   }, []);
 
   const deleteProposal = (uid) => {
@@ -323,57 +345,42 @@ export default function DevProfile() {
             items-center border z-10 relative
            border-slate-300  bg-white/50 rounded-2xl my-6 mb-10"
         >
-          <div className="flex flex-col px-5 py-7 relative">
+          <div className="flex flex-col px-5 py-7 relative w-full">
             <h1 className="text-2xl font-semibold mb-3">Project History</h1>
             <div className={` absolute -top-12 -right-5 md:right-0  md:top-0 `}>
-              <ProjectHistoryUpdate />
+              <ProjectHistoryUpdate fetchHistory={fetchHistory} />
             </div>
 
             {/* ---------TODO: Project History------------ */}
-            <div className="border-b py-5 border-slate-300 ">
-              {/* ------------------------ Project title-------------------------- */}
-              <h2 className="text-xl font-semibold mb-3">
-                Web Developer | Freelance
-              </h2>
-              {/* ------------------------ Project timeline-------------------------- */}
-              <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
+            {projectHistory && projectHistory.map((project) => (
+              <div key={project.uid} className="flex flex-row justify-between border-b py-5 border-slate-300 ">
+                <div>
 
-                <p>January 2020 - December 2022</p>
+                  {/* ------------------------ Project title-------------------------- */}
+                  <h2 className="text-xl font-semibold">
+                    {project.title}
+                  </h2>
+                  {/* ------------------------ Project timeline-------------------------- */}
+                  <div className="flex place-content-start items-center w-full text-slate-600 gap-1 mb-2">
+                    <p>
+                      {project.startDate}
+                    &nbsp;to&nbsp;
+                      {project.endDate}
+                    </p>
+                  </div>
+                  <Link
+                    to={project?.link}
+                    target="_blank"
+                    className="contact-dev"
+                  >
+                    {project?.link}
+                  </Link>
+                  <p className="description">
+                    {project.description}
+                  </p>
+                </div>
               </div>
-              <p className="description">
-                Key Responsibilities:
-                {' '}
-                <br />
-                Hello!, I&apos;m full stack developer seeking side projects, My
-                skill set extends beyond technical proficiency. I have a keen eye
-                for design, allowing me to effectively transform wireframes and
-                mockups into visually appealing interfaces. I understand the
-                importance of creating intuitive user experiences that engage and
-                captivate visitors, ultimately leading to increased conversion
-                rates and customer satisfaction.
-              </p>
-            </div>
-            <div className="border-b py-5 border-slate-300">
-              <h2 className="text-xl font-semibold mb-3">
-                Web Developer | Freelance
-              </h2>
-              <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
-                {/* ------------------------ Project Timeline-------------------------- */}
-                <p>January 2020 - December 2022</p>
-              </div>
-              <p className="description">
-                Key Responsibilities:
-                {' '}
-                <br />
-                Hello!, I&apos;m full stack developer seeking side projects, My
-                skill set extends beyond technical proficiency. I have a keen eye
-                for design, allowing me to effectively transform wireframes and
-                mockups into visually appealing interfaces. I understand the
-                importance of creating intuitive user experiences that engage and
-                captivate visitors, ultimately leading to increased conversion
-                rates and customer satisfaction.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
 
