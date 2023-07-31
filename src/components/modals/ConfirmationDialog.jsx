@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function ConfirmationDialog({
   cancel,
@@ -7,6 +7,20 @@ function ConfirmationDialog({
   propUid,
   onDeleteSuccess,
 }) {
+  const [showModal, setShowModal] = useState(false);
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.keyCode === 27) { // Escape key
+        setShowModal(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
   const requestDelete = async (uid) => {
     // giving 2 functionalities to same component
     // so checking here if the incoming uid is of history projects
@@ -37,6 +51,7 @@ function ConfirmationDialog({
   };
 
   return (
+
     <div className="flex fixed inset-0 items-center justify-center h-screen w-screen bg-slate-500/40 z-[999] transition">
       <div className="flex items-center justify-center rounded-xl bg-white p-12 lg:px-36 flex-col  shadow-md border-2 border-slate-300">
         <h1 className="text-xl lg:text-3xl font-medium text-slate-800 ">
