@@ -27,7 +27,7 @@ function DeveloperMain() {
     if (localStorage.getItem('isDev')) {
       await setProjectHistory(fetched.data);
     }
-    // console.log('fetched info------------', fetched.data);
+    // console.log('fetched info ------------', fetched.data);
   };
 
   const fetchDeveloper = async () => {
