@@ -12,22 +12,13 @@ function DeveloperMain() {
   const [projectHistory, setProjectHistory] = useState([]);
 
   const fetchHistory = async (id) => {
-    let url;
-    if (localStorage.getItem('isDev')) {
-      url = `?developer=${id}`;
-    } else {
-      url = ``;
-    }
-
     const response = await fetch(
-      `https://projekto-backend.onrender.com/project-histories${url}`,
+      `https://projekto-backend.onrender.com/project-histories?developer=${id}`,
       { mode: 'cors' },
     );
     const fetched = await response.json();
-    if (localStorage.getItem('isDev')) {
-      await setProjectHistory(fetched.data);
-    }
-    // console.log('fetched info ------------', fetched.data);
+    await setProjectHistory(fetched.data);
+    // console.log('fetched info ------------', projectHistory);
   };
 
   const fetchDeveloper = async () => {
