@@ -82,7 +82,7 @@ function ProjectDetails() {
             </h1>
             {/* Domain */}
             <Link
-              href="/organizations/"
+              to={`/companies/${project?.proj_organization.uid}`}
               className="text-accent px-6 my-2 text-base font-medium underline"
             >
               Posted by
