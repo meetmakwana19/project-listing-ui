@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { LuEdit } from 'react-icons/lu';
 
-function ProjectHistoryEdit({ fetchHistory }) {
+function ProjectHistoryEdit({ fetchHistory, projectUID }) {
   const [formData, setFormData] = useState({
     title: "",
     link: "",
@@ -10,7 +10,7 @@ function ProjectHistoryEdit({ fetchHistory }) {
     endDate: "",
     developer: localStorage.getItem("isDev"),
   });
-  // console.log("FromData : ", formData);
+
   // modal
   const [showModal, setShowModal] = useState(false);
   useEffect(() => {
@@ -27,10 +27,9 @@ function ProjectHistoryEdit({ fetchHistory }) {
     };
   }, []);
 
-  const postProject = async () => {
-    console.log("Posting started");
-    fetch(`https://projekto-backend.onrender.com/project-histories`, {
-      method: "POST",
+  const updateProject = async (uid) => {
+    fetch(`https://projekto-backend.onrender.com/project-histories/${uid}`, {
+      method: "PATCH",
       headers: {
         'Content-Type': 'application/json',
         authorization: localStorage.getItem("authToken"),
@@ -39,7 +38,6 @@ function ProjectHistoryEdit({ fetchHistory }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log("History -----", data);
         if (data.error) {
           alert(`${data.message} : ${data.error}`);
         }
@@ -47,16 +45,39 @@ function ProjectHistoryEdit({ fetchHistory }) {
         fetchHistory();
       });
   };
-  const handleSubmit = () => {
-    console.log("clicked");
-    postProject();
+  const handleSubmit = (uid) => {
+    updateProject(uid);
+  };
+
+  const fetchProject = async (uid) => {
+    fetch(`https://projekto-backend.onrender.com/project-histories/${uid}`, {
+      method: "GET",
+      headers: {
+        authorization: localStorage.getItem("authToken"),
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setFormData({
+          title: data.data.title,
+          link: data.data.link,
+          description: data.data.description,
+          startDate: data.data.startDate,
+          endDate: data.data.endDate,
+        });
+      });
+  };
+
+  const handleEdit = (uid) => {
+    fetchProject(uid);
+    setShowModal(!showModal);
   };
   return (
     <>
       {/* Open the modal using ID.showModal() method */}
       <button
         type="button"
-        onClick={() => setShowModal(!showModal)}
+        onClick={() => handleEdit(projectUID)}
         className="text-2xl p-2 md:p-3 rounded-xl bg-accent/10 hover:bg-accent text-accent hover:text-white"
       >
         <LuEdit />
@@ -157,7 +178,7 @@ function ProjectHistoryEdit({ fetchHistory }) {
             </div>
             <button
               type="button"
-              onClick={(e) => handleSubmit(e)}
+              onClick={() => handleSubmit(projectUID)}
               className="cursor-pointer inline-block  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center
              text-white bg-indigo-500 rounded-lg duration-200 hover:bg-indigo-600 ease w-full"
             >

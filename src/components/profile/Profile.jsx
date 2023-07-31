@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { BiSolidMap } from 'react-icons/bi';
 import { FaEnvelope, FaPhone } from 'react-icons/fa';
-import { BsGithub, BsLinkedin } from 'react-icons/bs';
+import {
+  BsGithub, BsLinkedin, BsGlobe, BsFillCalendarEventFill,
+} from 'react-icons/bs';
 import { IoTrashBinOutline } from 'react-icons/io5';
 // import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -125,13 +127,9 @@ export default function Profile() {
     return "Rejected";
   };
 
-  const updateProject = (uid) => {
-    console.log("Updating ", uid);
-  };
   const deleteProject = (uid) => {
     setDeleteBtn(!deleteBtn);
     setSelectedUID(uid);
-    console.log("Deleting ", uid);
   };
 
   const skills = developer?.skills;
@@ -362,7 +360,13 @@ export default function Profile() {
             </div>
 
             {/* ---------TODO: Project History------------ */}
-            {projectHistory && projectHistory.map((project) => (
+            {projectHistory.length === 0 && (
+            <h2 className="text-xl px-5 py-5">
+              No projects in your Project History. Please add some projects
+            </h2>
+
+            )}
+            {projectHistory.length > 0 && projectHistory.map((project) => (
               <div key={project.uid} className="flex flex-row justify-between border-t px-5 py-5 border-slate-300 relative">
                 <div>
 
@@ -372,7 +376,8 @@ export default function Profile() {
                   </h2>
                   {/* ------------------------ Project timeline-------------------------- */}
                   <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
-                    <p>
+                    <p className="flex  w-[56%] mb-2">
+                      <BsFillCalendarEventFill className="mr-[5%]" />
                       {project.startDate}
                     &nbsp;to&nbsp;
                       {project.endDate}
@@ -383,6 +388,7 @@ export default function Profile() {
                     target="_blank"
                     className="contact-dev"
                   >
+                    <BsGlobe />
                     {project?.link}
                   </Link>
                   <p className="description">
@@ -412,7 +418,7 @@ export default function Profile() {
                     >
                       <LuEdit className="text-2xl" />
                     </button> */}
-                    <ProjectHistoryEdit fetchHistory={fetchHistory} />
+                    <ProjectHistoryEdit fetchHistory={fetchHistory} projectUID={project.uid} />
                     <button
                       type="button"
                       onClick={() => deleteProject(project.uid)}
