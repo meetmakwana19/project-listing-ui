@@ -21,7 +21,8 @@ export default function Profile() {
   const [proposals, setProposals] = useState([]);
   const [projectHistory, setProjectHistory] = useState([]);
   const [deleteBtn, setDeleteBtn] = useState(false);
-  // need this state variable to keep track of the uid got from delete button click
+
+  // need this state variable to keep track of the uid got from edit and delete button click
   const [selectedUID, setSelectedUID] = useState([]);
 
   // --------------!Can avoid this useRef part as it is was later on not needed.
@@ -49,13 +50,12 @@ export default function Profile() {
       },
     );
     const fetched = await response.json();
-    // console.log('fetched ------------>', fetched.data);
-    // console.log('fetched 1 for ------------', fetched.data[0].developer.fname);
-    // console.log('fetched 2 for ------------', fetched.data[1].developer.fname);
     setProposals(fetched.data);
+    // console.log('fetched ------------>', fetched.data);
     // console.log('proposals>>>>>>>>>', proposalsRef.current);
   };
 
+  // fetching profile based on current logged in user type i.e. developer or organization
   const fetchProfile = async () => {
     let id;
     let url;
@@ -80,30 +80,24 @@ export default function Profile() {
     }
     // console.log('fetched info------------', fetched.data[0]);
   };
-  const fetchHistory = async () => {
-    let id;
-    let url;
-    if (localStorage.getItem('isDev')) {
-      id = localStorage.getItem('isDev');
-      url = `?developer=${id}`;
-    } else {
-      url = ``;
-    }
 
+  const fetchHistory = async () => {
     const response = await fetch(
-      `https://projekto-backend.onrender.com/project-histories${url}`,
+      `https://projekto-backend.onrender.com/project-histories?developer=${localStorage.getItem('isDev')}`,
       { mode: 'cors' },
     );
     const fetched = await response.json();
-    if (localStorage.getItem('isDev')) {
-      await setProjectHistory(fetched.data);
-    }
+    await setProjectHistory(fetched.data);
     // console.log('fetched info------------', fetched.data);
   };
 
   useEffect(() => {
     fetchProfile();
-    fetchHistory();
+
+    // fetch history only for developer.
+    if (localStorage.getItem('isDev')) {
+      fetchHistory();
+    }
   }, []);
 
   const deleteProposal = (uid) => {
@@ -113,11 +107,12 @@ export default function Profile() {
 
   // Callback function to be passed to the ConfirmationDialog
   const handleDeleteSuccess = () => {
-    // Fetch the updated proposals from the server
+    // Fetch the updated proposals and history from the server
     fetchProposals();
     fetchHistory();
   };
 
+  // dynamix text for proposals status
   const getStatusText = (proposal) => {
     if (proposal.pending) {
       return "Pending";
@@ -128,8 +123,8 @@ export default function Profile() {
   };
 
   const deleteProject = (uid) => {
-    setDeleteBtn(!deleteBtn);
-    setSelectedUID(uid);
+    setDeleteBtn(!deleteBtn); // toggle dialogue
+    setSelectedUID(uid); // set uid for the confirmationDialogue component.
   };
 
   const skills = developer?.skills;
@@ -410,14 +405,6 @@ export default function Profile() {
 
                   )}
                   <div className="flex gap-2">
-                    {/* <button
-                      className="order-1 p-2 md:p-3 rounded-xl bg-accent/10 hover:bg-accent text-accent hover:text-white "
-                      type="button"
-                      onClick={() => updateProject(project.uid)}
-                      // onClick={() => window.ProjectHistoryUpdate.showModal()}
-                    >
-                      <LuEdit className="text-2xl" />
-                    </button> */}
                     <ProjectHistoryEdit fetchHistory={fetchHistory} projectUID={project.uid} />
                     <button
                       type="button"
@@ -432,7 +419,6 @@ export default function Profile() {
             ))}
           </div>
         </div>
-
       </div>
     );
   }

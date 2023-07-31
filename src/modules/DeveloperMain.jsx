@@ -1,23 +1,49 @@
 import { useEffect, useState } from 'react';
 import { BiSolidMap } from 'react-icons/bi';
 import { FaEnvelope, FaPhone } from 'react-icons/fa';
-import { BsGithub, BsLinkedin } from 'react-icons/bs';
+import {
+  BsFillCalendarEventFill, BsGithub, BsGlobe, BsLinkedin,
+} from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
 
 function DeveloperMain() {
   const { uid } = useParams();
   const [developer, setDeveloper] = useState([]);
+  const [projectHistory, setProjectHistory] = useState([]);
+
+  const fetchHistory = async (id) => {
+    let url;
+    if (localStorage.getItem('isDev')) {
+      url = `?developer=${id}`;
+    } else {
+      url = ``;
+    }
+
+    const response = await fetch(
+      `https://projekto-backend.onrender.com/project-histories${url}`,
+      { mode: 'cors' },
+    );
+    const fetched = await response.json();
+    if (localStorage.getItem('isDev')) {
+      await setProjectHistory(fetched.data);
+    }
+    // console.log('fetched info------------', fetched.data);
+  };
+
+  const fetchDeveloper = async () => {
+    const response = await fetch(
+      `https://projekto-backend.onrender.com/developers/${uid}`,
+      { mode: 'cors' },
+    );
+    const fetchedDeveloper = await response.json();
+    setDeveloper(fetchedDeveloper.data);
+    // console.log('fetch Developer------------', fetchedDeveloper.data);
+
+    // fetching the developer's project history with his _id recieved from response.
+    fetchHistory(fetchedDeveloper.data._id);
+  };
 
   useEffect(() => {
-    const fetchDeveloper = async () => {
-      const response = await fetch(
-        `https://projekto-backend.onrender.com/developers/${uid}`,
-        { mode: 'cors' },
-      );
-      const fetchedDeveloper = await response.json();
-      setDeveloper(fetchedDeveloper.data);
-    //   console.log('fetch Developer------------', fetchedDeveloper.data);
-    };
     fetchDeveloper();
   }, []);
 
@@ -152,52 +178,47 @@ function DeveloperMain() {
             items-center border z-10 relative
            border-slate-300  bg-white/50 rounded-2xl my-6 mb-10"
       >
-        <div className="flex flex-col px-5 py-7">
-          <h1 className="text-2xl font-semibold mb-3">Project History</h1>
+        <div className="flex flex-col  pt-7 relative w-full">
+          <h1 className="text-2xl px-5 font-semibold mb-6">Project History</h1>
 
           {/* ---------TODO: Project History------------ */}
-          <div className="border-b py-5 border-slate-300 ">
-            <h2 className="text-xl font-semibold mb-3">
-              Web Developer | Freelance
+          {projectHistory.length === 0 && (
+            <h2 className="text-xl px-5 py-5">
+              {`No projects found in ${developer.fname}'s Project History.`}
             </h2>
-            <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
-              {/* ------------------------ Developer City-------------------------- */}
-              <p>January 2020 - December 2022</p>
+
+          )}
+          {projectHistory.length > 0 && projectHistory.map((project) => (
+            <div key={project.uid} className="flex flex-row justify-between border-t px-5 py-5 border-slate-300 relative">
+              <div>
+
+                {/* ------------------------ Project title-------------------------- */}
+                <h2 className="text-xl font-semibold">
+                  {project.title}
+                </h2>
+                {/* ------------------------ Project timeline-------------------------- */}
+                <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
+                  <p className="flex  w-[56%] mb-2">
+                    <BsFillCalendarEventFill className="mr-[5%]" />
+                    {project.startDate}
+                    &nbsp;to&nbsp;
+                    {project.endDate}
+                  </p>
+                </div>
+                <Link
+                  to={project?.link}
+                  target="_blank"
+                  className="contact-dev"
+                >
+                  <BsGlobe />
+                  {project?.link}
+                </Link>
+                <p className="description">
+                  {project.description}
+                </p>
+              </div>
             </div>
-            <p className="description">
-              Key Responsibilities:
-              {' '}
-              <br />
-              Hello!, I&apos;m full stack developer seeking side projects, My
-              skill set extends beyond technical proficiency. I have a keen eye
-              for design, allowing me to effectively transform wireframes and
-              mockups into visually appealing interfaces. I understand the
-              importance of creating intuitive user experiences that engage and
-              captivate visitors, ultimately leading to increased conversion
-              rates and customer satisfaction.
-            </p>
-          </div>
-          <div className="border-b py-5 border-slate-300">
-            <h2 className="text-xl font-semibold mb-3">
-              Web Developer | Freelance
-            </h2>
-            <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
-              {/* ------------------------ Developer City-------------------------- */}
-              <p>January 2020 - December 2022</p>
-            </div>
-            <p className="description">
-              Key Responsibilities:
-              {' '}
-              <br />
-              Hello!, I&apos;m full stack developer seeking side projects, My
-              skill set extends beyond technical proficiency. I have a keen eye
-              for design, allowing me to effectively transform wireframes and
-              mockups into visually appealing interfaces. I understand the
-              importance of creating intuitive user experiences that engage and
-              captivate visitors, ultimately leading to increased conversion
-              rates and customer satisfaction.
-            </p>
-          </div>
+          ))}
         </div>
       </div>
     </div>
