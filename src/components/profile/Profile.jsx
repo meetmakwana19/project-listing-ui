@@ -242,18 +242,7 @@ export default function Profile() {
                   {developer?.technical_role}
                 </h1>
                 <p className="description">
-                  Hello!, I&apos;m
-                  {' '}
-                  {developer?.technical_role}
-                  {' '}
-                  seeking side
-                  projects, My skill set extends beyond technical proficiency. I
-                  have a keen eye for design, allowing me to effectively
-                  transform wireframes and mockups into visually appealing
-                  product. I understand the importance of creating intuitive
-                  user experiences that engage and captivate visitors,
-                  ultimately leading to increased conversion rates and customer
-                  satisfaction.
+                  {developer?.about}
                 </p>
               </div>
               <div className="flex flex-col gap-2 px-5">

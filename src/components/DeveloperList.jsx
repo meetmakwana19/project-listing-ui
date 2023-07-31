@@ -23,6 +23,7 @@ const DeveloperList = ({ developersProp = [] }) => {
       profile_pic,
       uid,
       skills,
+      about,
     } = developer;
     return (
       <Link
@@ -87,10 +88,7 @@ const DeveloperList = ({ developersProp = [] }) => {
 
         {/* ------------TODO:  Description ------------- */}
         <p className="description">
-          Accenture is an Irish-American, professional services company based in
-          Dublin, specializing in information technology services and
-          consulting. Accenture is a global professional services company with
-          leading capabilities in digital, cloud, and security.
+          {about}
         </p>
 
         {/* -------------Skill---------------- */}
