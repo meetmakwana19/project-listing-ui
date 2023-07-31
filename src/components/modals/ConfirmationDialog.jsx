@@ -1,5 +1,3 @@
-import React from "react";
-
 function ConfirmationDialog({
   cancel,
   deleteBtn,
@@ -37,6 +35,7 @@ function ConfirmationDialog({
   };
 
   return (
+
     <div className="flex fixed inset-0 items-center justify-center h-screen w-screen bg-slate-500/40 z-[999] transition">
       <div className="flex items-center justify-center rounded-xl bg-white p-12 lg:px-36 flex-col  shadow-md border-2 border-slate-300">
         <h1 className="text-xl lg:text-3xl font-medium text-slate-800 ">

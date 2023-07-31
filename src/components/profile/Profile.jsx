@@ -3,16 +3,15 @@ import { BiSolidMap } from 'react-icons/bi';
 import { FaEnvelope, FaPhone } from 'react-icons/fa';
 import { BsGithub, BsLinkedin } from 'react-icons/bs';
 import { IoTrashBinOutline } from 'react-icons/io5';
-// import { LuEdit } from 'react-icons/lu';
-// import { BsPersonFillCheck } from 'react-icons/bs';
 // import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { LuEdit } from 'react-icons/lu';
+// import { LuEdit } from 'react-icons/lu';
 import UpdateModal from './UpdateModal';
 import CompanyDetails from '../CompanyDetails';
 import CompanyUpdateModal from './CompanyUpdateModal';
 import ConfirmationDialog from '../modals/ConfirmationDialog';
-import ProjectHistoryUpdate from '../modals/ProjectHistoryUpdate';
+import ProjectHistoryAdd from '../modals/ProjectHistoryAdd';
+import ProjectHistoryEdit from '../modals/ProjectHistoryEdit';
 
 export default function Profile() {
   const [developer, setDeveloper] = useState([]);
@@ -342,7 +341,7 @@ export default function Profile() {
                 <button
                   type="button"
                   onClick={() => deleteProposal(proposal.uid)}
-                  className="text-red-500 text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-xl"
+                  className="text-red-500 text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-2 md:p-3 rounded-xl"
                 >
                   <IoTrashBinOutline />
                 </button>
@@ -356,15 +355,15 @@ export default function Profile() {
             items-center border z-10 relative
            border-slate-300  bg-white/50 rounded-2xl my-6 mb-10"
         >
-          <div className="flex flex-col px-5 py-7 relative w-full">
-            <h1 className="text-2xl font-semibold mb-3">Project History</h1>
-            <div className={` absolute -top-12 -right-5 md:right-0  md:top-0 `}>
-              <ProjectHistoryUpdate fetchHistory={fetchHistory} />
+          <div className="flex flex-col  pt-7 relative w-full">
+            <h1 className="text-2xl px-5 font-semibold mb-6">Project History</h1>
+            <div className={` absolute px-5 -top-3 -right-5 md:right-0  md:top-0 `}>
+              <ProjectHistoryAdd fetchHistory={fetchHistory} />
             </div>
 
             {/* ---------TODO: Project History------------ */}
             {projectHistory && projectHistory.map((project) => (
-              <div key={project.uid} className="flex flex-row justify-between border-b py-5 border-slate-300 ">
+              <div key={project.uid} className="flex flex-row justify-between border-t px-5 py-5 border-slate-300 relative">
                 <div>
 
                   {/* ------------------------ Project title-------------------------- */}
@@ -394,36 +393,34 @@ export default function Profile() {
                   {/* -------Delete Button------- */}
                   {/* render ConfirmationDialog only if selectedUID && deleteBtn are available */}
                   {selectedUID && deleteBtn && (
-                  <ConfirmationDialog
-                    cancel={() => setDeleteBtn(!deleteBtn)}
-                    deleteBtn={deleteBtn}
-                    setDeleteBtn={setDeleteBtn}
-                    propUid={selectedUID}
-                    onDeleteSuccess={handleDeleteSuccess}
-                  />
-                  )}
-                  <button
-                    type="button"
-                    onClick={() => updateProject(project.uid)}
-                    // onClick={() => window.ProjectHistoryUpdate.showModal()}
-                  >
-                    <LuEdit className="absolute text-3xl text-accent hover:bg-accent/10 " />
-                  </button>
-                  &nbsp;
-                  &nbsp;
-                  &nbsp;
-                  &nbsp;
-                  &nbsp;
-                  &nbsp;
-                  &nbsp;
 
-                  <button
-                    type="button"
-                    onClick={() => deleteProject(project.uid)}
-                    className="text-red-500 text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-xl"
-                  >
-                    <IoTrashBinOutline />
-                  </button>
+                    <ConfirmationDialog
+                      cancel={() => setDeleteBtn(!deleteBtn)}
+                      deleteBtn={deleteBtn}
+                      setDeleteBtn={setDeleteBtn}
+                      propUid={selectedUID}
+                      onDeleteSuccess={handleDeleteSuccess}
+                    />
+
+                  )}
+                  <div className="flex gap-2">
+                    {/* <button
+                      className="order-1 p-2 md:p-3 rounded-xl bg-accent/10 hover:bg-accent text-accent hover:text-white "
+                      type="button"
+                      onClick={() => updateProject(project.uid)}
+                      // onClick={() => window.ProjectHistoryUpdate.showModal()}
+                    >
+                      <LuEdit className="text-2xl" />
+                    </button> */}
+                    <ProjectHistoryEdit fetchHistory={fetchHistory} />
+                    <button
+                      type="button"
+                      onClick={() => deleteProject(project.uid)}
+                      className="order-2 text-red-500 text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-2 md:p-3 rounded-xl"
+                    >
+                      <IoTrashBinOutline />
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
