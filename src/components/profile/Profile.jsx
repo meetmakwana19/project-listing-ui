@@ -14,6 +14,7 @@ import CompanyUpdateModal from './CompanyUpdateModal';
 import ConfirmationDialog from '../modals/ConfirmationDialog';
 import ProjectHistoryAdd from '../modals/ProjectHistoryAdd';
 import ProjectHistoryEdit from '../modals/ProjectHistoryEdit';
+import ReviewVaul from '../modals/ReviewVaul';
 
 export default function Profile() {
   const [developer, setDeveloper] = useState([]);
@@ -281,53 +282,56 @@ export default function Profile() {
             </h3>
             )}
             {proposals.map((proposal, i) => (
-              <div
-                key={i}
-                className="flex items-start justify-start border-t px-5 py-5 border-slate-300 "
-              >
-                <img
-                  alt="thumbnail"
-                  src={proposal.project.thumbnail}
-                  className="aspect-video w-1/3 lg:w-1/4 rounded-xl"
-                />
-
-                <div className="flex flex-col items-start pl-7  justify-start w-full text-slate-600">
-                  {/* ------------------------ Proposal title-------------------------- */}
-                  <h2 className="text-lg lg:text-2xl font-semibold mb-3 text-slate-800">
-                    {proposal.project.title}
-                  </h2>
-                  <p className="text-sm lg:text-lg font-normal text-slate-600 mb-2">
-                    {proposal.project.uid}
-                  </p>
-                  {/* badge for proposal status */}
-                  <span
-                    // eslint-disable-next-line no-nested-ternary
-                    className={`border  px-2 py-1 bg-accent/5 text-sm rounded-2xl text-accent ${proposal.pending ? "bg-yellow-100 text-orange-600 border-orange-300" : proposal.accepted ? "bg-green-100 text-green-800 border-green-300" : "bg-red-100 text-red-800 border-red-300"}`}
-                  >
-                    {/* {proposal.pending ? "Pending" : "Accepted"} */}
-                    {getStatusText(proposal)}
-                  </span>
-
-                </div>
-                {/* -------Delete Button------- */}
-                {/* render ConfirmationDialog only if selectedUID && deleteBtn are available */}
-                {selectedUID && deleteBtn && (
-                <ConfirmationDialog
-                  cancel={() => setDeleteBtn(!deleteBtn)}
-                  deleteBtn={deleteBtn}
-                  setDeleteBtn={setDeleteBtn}
-                  propUid={selectedUID}
-                  onDeleteSuccess={handleDeleteSuccess}
-                />
-                )}
-                <button
-                  type="button"
-                  onClick={() => deleteProposal(proposal.uid)}
-                  className="text-red-500 text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-2 md:p-3 rounded-xl"
+              <ReviewVaul>
+                <div
+                  key={i}
+                  className="flex items-start justify-start border-t px-5 py-5 border-slate-300 "
                 >
-                  <IoTrashBinOutline />
-                </button>
-              </div>
+                  <img
+                    alt="thumbnail"
+                    src={proposal.project.thumbnail}
+                    className="aspect-video w-1/3 lg:w-1/4 rounded-xl"
+                  />
+
+                  <div className="flex flex-col items-start pl-7  justify-start w-full text-slate-600">
+                    {/* ------------------------ Proposal title-------------------------- */}
+                    <h2 className="text-lg lg:text-2xl font-semibold mb-3 text-slate-800">
+                      {proposal.project.title}
+                    </h2>
+                    <p className="text-sm lg:text-lg font-normal text-slate-600 mb-2">
+                      {proposal.project.uid}
+                    </p>
+                    {/* badge for proposal status */}
+                    <span
+                    // eslint-disable-next-line no-nested-ternary
+                      className={`border  px-2 py-1 bg-accent/5 text-sm rounded-2xl text-accent ${proposal.pending ? "bg-yellow-100 text-orange-600 border-orange-300" : proposal.accepted ? "bg-green-100 text-green-800 border-green-300" : "bg-red-100 text-red-800 border-red-300"}`}
+                    >
+                      {/* {proposal.pending ? "Pending" : "Accepted"} */}
+                      {getStatusText(proposal)}
+                    </span>
+
+                  </div>
+                  {/* -------Delete Button------- */}
+                  {/* render ConfirmationDialog only if selectedUID && deleteBtn are available */}
+                  {selectedUID && deleteBtn && (
+                  <ConfirmationDialog
+                    cancel={() => setDeleteBtn(!deleteBtn)}
+                    deleteBtn={deleteBtn}
+                    setDeleteBtn={setDeleteBtn}
+                    propUid={selectedUID}
+                    onDeleteSuccess={handleDeleteSuccess}
+                  />
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => deleteProposal(proposal.uid)}
+                    className="text-red-500 text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-2 md:p-3 rounded-xl"
+                  >
+                    <IoTrashBinOutline />
+                  </button>
+                </div>
+
+              </ReviewVaul>
             ))}
           </div>
         </div>
