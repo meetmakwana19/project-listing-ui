@@ -302,6 +302,9 @@ export default function Profile() {
                   <p className="text-sm lg:text-lg font-normal text-slate-600 mb-2">
                     {proposal.project.uid}
                   </p>
+                  <p className="text-sm lg:text-lg font-normal text-slate-600 mb-2">
+                    {proposal.organization.uid}
+                  </p>
                   {/* badge for proposal status */}
                   <span
                     // eslint-disable-next-line no-nested-ternary
@@ -325,7 +328,7 @@ export default function Profile() {
                 )}
                 <div className="flex gap-2">
                   {proposal.accepted && (
-                  <ReviewVaul>
+                  <ReviewVaul orgID={proposal.organization._id}>
                     <button
                       type="button"
                       className="flex text-accent text-2xl bg-indigo-50 hover:bg-accent hover:text-white p-2 md:p-3 rounded-xl relative"

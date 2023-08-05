@@ -1,7 +1,35 @@
 import { Drawer } from "vaul";
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import { useState } from "react";
 
-function ReviewVaul({ children }) {
+function ReviewVaul({ children, orgID }) {
+  const [formData, setFormData] = useState({
+    review: null,
+    rating: null,
+    organization: orgID,
+    developer: localStorage.getItem("isDev"),
+  });
+
+  console.log("review for ", orgID);
+  console.log("review form : ", formData);
+
+  const postReview = async () => {
+    const response = await fetch("https://projekto-backend.onrender.com/reviews", {
+      method: "POST",
+      headers: {
+        authorization: localStorage.getItem("authToken"),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+    const data = await response.json();
+    console.log("Review posted ? ", data);
+  };
+  const handleSubmit = () => {
+    console.log("Submitting ", formData);
+
+    postReview();
+  };
   return (
     <Drawer.Root>
       <Drawer.Trigger asChild className="cursor-pointer">
@@ -23,15 +51,16 @@ function ReviewVaul({ children }) {
                 <AiOutlineStar />
                 <AiOutlineStar />
               </div>
+              <input type="number" className="text-zinc-600 my-2 border border-zinc-600 p-3 w-[35%]  rounded-xl" name="rating" min="0" max="5" step="0.1" onChange={(e) => setFormData({ ...formData, rating: e.target.value })} placeholder="Rate between 0-5" />
               <textarea
                 rows={5}
                 placeholder="How was your experience?"
                 className="text-zinc-600 my-2 w-full border border-zinc-600 p-5 rounded-xl"
+                onChange={(e) => setFormData({ ...formData, review: e.target.value })}
               />
-
             </div>
             <div className="flex items-center justify-center w-full mt-4">
-              <button type="submit" className="flex items-center justify-center w-full max-w-lg py-2 text-white bg-accent hover:border border-zinc-600 rounded-xl">
+              <button type="submit" className="flex items-center justify-center w-full max-w-lg py-2 text-white bg-accent hover:border border-zinc-600 rounded-xl" onClick={handleSubmit}>
                 Submit
               </button>
             </div>
