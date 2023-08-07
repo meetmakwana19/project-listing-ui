@@ -18,7 +18,7 @@ function ReviewVaul({ children, orgID, proposalUID }) {
     const patchBody = {
       reviewed: true,
     };
-    const response = await fetch(`https://projekto-backend.onrender.com/proposals/${proposalUID}`, {
+    const response = await fetch(`import.meta.env.VITE_API_URL/proposals/${proposalUID}`, {
       method: "PATCH",
       headers: {
         authorization: localStorage.getItem('authToken'),
@@ -30,7 +30,7 @@ function ReviewVaul({ children, orgID, proposalUID }) {
     console.log("Proposal patched ? ", fetched);
   };
   const postReview = async () => {
-    const response = await fetch("https://projekto-backend.onrender.com/reviews", {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/reviews`, {
       method: "POST",
       headers: {
         authorization: localStorage.getItem("authToken"),

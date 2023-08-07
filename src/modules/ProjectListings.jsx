@@ -39,7 +39,7 @@ function ProjectListings() {
     const fetchProjects = async () => {
       const searchTitle = `?title=${searchInput.searchString}`;
       const response = await fetch(
-        `https://projekto-backend.onrender.com/projects${searchTitle}`,
+        `${import.meta.env.VITE_API_URL}/projects${searchTitle}`,
         { mode: "cors" },
       );
       const fetchedProjects = await response.json();

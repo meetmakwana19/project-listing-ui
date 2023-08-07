@@ -12,7 +12,7 @@ export default function DevLogin() {
   });
 
   const onSignIn = () => {
-    fetch('https://projekto-backend.onrender.com/developers/auth/login', {
+    fetch(`${import.meta.env.VITE_API_URL}/developers/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -15,7 +15,7 @@ function ProjectDetails() {
   useEffect(() => {
     const fetchProject = async () => {
       const response = await fetch(
-        `https://projekto-backend.onrender.com/projects/${uid}`,
+        `${import.meta.env.VITE_API_URL}/projects/${uid}`,
         { mode: 'cors' },
       );
       const fetchedProject = await response.json();
@@ -33,7 +33,7 @@ function ProjectDetails() {
       developer: devId,
       organization: OrgId,
     };
-    fetch('https://projekto-backend.onrender.com/proposals', {
+    fetch(`${import.meta.env.VITE_API_URL}/proposals`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

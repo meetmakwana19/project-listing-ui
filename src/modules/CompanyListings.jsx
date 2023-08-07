@@ -30,7 +30,7 @@ function CompanyListings() {
       const searchName = `?name=${searchInput.searchString}`;
       // console.log("------", searchName);
       const response = await fetch(
-        `https://projekto-backend.onrender.com/organizations${searchName}`,
+        `${import.meta.env.VITE_API_URL}/organizations${searchName}`,
         { mode: "cors" },
       );
       const fetchedOrganizations = await response.json();

@@ -34,7 +34,7 @@ function DevelopersListing() {
     const fetchDevelopers = async () => {
       const searchName = `?fname=${searchInput.searchString}`;
       const response = await fetch(
-        `https://projekto-backend.onrender.com/developers${searchName}`,
+        `${import.meta.env.VITE_API_URL}/developers${searchName}`,
         { mode: "cors" },
       );
       const fetchedDevelopers = await response.json();

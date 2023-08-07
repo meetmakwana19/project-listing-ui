@@ -63,7 +63,7 @@ function RegisterOrganization() {
     if (newStep === steps.length) {
       // console.log('heyyyy ', JSON.stringify(formData));
       fetch(
-        'https://projekto-backend.onrender.com/organizations/auth/register',
+        `${import.meta.env.VITE_API_URL}/organizations/auth/register`,
         {
           method: 'POST',
           headers: {

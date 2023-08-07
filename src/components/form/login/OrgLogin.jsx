@@ -11,7 +11,7 @@ export default function OrgLogin() {
     password: '',
   });
   const onSignIn = () => {
-    fetch('https://projekto-backend.onrender.com/organizations/auth/login', {
+    fetch(`${import.meta.env.VITE_API_URL}/organizations/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

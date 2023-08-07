@@ -5,7 +5,7 @@ function CompanyUpdateModal({ organization, setOrganization }) {
   const navigate = useNavigate(); // ued for navigation
   const handleUpdate = (e) => {
     e.preventDefault();
-    fetch(`https://projekto-backend.onrender.com/organizations/${organization.uid}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/organizations/${organization.uid}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

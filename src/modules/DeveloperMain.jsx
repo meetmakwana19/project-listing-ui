@@ -13,7 +13,7 @@ function DeveloperMain() {
 
   const fetchHistory = async (id) => {
     const response = await fetch(
-      `https://projekto-backend.onrender.com/project-histories?developer=${id}`,
+      `${import.meta.env.VITE_API_URL}/project-histories?developer=${id}`,
       { mode: 'cors' },
     );
     const fetched = await response.json();
@@ -23,7 +23,7 @@ function DeveloperMain() {
 
   const fetchDeveloper = async () => {
     const response = await fetch(
-      `https://projekto-backend.onrender.com/developers/${uid}`,
+      `${import.meta.env.VITE_API_URL}/developers/${uid}`,
       { mode: 'cors' },
     );
     const fetchedDeveloper = await response.json();

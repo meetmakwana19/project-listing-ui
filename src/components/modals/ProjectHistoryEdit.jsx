@@ -28,7 +28,7 @@ function ProjectHistoryEdit({ fetchHistory, projectUID }) {
   }, []);
 
   const updateProject = async (uid) => {
-    fetch(`https://projekto-backend.onrender.com/project-histories/${uid}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/project-histories/${uid}`, {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ function ProjectHistoryEdit({ fetchHistory, projectUID }) {
   };
 
   const fetchProject = async (uid) => {
-    fetch(`https://projekto-backend.onrender.com/project-histories/${uid}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/project-histories/${uid}`, {
       method: "GET",
       headers: {
         authorization: localStorage.getItem("authToken"),

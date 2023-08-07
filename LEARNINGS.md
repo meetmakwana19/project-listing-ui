@@ -196,3 +196,13 @@ pnpm install --no-frozen-lockfile
 ```
 - So go to the project settings in vercel --> General --> Install Command --> Override --> Paste this command.
 - The error occered on the "vercel build" stage but the error log suggested us an `install` command so override the 'Install Command' in settings and not the 'Build Command'.
+
+---
+
+### 10. `.env` setup :
+
+- We are using Vite instead of `create-react-app` package.
+- So we cant use `process.env` out of the box with the envirnment variables prefix 'REACT_APP'.
+- Therefore, Vite has its own way of handing `.env` file's variables.
+- Use `import.meta.env` instead of `process.env`.
+- ANd use prefix `VITE_` like 'VITE_API_URL' in the `.env` file.

@@ -22,7 +22,7 @@ function CompanyDetails({
   const fetchProposals = () => {
     const orgId = localStorage.getItem("isOrg");
     fetch(
-      `https://projekto-backend.onrender.com/proposals?organization=${orgId}`,
+      `${import.meta.env.VITE_API_URL}/proposals?organization=${orgId}`,
       {
         headers: {
           authorization: localStorage.getItem("authToken"),
@@ -52,7 +52,7 @@ function CompanyDetails({
   };
 
   const patchProposal = async (uid, body) => {
-    const response = await fetch(`https://projekto-backend.onrender.com/proposals/${uid}`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/proposals/${uid}`, {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json',

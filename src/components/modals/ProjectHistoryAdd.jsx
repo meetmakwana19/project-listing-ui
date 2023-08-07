@@ -29,7 +29,7 @@ function ProjectHistoryAdd({ fetchHistory }) {
 
   const postProject = async () => {
     console.log("Posting started");
-    fetch(`https://projekto-backend.onrender.com/project-histories`, {
+    fetch(`${import.meta.env.VITE_API_URL}/project-histories`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',

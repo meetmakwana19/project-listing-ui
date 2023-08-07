@@ -59,7 +59,7 @@ function RegisterDeveloper() {
     // POST when the you reach at the last step
     if (newStep === steps.length) {
       // console.log('heyyyy ', JSON.stringify(formData));
-      fetch('https://projekto-backend.onrender.com/developers/auth/register', {
+      fetch(`${import.meta.env.VITE_API_URL}/developers/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

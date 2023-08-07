@@ -8,7 +8,7 @@ export default function ProjectDeleteConfirmationDialog({
   onDeleteSuccess,
 }) {
   const requestDelete = async (uid) => {
-    fetch(`https://projekto-backend.onrender.com/projects/${uid}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/projects/${uid}`, {
       method: "DELETE",
       headers: {
         authorization: localStorage.getItem("authToken"),

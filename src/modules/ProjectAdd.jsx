@@ -17,14 +17,14 @@ export default function ProjectAdd() {
   // console.log("Form data ---- ", formData);
 
   const patchORG = (projId, projMessage) => {
-    fetch(`https://projekto-backend.onrender.com/organizations/${localStorage.getItem("orgUID")}`)
+    fetch(`${import.meta.env.VITE_API_URL}/organizations/${localStorage.getItem("orgUID")}`)
       .then((response) => response.json())
       .then((orgData) => {
         // update the org_projects array with newly added project to that organization :
         const existingProjects = orgData.data.org_projects ? orgData.data.org_projects.map((project) => project._id) : [];
         const updatedProjects = [...existingProjects, projId];
 
-        fetch(`https://projekto-backend.onrender.com/organizations/${localStorage.getItem("orgUID")}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/organizations/${localStorage.getItem("orgUID")}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export default function ProjectAdd() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    fetch("https://projekto-backend.onrender.com/projects", {
+    fetch(`${import.meta.env.VITE_API_URL}/projects`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

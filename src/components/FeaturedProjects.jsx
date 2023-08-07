@@ -8,7 +8,7 @@ function FeaturedProjects() {
   useEffect(() => {
     const fetchProjects = async () => {
       const response = await fetch(
-        'https://projekto-backend.onrender.com/projects?featured=true',
+        `${import.meta.env.VITE_API_URL}/projects?featured=true`,
         { mode: 'cors' },
       );
       const fetchedProjects = await response.json();

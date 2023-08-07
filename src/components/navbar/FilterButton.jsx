@@ -15,7 +15,7 @@ export default function FilterButton({
 
     const filterProjects = async () => {
       const response = await fetch(
-        `https://projekto-backend.onrender.com/projects${queryParam}`,
+        `${import.meta.env.VITE_API_URL}/projects${queryParam}`,
         { mode: "cors" },
       );
       const filtered = await response.json();
@@ -26,7 +26,7 @@ export default function FilterButton({
 
     const filterOrganizations = async () => {
       const response = await fetch(
-        `https://projekto-backend.onrender.com/organizations${queryParam}`,
+        `${import.meta.env.VITE_API_URL}/organizations${queryParam}`,
         { mode: "cors" },
       );
       const filtered = await response.json();
@@ -38,7 +38,7 @@ export default function FilterButton({
     const filterDevelopers = async () => {
       console.log("got-", queryParam);
       const response = await fetch(
-        `https://projekto-backend.onrender.com/developers${queryParam}`,
+        `${import.meta.env.VITE_API_URL}/developers${queryParam}`,
         { mode: "cors" },
       );
       const filtered = await response.json();

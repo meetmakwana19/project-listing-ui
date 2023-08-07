@@ -18,7 +18,7 @@ function UpdateModal({ developer, setDeveloper }) {
     event.preventDefault();
 
     // const dev_id = localStorage.
-    fetch(`https://projekto-backend.onrender.com/developers/${uid}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/developers/${uid}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

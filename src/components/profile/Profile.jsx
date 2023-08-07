@@ -44,8 +44,7 @@ export default function Profile() {
     // const url = `?developer=${developerRef.current._id}`;
     const url = `?developer=${localStorage.getItem('isDev')}`;
     const response = await fetch(
-      `https://projekto-backend.onrender.com/proposals${url}`,
-      // `https://projekto-backend.onrender.com/proposals`,
+      `${import.meta.env.VITE_API_URL}/proposals${url}`,
       {
         mode: 'cors',
         headers: { authorization: localStorage.getItem('authToken') },
@@ -70,7 +69,7 @@ export default function Profile() {
     }
 
     const response = await fetch(
-      `https://projekto-backend.onrender.com/${url}`,
+      `${import.meta.env.VITE_API_URL}/${url}`,
       { mode: 'cors' },
     );
     const fetched = await response.json();
@@ -85,7 +84,7 @@ export default function Profile() {
 
   const fetchHistory = async () => {
     const response = await fetch(
-      `https://projekto-backend.onrender.com/project-histories?developer=${localStorage.getItem('isDev')}`,
+      `${import.meta.env.VITE_API_URL}/project-histories?developer=${localStorage.getItem('isDev')}`,
       { mode: 'cors' },
     );
     const fetched = await response.json();

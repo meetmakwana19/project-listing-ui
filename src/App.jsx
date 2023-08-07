@@ -20,6 +20,8 @@ import OrgLogin from './components/form/login/OrgLogin';
 import Profile from './components/profile/Profile';
 
 function App() {
+  // console.log("env : ", import.meta.env.VITE_API_URL);
+  // console.log("env : ", process.env.REACT_APP_API_URL);
   return (
     <>
       <Header />

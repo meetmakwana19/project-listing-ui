@@ -8,7 +8,7 @@ function CompanyMain() {
   useEffect(() => {
     const fetchorganization = async () => {
       const response = await fetch(
-        `https://projekto-backend.onrender.com/organizations/${uid}`,
+        `${import.meta.env.VITE_API_URL}/organizations/${uid}`,
         { mode: 'cors' },
       );
       const fetchedOrganization = await response.json();

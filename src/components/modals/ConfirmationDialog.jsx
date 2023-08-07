@@ -9,7 +9,7 @@ function ConfirmationDialog({
     // giving 2 functionalities to same component
     // so checking here if the incoming uid is of history projects
     if (uid.startsWith("hist")) {
-      fetch(`https://projekto-backend.onrender.com/project-histories/${uid}`, {
+      fetch(`${import.meta.env.VITE_API_URL}/project-histories/${uid}`, {
         method: "DELETE",
         headers: {
           authorization: localStorage.getItem("authToken"),
@@ -20,7 +20,7 @@ function ConfirmationDialog({
           onDeleteSuccess();
         });
     } else {
-      fetch(`https://projekto-backend.onrender.com/proposals/${uid}`, {
+      fetch(`${import.meta.env.VITE_API_URL}/proposals/${uid}`, {
         method: "DELETE",
         headers: {
           authorization: localStorage.getItem("authToken"),

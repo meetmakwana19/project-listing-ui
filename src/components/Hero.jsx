@@ -9,7 +9,7 @@ function Hero() {
   useEffect(() => {
     const fetchProjects = async () => {
       const response = await fetch(
-        'https://projekto-backend.onrender.com/projects',
+        `${import.meta.env.VITE_API_URL}/projects`,
         { mode: 'cors' },
       );
       const fetchedProjects = await response.json();
