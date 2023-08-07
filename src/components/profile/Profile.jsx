@@ -338,12 +338,12 @@ export default function Profile() {
                   >
                     <button
                       type="button"
-                      className={`flex text-accent text-2xl bg-indigo-50 hover:bg-accent hover:text-white p-2 md:p-3 rounded-xl relative ${proposal.reviewed ? 'opacity-50 cursor-not-allowed' : ''}`}
-                      disabled={proposal.reviewed}
+                      className={`flex text-accent text-2xl bg-indigo-50 hover:bg-accent hover:text-white p-2 md:p-3 rounded-xl relative ${proposal.reviewedByDev ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      disabled={proposal.reviewedByDev}
                       onClick={() => setReviewVaulOpen(true)}
                     >
                       <p className="hidden md:flex  w-36 text-base">
-                        {proposal.reviewed ? "Reviewed" : "Review Company"}
+                        {proposal.reviewedByDev ? "Reviewed" : "Review Company"}
                       </p>
                       <MdReviews />
                     </button>
