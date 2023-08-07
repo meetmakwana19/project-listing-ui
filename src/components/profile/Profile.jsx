@@ -327,7 +327,11 @@ export default function Profile() {
                 )}
                 <div className="flex gap-2">
                   {proposal.accepted && (
-                  <ReviewVaul orgID={proposal.organization._id} proposalUID={proposal.uid}>
+                  <ReviewVaul
+                    orgID={proposal.organization._id}
+                    proposalUID={proposal.uid}
+                    fetchProposals={fetchProposals}
+                  >
                     <button
                       type="button"
                       className={`flex text-accent text-2xl bg-indigo-50 hover:bg-accent hover:text-white p-2 md:p-3 rounded-xl relative ${proposal.reviewed ? 'opacity-50 cursor-not-allowed' : ''}`}

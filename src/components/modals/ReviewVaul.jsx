@@ -10,15 +10,15 @@ function ReviewVaul({ children, orgID, proposalUID }) {
     developer: localStorage.getItem("isDev"),
   });
 
-  console.log("review for ", orgID);
-  console.log("review form : ", formData);
+  // console.log("review for ", orgID);
+  // console.log("review form : ", formData);
 
-  const patchProposal = async () => {
-    console.log("prop_uid is ", proposalUID);
+  const patchProposal = async (reviewResponse) => {
+    // console.log("prop_uid is ", proposalUID);
     const patchBody = {
       reviewed: true,
     };
-    const response = await fetch(`import.meta.env.VITE_API_URL/proposals/${proposalUID}`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/proposals/${proposalUID}`, {
       method: "PATCH",
       headers: {
         authorization: localStorage.getItem('authToken'),
@@ -27,7 +27,8 @@ function ReviewVaul({ children, orgID, proposalUID }) {
       body: JSON.stringify(patchBody),
     });
     const fetched = await response.json();
-    console.log("Proposal patched ? ", fetched);
+    // console.log("Proposal patched ? ", fetched);
+    alert(`${reviewResponse.message} and ${fetched.message}`);
   };
   const postReview = async () => {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/reviews`, {
@@ -39,12 +40,11 @@ function ReviewVaul({ children, orgID, proposalUID }) {
       body: JSON.stringify(formData),
     });
     const data = await response.json();
-    console.log("Review posted ? ", data);
-    patchProposal();
+    // console.log("Review posted ? ", data);
+    patchProposal(data);
   };
   const handleSubmit = () => {
-    console.log("Submitting ", formData);
-
+    // console.log("Submitting ", formData);
     postReview();
   };
   return (
