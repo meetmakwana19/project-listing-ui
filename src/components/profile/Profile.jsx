@@ -23,7 +23,9 @@ export default function Profile() {
   const [proposals, setProposals] = useState([]);
   const [projectHistory, setProjectHistory] = useState([]);
   const [deleteBtn, setDeleteBtn] = useState(false);
+  const [reviewVaulOpen, setReviewVaulOpen] = useState(false);
 
+  console.log("reviewVaulOpen ---> ", reviewVaulOpen);
   // need this state variable to keep track of the uid got from edit and delete button click
   const [selectedUID, setSelectedUID] = useState([]);
 
@@ -331,11 +333,14 @@ export default function Profile() {
                     orgID={proposal.organization._id}
                     proposalUID={proposal.uid}
                     fetchProposals={fetchProposals}
+                    reviewVaulOpen={reviewVaulOpen}
+                    setReviewVaulOpen={setReviewVaulOpen}
                   >
                     <button
                       type="button"
                       className={`flex text-accent text-2xl bg-indigo-50 hover:bg-accent hover:text-white p-2 md:p-3 rounded-xl relative ${proposal.reviewed ? 'opacity-50 cursor-not-allowed' : ''}`}
                       disabled={proposal.reviewed}
+                      onClick={() => setReviewVaulOpen(true)}
                     >
                       <p className="hidden md:flex  w-36 text-base">
                         {proposal.reviewed ? "Reviewed" : "Review Company"}

@@ -2,7 +2,9 @@ import { Drawer } from "vaul";
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { useState } from "react";
 
-function ReviewVaul({ children, orgID, proposalUID }) {
+function ReviewVaul({
+  children, orgID, proposalUID, reviewVaulOpen, setReviewVaulOpen, fetchProposals,
+}) {
   const [formData, setFormData] = useState({
     review: null,
     rating: null,
@@ -12,6 +14,7 @@ function ReviewVaul({ children, orgID, proposalUID }) {
 
   // console.log("review for ", orgID);
   // console.log("review form : ", formData);
+  // console.log("child reviewing : ", reviewVaulOpen);
 
   const patchProposal = async (reviewResponse) => {
     // console.log("prop_uid is ", proposalUID);
@@ -29,6 +32,7 @@ function ReviewVaul({ children, orgID, proposalUID }) {
     const fetched = await response.json();
     // console.log("Proposal patched ? ", fetched);
     alert(`${reviewResponse.message} and ${fetched.message}`);
+    fetchProposals();
   };
   const postReview = async () => {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/reviews`, {
@@ -44,7 +48,8 @@ function ReviewVaul({ children, orgID, proposalUID }) {
     patchProposal(data);
   };
   const handleSubmit = () => {
-    // console.log("Submitting ", formData);
+    setReviewVaulOpen(false);
+    // console.log("Submitting ", reviewVaulOpen);
     postReview();
   };
   return (
@@ -52,6 +57,8 @@ function ReviewVaul({ children, orgID, proposalUID }) {
       <Drawer.Trigger asChild className="cursor-pointer">
         {children}
       </Drawer.Trigger>
+
+      {reviewVaulOpen && (
       <Drawer.Portal className="">
         <Drawer.Overlay className="fixed inset-0 bg-black/40 z-[989]" />
         <Drawer.Content className="bg-zinc-100 flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-0 right-0 z-[989]">
@@ -89,6 +96,8 @@ function ReviewVaul({ children, orgID, proposalUID }) {
           </div>
         </Drawer.Content>
       </Drawer.Portal>
+      )}
+
     </Drawer.Root>
   );
 }
