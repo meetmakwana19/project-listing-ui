@@ -2,7 +2,7 @@ import { Drawer } from "vaul";
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { useState } from "react";
 
-function ReviewVaul({ children, orgID }) {
+function ReviewVaul({ children, orgID, proposalUID }) {
   const [formData, setFormData] = useState({
     review: null,
     rating: null,
@@ -13,6 +13,22 @@ function ReviewVaul({ children, orgID }) {
   console.log("review for ", orgID);
   console.log("review form : ", formData);
 
+  const patchProposal = async () => {
+    console.log("prop_uid is ", proposalUID);
+    const patchBody = {
+      reviewed: true,
+    };
+    const response = await fetch(`https://projekto-backend.onrender.com/proposals/${proposalUID}`, {
+      method: "PATCH",
+      headers: {
+        authorization: localStorage.getItem('authToken'),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(patchBody),
+    });
+    const fetched = await response.json();
+    console.log("Proposal patched ? ", fetched);
+  };
   const postReview = async () => {
     const response = await fetch("https://projekto-backend.onrender.com/reviews", {
       method: "POST",
@@ -24,6 +40,7 @@ function ReviewVaul({ children, orgID }) {
     });
     const data = await response.json();
     console.log("Review posted ? ", data);
+    patchProposal();
   };
   const handleSubmit = () => {
     console.log("Submitting ", formData);
