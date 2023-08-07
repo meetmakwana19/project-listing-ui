@@ -4,10 +4,11 @@
 import { useEffect, useState } from "react";
 import { IoTrashBinOutline } from "react-icons/io5";
 import { TiThumbsUp, TiThumbsDown } from "react-icons/ti";
-import { MdPendingActions } from "react-icons/md";
+import { MdPendingActions, MdReviews } from "react-icons/md";
 import { Link, useParams } from "react-router-dom";
 import ProjectDeleteConfirmationDialog from "./modals/ProjectDeleteConfirmationDialog";
 import Star from "./Star";
+import ReviewVaul from "./modals/ReviewVaul";
 
 function CompanyDetails({
   org_data, update, edit, fetchOrg,
@@ -16,6 +17,7 @@ function CompanyDetails({
   const [deleteBtn, setDeleteBtn] = useState(false);
   const [selectedUID, setSelectedUID] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [reviewVaulOpen, setReviewVaulOpen] = useState(false);
 
   // it will get empty object for `/profile` page.
   // but it will get {uid : xxx} object for `/companies/:uid` page
@@ -296,10 +298,10 @@ function CompanyDetails({
                       {' '}
                       {review.developer.lname}
                     </Link>
-                    <p className="description w-full md:w-[90%] flex items-center">
+                    <div className="description w-full md:w-[90%] flex items-center">
                       {review.rating}
                       <Star rating={review.rating} />
-                    </p>
+                    </div>
                     <div className="place-content-start items-center w-full text-slate-600 gap-1">
                       <p>{review.review}</p>
                     </div>
@@ -364,6 +366,30 @@ function CompanyDetails({
                         {" "}
                         {proposal.developer.lname}
                       </p>
+                      <div className="flex gap-2">
+                        {proposal.accepted && (
+                        <ReviewVaul
+                          orgID={proposal.organization._id}
+                          devID={proposal.developer._id}
+                          proposalUID={proposal.uid}
+                          fetchProposals={fetchProposals}
+                          reviewVaulOpen={reviewVaulOpen}
+                          setReviewVaulOpen={setReviewVaulOpen}
+                        >
+                          <button
+                            type="button"
+                            className={`flex text-accent text-2xl bg-indigo-50 hover:bg-accent hover:text-white p-2 md:p-3 rounded-xl relative ${proposal.reviewedByOrg ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            disabled={proposal.reviewedByOrg}
+                            onClick={() => setReviewVaulOpen(true)}
+                          >
+                            <p className="hidden md:flex  w-36 text-base">
+                              {proposal.reviewedByOrg ? "Reviewed" : "Review Developer"}
+                            </p>
+                            <MdReviews />
+                          </button>
+                        </ReviewVaul>
+                        )}
+                      </div>
                     </div>
 
                     <div className="absolute top-0 right-0 md:flex">

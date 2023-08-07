@@ -1,15 +1,15 @@
 import { Drawer } from "vaul";
-import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+// import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { useState } from "react";
 
 function ReviewVaul({
-  children, orgID, proposalUID, reviewVaulOpen, setReviewVaulOpen, fetchProposals,
+  children, orgID, devID, proposalUID, reviewVaulOpen, setReviewVaulOpen, fetchProposals,
 }) {
   const [formData, setFormData] = useState({
     review: null,
     rating: null,
     organization: orgID,
-    developer: localStorage.getItem("isDev"),
+    developer: localStorage.getItem("isDev") ? localStorage.getItem("isDev") : devID,
   });
 
   // console.log("review for ", orgID);
@@ -18,9 +18,17 @@ function ReviewVaul({
 
   const patchProposal = async (reviewResponse) => {
     // console.log("prop_uid is ", proposalUID);
-    const patchBody = {
-      reviewed: true,
-    };
+    let patchBody;
+    if (localStorage.getItem("isDev")) {
+      patchBody = {
+        reviewedByDev: true,
+      };
+    } else if (localStorage.getItem("isOrg")) {
+      patchBody = {
+        reviewedByOrg: true,
+      };
+    }
+    // console.log("patch body --- ", patchBody);
     const response = await fetch(`${import.meta.env.VITE_API_URL}/proposals/${proposalUID}`, {
       method: "PATCH",
       headers: {
@@ -66,15 +74,15 @@ function ReviewVaul({
             <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-zinc-300 mb-2" />
             <div className="max-w-lg mx-auto">
               <Drawer.Title className="font-medium text-2xl lg:text-2xl mb-4">
-                Congrats your proposal is accepted please leave a review for the company.
+                Please leave a review.
               </Drawer.Title>
-              <div className="rating my-8 justify-around text-3xl md:text-4xl px-4 rating-base w-full text-accent">
+              {/* <div className="rating my-8 justify-around text-3xl md:text-4xl px-4 rating-base w-full text-accent">
                 <AiFillStar />
                 <AiFillStar />
                 <AiFillStar />
                 <AiOutlineStar />
                 <AiOutlineStar />
-              </div>
+              </div> */}
               <input type="number" className="text-zinc-600 my-2 border border-zinc-600 p-3 w-[35%]  rounded-xl" name="rating" min="0" max="5" step="0.1" onChange={(e) => setFormData({ ...formData, rating: e.target.value })} placeholder="Rate between 0-5" />
               <textarea
                 rows={5}
