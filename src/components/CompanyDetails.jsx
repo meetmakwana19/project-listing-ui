@@ -7,6 +7,7 @@ import { TiThumbsUp, TiThumbsDown } from "react-icons/ti";
 import { MdPendingActions } from "react-icons/md";
 import { Link, useParams } from "react-router-dom";
 import ProjectDeleteConfirmationDialog from "./modals/ProjectDeleteConfirmationDialog";
+import Star from "./Star";
 
 function CompanyDetails({
   org_data, update, edit, fetchOrg,
@@ -14,6 +15,7 @@ function CompanyDetails({
   const [orgProposals, setOrgProposals] = useState([]);
   const [deleteBtn, setDeleteBtn] = useState(false);
   const [selectedUID, setSelectedUID] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
   // it will get empty object for `/profile` page.
   // but it will get {uid : xxx} object for `/companies/:uid` page
@@ -36,9 +38,23 @@ function CompanyDetails({
       });
   };
 
+  const fetchReviews = async () => {
+    console.log("data is ", org_data._id);
+    await fetch(
+      `${import.meta.env.VITE_API_URL}/reviews?organization=${org_data._id}`,
+    )
+      .then((response) => response.json())
+      .then((fetched) => {
+        setReviews(fetched.data);
+      });
+  };
   useEffect(() => {
     fetchProposals();
   }, []);
+
+  useEffect(() => {
+    fetchReviews();
+  }, [org_data]);
 
   const deleteProject = (uid) => {
     setSelectedUID(uid);
@@ -204,7 +220,7 @@ function CompanyDetails({
         <div className="flex w-full flex-col">
           <h1 className="text-2xl font-semibold px-5 pt-7 mb-3">Company Projects</h1>
           {/* ---------TODO: Comapny Projects------------ */}
-          <div className=" py-5  ">
+          <div className=" py-5">
             {org_data.org_projects && org_data.org_projects.map((project) => (
               <div className="flex w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300" key={project.uid}>
                 <div className="flex flex-col md:flex-row gap-6 md:gap-0">
@@ -245,6 +261,50 @@ function CompanyDetails({
                   )}
                 </div>
 
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+
+      <div
+        className="flex w-full lg:w-3/5 md:w-4/5 flex-col justify-center
+            items-center border z-10 relative
+           border-slate-300  bg-white/50 rounded-2xl my-6 mb-10"
+      >
+        <div className="flex w-full flex-col">
+          <h1 className="text-2xl font-semibold px-5 pt-7 mb-3">Company Reviews</h1>
+          <div className="py-5">
+            {reviews && reviews.map((review) => (
+              <div className="flex w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300" key={review.uid}>
+                <div className="flex flex-col md:flex-row gap-6 md:gap-0">
+                  <div className="flex items-start justify-start">
+                    <img
+                      src={review.developer.profile_pic}
+                      alt=""
+                      className="w-[30vw]  md:w-40 rounded-lg  object-cover aspect-video mr-8"
+                    />
+                  </div>
+                  <div className="lg:w-[60%] md:pl-6">
+                    <Link
+                      to={`/developers/${review
+                        .developer.uid}`}
+                      className="hidden md:flex text-xl font-semibold  hover:text-accent"
+                    >
+                      {review.developer.fname}
+                      {' '}
+                      {review.developer.lname}
+                    </Link>
+                    <p className="description w-full md:w-[90%] flex items-center">
+                      {review.rating}
+                      <Star rating={review.rating} />
+                    </p>
+                    <div className="place-content-start items-center w-full text-slate-600 gap-1">
+                      <p>{review.review}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
