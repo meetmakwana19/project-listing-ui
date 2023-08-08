@@ -95,6 +95,7 @@ function ProjectDetails() {
       .then((data) => {
         // navigate("/");
         alert(`${data.message}`);
+        fetchProposalHistory(projectId);
         // window.location.reload();
       })
       .catch((error) => {
@@ -324,7 +325,7 @@ function ProjectDetails() {
             disabled={proposed}
             onClick={() => clickApply(project._id, project.proj_organization)}
           >
-            Apply Now
+            {proposed ? "Applied" : "Apply Now"}
           </button>
         </div>
         <div className="flex items-center justify-center w-1/2">
