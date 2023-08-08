@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { BiSolidMap } from 'react-icons/bi';
 import { FaCircleDollarToSlot } from 'react-icons/fa6';
-import { AiFillQuestionCircle } from 'react-icons/ai';
+// import { AiFillQuestionCircle } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import Container from './Container';
 import Members from './Members';
@@ -249,18 +249,18 @@ function ProjectDetails() {
             ))}
           </div>
         </div>
-        <div className="flex flex-row items-center w-full border-t py-3 px-6 gap-4">
+        {/* <div className="flex flex-row items-center w-full border-t py-3 px-6 gap-4">
           <p className="flex items-center text-lg my-3 text-start font-medium text-slate-800">
-            Upgrade your membership to see bid range
-            {/* ----------TODO: Tooltip Style ----! pending */}
-          </p>
+            Upgrade your membership to see bid range */}
+        {/* ----------TODO: Tooltip Style ----! pending */}
+        {/* </p>
           <div
             className="tooltip"
-            data-tip="Hello"
+            data-tip="Displays a range for the proposed bids"
           >
             <AiFillQuestionCircle className="text-base text-accent ml-2" />
           </div>
-        </div>
+        </div> */}
       </Container>
       {/* Apply Button */}
       {dev
