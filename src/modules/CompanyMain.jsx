@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import CompanyDetails from '../components/CompanyDetails';
 
 function CompanyMain() {
-  const [organization, setOrganization] = useState([]);
+  const [organization, setOrganization] = useState({});
   const { uid } = useParams();
   useEffect(() => {
     const fetchorganization = async () => {

@@ -24,7 +24,14 @@ function CompanyDetails({
   const profile = useParams();
 
   const fetchProposals = () => {
-    const orgId = localStorage.getItem("isOrg");
+    let orgId;
+    // only render if the url param has {} object due to no :uid in url
+    if (profile.uid) {
+      console.log("yessssssssssss", profile);
+      orgId = org_data._id;
+    } else if (localStorage.getItem("isOrg")) {
+      orgId = localStorage.getItem("isOrg");
+    }
     fetch(
       `${import.meta.env.VITE_API_URL}/proposals?organization=${orgId}`,
       {
@@ -35,27 +42,32 @@ function CompanyDetails({
     )
       .then((response) => response.json())
       .then((data) => {
-        // console.log("proposals : ", data);
+        console.log("proposals : ", data);
         setOrgProposals(data.data);
       });
   };
 
   const fetchReviews = async () => {
-    console.log("data is ", org_data._id);
     await fetch(
       `${import.meta.env.VITE_API_URL}/reviews?organization=${org_data._id}`,
     )
       .then((response) => response.json())
       .then((fetched) => {
-        setReviews(fetched.data);
+        // FILTERING those reviews which were posted by Developer for organization.
+        const filteredData = fetched.data.filter((doc) => doc.reviewedByDev === true);
+        // console.log("filtered is ", filteredData);
+        setReviews(filteredData);
       });
   };
   useEffect(() => {
-    fetchProposals();
-  }, []);
-
-  useEffect(() => {
-    fetchReviews();
+    // if condition is there to fetch only for org profile pages.
+    if (localStorage.getItem("isOrg")) {
+      fetchProposals();
+    }
+    // if condition is there to avoid the error of 400 BAD REQUEST when on initial render the org_data is empty {}
+    if (org_data._id) {
+      fetchReviews();
+    }
   }, [org_data]);
 
   const deleteProject = (uid) => {
@@ -309,6 +321,9 @@ function CompanyDetails({
                 </div>
               </div>
             ))}
+            {reviews.length === 0 && (
+              <h2 className="text-xl px-5 mb-3">No reviews yet...</h2>
+            )}
           </div>
         </div>
       </div>
