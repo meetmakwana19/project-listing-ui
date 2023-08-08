@@ -10,6 +10,7 @@ function ProjectDetails() {
   const { uid } = useParams();
   const [project, setProject] = useState([]);
   const [proposalsCount, setProposalsCount] = useState(-1);
+  const [proposed, setProposed] = useState(false);
   const dev = localStorage.getItem("isDev");
 
   const fetchProposal = async (id) => {
@@ -32,6 +33,25 @@ function ProjectDetails() {
     }
     // console.log("count : ", proposalsCount);
   };
+  const fetchProposalHistory = async (id) => {
+    // console.log("project is ", id);
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/proposals?project=${id}&developer=${localStorage.getItem("isDev")}`,
+      {
+        mode: 'cors',
+        headers: {
+          authorization: localStorage.getItem("authToken"),
+        },
+
+      },
+    );
+    const fetchedProject = await response.json();
+    // console.log("resp : ", fetchedProject);
+    if (fetchedProject.length === 1) {
+      setProposed(true);
+    }
+    // console.log("status : ", proposed);
+  };
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -45,10 +65,11 @@ function ProjectDetails() {
       // console.log('fetch Projects------------', projects);
       if (localStorage.getItem("authToken")) {
         fetchProposal(fetchedProject.data._id);
+        fetchProposalHistory(fetchedProject.data._id);
       }
     };
     fetchProject();
-  }, [proposalsCount]);
+  }, [proposalsCount, proposed]);
 
   const devId = localStorage.getItem('isDev');
   const proposeProject = async (projectId, OrgId) => {
@@ -248,7 +269,8 @@ function ProjectDetails() {
         <div className="flex items-center justify-center w-1/2">
           <button
             type="button"
-            className="flex bg-accent px-4 py-2 w-full items-center justify-center text-white hover:bg-white hover:text-accent hover:border-accent font-medium border border-slate-300 rounded-full"
+            className={`flex bg-accent px-4 py-2 w-full items-center justify-center text-white hover:bg-white hover:text-accent hover:border-accent font-medium border border-slate-300 rounded-full ${proposed ? 'opacity-50 cursor-not-allowed' : ''}`}
+            disabled={proposed}
             onClick={() => clickApply(project._id, project.proj_organization)}
           >
             Apply Now
