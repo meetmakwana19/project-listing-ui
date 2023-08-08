@@ -25,7 +25,7 @@ export default function Profile() {
   const [deleteBtn, setDeleteBtn] = useState(false);
   const [reviewVaulOpen, setReviewVaulOpen] = useState(false);
 
-  console.log("reviewVaulOpen ---> ", reviewVaulOpen);
+  // console.log("reviewVaulOpen ---> ", reviewVaulOpen);
   // need this state variable to keep track of the uid got from edit and delete button click
   const [selectedUID, setSelectedUID] = useState([]);
 
