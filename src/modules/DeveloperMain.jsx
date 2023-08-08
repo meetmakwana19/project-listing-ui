@@ -5,11 +5,13 @@ import {
   BsFillCalendarEventFill, BsGithub, BsGlobe, BsLinkedin,
 } from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
+import Star from '../components/Star';
 
 function DeveloperMain() {
   const { uid } = useParams();
-  const [developer, setDeveloper] = useState([]);
+  const [developer, setDeveloper] = useState({});
   const [projectHistory, setProjectHistory] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
   const fetchHistory = async (id) => {
     const response = await fetch(
@@ -34,9 +36,26 @@ function DeveloperMain() {
     fetchHistory(fetchedDeveloper.data._id);
   };
 
+  const fetchReviews = async () => {
+    await fetch(
+      `${import.meta.env.VITE_API_URL}/reviews?developer=${developer._id}`,
+    )
+      .then((response) => response.json())
+      .then((fetched) => {
+        // FILTERING those reviews which were posted by Organization for developer.
+        const filteredData = fetched.data.filter((doc) => doc.reviewedByOrg === true);
+        // console.log("filtered is ", filteredData);
+        setReviews(filteredData);
+      });
+  };
+
   useEffect(() => {
     fetchDeveloper();
-  }, []);
+    // if condition is there to avoid the error of 400 BAD REQUEST when on initial render the developer is empty {}
+    if (developer._id) {
+      fetchReviews();
+    }
+  }, [developer]);
 
   const skills = developer?.skills;
 
@@ -202,6 +221,51 @@ function DeveloperMain() {
           ))}
         </div>
       </div>
+
+      <div
+        className="flex w-full lg:w-3/5 md:w-4/5 flex-col justify-center
+            items-center border z-10 relative
+           border-slate-300  bg-white/50 rounded-2xl my-6 mb-10"
+      >
+        <div className="flex w-full flex-col">
+          <h1 className="text-2xl font-semibold px-5 pt-7 mb-3">Company Reviews</h1>
+          <div className="py-5">
+            {reviews && reviews.map((review) => (
+              <div className="flex w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300" key={review.uid}>
+                <div className="flex flex-col md:flex-row gap-6 md:gap-0">
+                  <div className="flex items-start justify-start">
+                    <img
+                      src={review.organization.banner_img}
+                      alt=""
+                      className="w-[30vw]  md:w-40 rounded-lg  object-cover aspect-video mr-8"
+                    />
+                  </div>
+                  <div className="lg:w-[60%] md:pl-6">
+                    <Link
+                      to={`/developers/${review
+                        .organization.uid}`}
+                      className="hidden md:flex text-xl font-semibold  hover:text-accent"
+                    >
+                      {review.organization.name}
+                    </Link>
+                    <div className="description w-full md:w-[90%] flex items-center">
+                      {review.rating}
+                      <Star rating={review.rating} />
+                    </div>
+                    <div className="place-content-start items-center w-full text-slate-600 gap-1">
+                      <p>{review.review}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+            {reviews.length === 0 && (
+              <h2 className="text-xl px-5 mb-3">No reviews yet...</h2>
+            )}
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 }
