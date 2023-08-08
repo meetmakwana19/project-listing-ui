@@ -9,8 +9,29 @@ import Members from './Members';
 function ProjectDetails() {
   const { uid } = useParams();
   const [project, setProject] = useState([]);
-
+  const [proposalsCount, setProposalsCount] = useState(-1);
   const dev = localStorage.getItem("isDev");
+
+  const fetchProposal = async (id) => {
+    // console.log("project is ", id);
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/proposals?project=${id}&count=1`,
+      {
+        mode: 'cors',
+        headers: {
+          authorization: localStorage.getItem("authToken"),
+        },
+
+      },
+    );
+    const fetchedProject = await response.json();
+    if (fetchedProject.data > 0) {
+      setProposalsCount(fetchedProject.data);
+    } else {
+      setProposalsCount(0);
+    }
+    // console.log("count : ", proposalsCount);
+  };
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -22,9 +43,12 @@ function ProjectDetails() {
       setProject(fetchedProject.data);
       // console.log('fetch Projects------------', fetchedProject.data);
       // console.log('fetch Projects------------', projects);
+      if (localStorage.getItem("authToken")) {
+        fetchProposal(fetchedProject.data._id);
+      }
     };
     fetchProject();
-  }, []);
+  }, [proposalsCount]);
 
   const devId = localStorage.getItem('isDev');
   const proposeProject = async (projectId, OrgId) => {
@@ -104,8 +128,9 @@ function ProjectDetails() {
               </p>
               {/* Proposal Count */}
               <p className="text-base  text-slate-800">
-                Send a proposal for: total proposals
+                Total Proposals Posted :
                 {' '}
+                {proposalsCount >= 0 ? proposalsCount : "Please login to see"}
                 <span className="text-accent animate-pulse">
                   {project?.proposals}
                 </span>
