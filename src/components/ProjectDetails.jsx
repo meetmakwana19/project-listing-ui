@@ -11,6 +11,7 @@ function ProjectDetails() {
   const [project, setProject] = useState([]);
   const [proposalsCount, setProposalsCount] = useState(-1);
   const [proposed, setProposed] = useState(false);
+  const [bookmarkState, setBookmarkState] = useState("Save");
   const dev = localStorage.getItem("isDev");
 
   const fetchProposal = async (id) => {
@@ -53,21 +54,25 @@ function ProjectDetails() {
     // console.log("status : ", proposed);
   };
 
+  const fetchProject = async () => {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/projects/${uid}`,
+      { mode: 'cors' },
+    );
+    const fetchedProject = await response.json();
+    setProject(fetchedProject.data);
+
+    if (fetchedProject.data.bookmark?.find((id) => id === localStorage.getItem("isDev"))) {
+      setBookmarkState("Unsave");
+    } else {
+      setBookmarkState("Save");
+    }
+    if (localStorage.getItem("authToken")) {
+      fetchProposal(fetchedProject.data._id);
+      fetchProposalHistory(fetchedProject.data._id);
+    }
+  };
   useEffect(() => {
-    const fetchProject = async () => {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/projects/${uid}`,
-        { mode: 'cors' },
-      );
-      const fetchedProject = await response.json();
-      setProject(fetchedProject.data);
-      // console.log('fetch Projects------------', fetchedProject.data);
-      // console.log('fetch Projects------------', projects);
-      if (localStorage.getItem("authToken")) {
-        fetchProposal(fetchedProject.data._id);
-        fetchProposalHistory(fetchedProject.data._id);
-      }
-    };
     fetchProject();
   }, [proposalsCount, proposed]);
 
@@ -88,7 +93,6 @@ function ProjectDetails() {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log('POSTED --> ', data);
         // navigate("/");
         alert(`${data.message}`);
         // window.location.reload();
@@ -100,7 +104,54 @@ function ProjectDetails() {
 
   const clickApply = (id, projOrg) => {
     proposeProject(id, projOrg._id);
-    // console.log("applying - ", projOrg._id);
+  };
+
+  const patchProject = (code) => {
+    const devID = localStorage.getItem("isDev");
+    let formData;
+    // if the project document from databased doesn't have the bookmark key.
+    if (!project.bookmark) {
+      // Initialize bookmark as an empty array if undefined
+      project.bookmark = [];
+    }
+    if (code === "Unsave") {
+      // removing the current dev from bookmark array
+      formData = {
+        bookmark: project.bookmark.filter((doc) => doc !== devID),
+      };
+    } else if (code === "Save") {
+      formData = {
+        bookmark: [...project.bookmark, devID],
+      };
+    }
+    // console.log("body before : ", project.bookmark);
+    // console.log("body after: ", formData);
+
+    fetch(`${import.meta.env.VITE_API_URL}/projects/${project.uid}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: localStorage.getItem('authToken'),
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log('POSTED --> ', data);
+        fetchProject(); // to update the save btn state
+        // navigate("/");
+        alert(`${data.message}`);
+        // window.location.reload();
+      })
+      .catch((error) => {
+        console.log('POSTING error --> ', error);
+      });
+  };
+  const handleSave = (code) => {
+    // console.log("code is ", code);
+    // setBookmarkState("Unsave");
+    // console.log("after code is ", code);
+    patchProject(code);
   };
 
   if (!Object.keys(project).length > 0) {
@@ -278,8 +329,9 @@ function ProjectDetails() {
         </div>
         <div className="flex items-center justify-center w-1/2">
           {' '}
-          <button type="button" className="flex bg-white px-4 py-2 w-full items-center justify-center text-accent hover:bg-accent hover:text-white font-medium border border-accent rounded-full">
-            Save
+          <button type="button" className="flex bg-white px-4 py-2 w-full items-center justify-center text-accent hover:bg-accent hover:text-white font-medium border border-accent rounded-full" onClick={() => handleSave(bookmarkState)}>
+            {/* {project.bookmark.find((id) => id === localStorage.getItem("isDev")) ? "Unsave" : "Save"} */}
+            {bookmarkState}
           </button>
         </div>
       </div>
