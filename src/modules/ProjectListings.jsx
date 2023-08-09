@@ -33,25 +33,47 @@ function ProjectListings() {
   // const [isOpen, setIsOpen] = useState(false);
   const [projects, setProjects] = useState([]);
   const [searchInput, setSearchInput] = useState({ searchString: "" });
+  const [saveBtnState, SetsaveBtnState] = useState(false);
+  const [bestMatchesBtnState, setBestMatchesBtnState] = useState(true);
   const authToken = localStorage.getItem("authToken");
 
+  const fetchProjects = async () => {
+    const searchTitle = `?title=${searchInput.searchString}`;
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/projects${searchTitle}`,
+      { mode: "cors" },
+    );
+    const fetchedProjects = await response.json();
+    setProjects(fetchedProjects.data);
+    return fetchedProjects.message;
+  };
   useEffect(() => {
-    const fetchProjects = async () => {
-      const searchTitle = `?title=${searchInput.searchString}`;
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/projects${searchTitle}`,
-        { mode: "cors" },
-      );
-      const fetchedProjects = await response.json();
-      setProjects(fetchedProjects.data);
-      // console.log('fetch Projects------------', fetchedProjects.data);
-      // console.log('fetch Projects------------', projects);
-    };
     fetchProjects();
   }, [searchInput]);
 
   const orgToken = localStorage.getItem("isOrg");
 
+  const fetchSavedProjects = async () => {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_URL}/projects?bookmark=${localStorage.getItem("isDev")}`,
+      { mode: "cors" },
+    );
+    const fetchedProjects = await response.json();
+    setProjects(fetchedProjects.data);
+    alert(`${fetchedProjects.message}`);
+  };
+  const handleBestMatches = async () => {
+    // using async-await is imp here as fetchProjects returns a Promise so need to handle it untill it is resolved by the fetchProjects() method.
+    const message = await fetchProjects();
+    alert(`${message}`);
+    SetsaveBtnState(false);
+    setBestMatchesBtnState(true);
+  };
+  const handleSaved = async () => {
+    await fetchSavedProjects();
+    SetsaveBtnState(true);
+    setBestMatchesBtnState(false);
+  };
   return (
     <div className="flex flex-col justify-center w-full">
       {/* ------------- Background Gradient ------------ */}
@@ -90,10 +112,10 @@ function ProjectListings() {
           </h1>
           <div className="flex mt-6 w-full justify-between border-b ">
             <div className="tabs gap-4 pl-6">
-              <button type="button" className="tab tab-bordered tab-active">
+              <button type="button" className={`tab ${bestMatchesBtnState ? "tab-bordered tab-active" : ""}`} onClick={handleBestMatches}>
                 Best Matches
               </button>
-              <button type="button" className="tab">
+              <button type="button" className={`tab ${saveBtnState ? "tab-bordered tab-active" : ""}`} onClick={handleSaved}>
                 Saved Jobs
               </button>
             </div>
