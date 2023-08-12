@@ -23,8 +23,12 @@ function RegisterDeveloper() {
     city: '',
     technical_role: '',
     qualification: '',
-    skills: '',
+    skills: "",
     photo: null,
+    openToWork: false,
+    linkedin: "",
+    github: "",
+    about: "",
   });
   // console.log("formData : ", formData);
 
@@ -60,16 +64,15 @@ function RegisterDeveloper() {
     }
   };
 
-  console.log('currentStep---', currentStep);
-  console.log('steps lenght before?------', steps.length);
+  // console.log('currentStep---', currentStep);
+  // console.log('steps lenght before?------', steps.length);
   const handleClick = (direction) => {
-    console.log("here");
-    console.log('currentStep after click---', currentStep);
-    console.log('direction------>', direction);
+    // console.log('currentStep after click---', currentStep);
+    // console.log('direction------>', direction);
 
     let newStep = currentStep;
-    console.log('newstep---', newStep);
-    console.log('lenght?------', steps.length);
+    // console.log('newstep---', newStep);
+    // console.log('lenght?------', steps.length);
 
     // --- POST if the you reach at the last step
     // means when 3 === 3
@@ -87,13 +90,30 @@ function RegisterDeveloper() {
         bodyData.append('qualification', formData.qualification);
       }
       if (formData.skills) {
-        bodyData.append('skills', formData.skills);
+        // converting input string to array
+        const skillsArray = formData.skills.split(", ");
+        // appending each array element to a separate form-data key as sending array in form-data type is tricky
+        skillsArray.forEach((skill) => {
+          bodyData.append('skills', skill);
+        });
       }
       if (formData.city) {
         bodyData.append('city', formData.city);
       }
       if (formData.technical_role) {
         bodyData.append('technical_role', formData.technical_role);
+      }
+      if (formData.openToWork) {
+        bodyData.append('openToWork', formData.openToWork);
+      }
+      if (formData.linkedin) {
+        bodyData.append('linkedin', formData.linkedin);
+      }
+      if (formData.github) {
+        bodyData.append('github', formData.github);
+      }
+      if (formData.about) {
+        bodyData.append('about', formData.about);
       }
 
       bodyData.append('photo', formData.photo);
@@ -128,7 +148,6 @@ function RegisterDeveloper() {
     }
 
     // direction === 'next' ? newStep++ : newStep--;
-    console.log("then");
     if (direction === 'next') {
       newStep += 1;
     } else {
@@ -138,7 +157,6 @@ function RegisterDeveloper() {
     // check if steps are within bounds and save the changes in state variable
     // newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
     if (newStep > 0 && newStep <= steps.length) {
-      console.log("savingggggggg");
       setCurrentStep(newStep);
     }
   };
