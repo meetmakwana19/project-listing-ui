@@ -115,8 +115,9 @@ function RegisterDeveloper() {
       if (formData.about) {
         bodyData.append('about', formData.about);
       }
-
-      bodyData.append('photo', formData.photo);
+      if (formData.photo) {
+        bodyData.append('photo', formData.photo);
+      }
 
       // console.log("bodyData === ", bodyData);
       fetch(`${import.meta.env.VITE_API_URL}/developers/auth/register`, {
