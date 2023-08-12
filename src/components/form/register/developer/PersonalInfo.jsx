@@ -9,7 +9,6 @@ function PersonalInfo({ formData, setFormData }) {
 // Skills
 // OpenToWork
 
-  console.log('formData in personal info---', formData);
   return (
     <div className="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
       <div className="relative">

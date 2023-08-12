@@ -206,3 +206,14 @@ pnpm install --no-frozen-lockfile
 - Therefore, Vite has its own way of handing `.env` file's variables.
 - Use `import.meta.env` instead of `process.env`.
 - ANd use prefix `VITE_` like 'VITE_API_URL' in the `.env` file.
+
+---
+
+### 11. Image upload from React :
+
+1. Our backend accepts the image through `req.files` object.
+2. So added this property `{photo: null}` in the initialState of formData as the backend accepts image file as `photo` keyword in the request body.
+3. Access the file from HTML input tag using `event.target.files[0]` property and update the state variable using `setFormData`.
+4. Create a form object using `FormData` class and append the required fields which needs to be sent with the request.
+5. Do not set any headers of `Content-Type` as when working with multipart/form-data, the browser automatically sets the appropriate Content-Type header, so you don't need to manually set it.
+   1. Including the header manually might cause issues, especially with CORS. 

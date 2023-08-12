@@ -13,6 +13,7 @@ import developer from "../../public/developer.svg";
 function RegisterDeveloper() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
+  const [image, setImage] = useState(null); // to show the image preview when image is selected through input tag.
   const [formData, setFormData] = useState({
     fname: '',
     lname: '',
@@ -23,7 +24,9 @@ function RegisterDeveloper() {
     technical_role: '',
     qualification: '',
     skills: '',
+    photo: null,
   });
+  // console.log("formData : ", formData);
 
   const steps = ['Login Details', 'Personal Details', 'Review'];
 
@@ -44,7 +47,14 @@ function RegisterDeveloper() {
           />
         );
       case 3:
-        return <Final />;
+        return (
+          <Final
+            formData={formData}
+            setFormData={setFormData}
+            image={image}
+            setImage={setImage}
+          />
+        );
       default:
         return 0;
     }
@@ -56,15 +66,41 @@ function RegisterDeveloper() {
     // console.log('lenght?------', steps.length);
     // console.log('direction------>', direction);
 
-    // POST when the you reach at the last step
+    // --- POST when the you reach at the last step
     if (newStep === steps.length) {
       // console.log('heyyyy ', JSON.stringify(formData));
+
+      const bodyData = new FormData();
+      bodyData.append('fname', formData.fname);
+      bodyData.append('lname', formData.lname);
+      bodyData.append('email', formData.email);
+      bodyData.append('password', formData.password);
+      bodyData.append('phone', formData.phone);
+      if (formData.qualification) {
+        bodyData.append('qualification', formData.qualification);
+      }
+      if (formData.skills) {
+        bodyData.append('skills', formData.skills);
+      }
+      if (formData.city) {
+        bodyData.append('city', formData.city);
+      }
+      if (formData.technical_role) {
+        bodyData.append('technical_role', formData.technical_role);
+      }
+
+      bodyData.append('photo', formData.photo);
+
+      // console.log("bodyData === ", bodyData);
       fetch(`${import.meta.env.VITE_API_URL}/developers/auth/register`, {
         method: 'POST',
+        // when working with multipart/form-data, the browser automatically sets the appropriate Content-Type header, so you don't need to manually set it.
+        // including the header manually might cause issues, especially with CORS.
         headers: {
-          'Content-Type': 'application/json',
+          // 'Content-Type': 'multipart/form-data',
+          // 'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: bodyData,
       })
         .then((response) => response.json())
         .then((data) => {
