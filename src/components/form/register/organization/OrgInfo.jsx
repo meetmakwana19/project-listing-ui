@@ -32,7 +32,7 @@ function OrgInfo({ formData, setFormData }) {
           type="text"
           value={formData.website}
           onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-          className="border lowercase placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+          className="border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
         />
       </div>
       <div className="relative w-full">
@@ -47,7 +47,7 @@ function OrgInfo({ formData, setFormData }) {
           placeholder="description..."
           value={formData.about}
           onChange={(e) => setFormData({ ...formData, about: e.target.value })}
-          className="border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+          className="border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
         />
       </div>
     </div>

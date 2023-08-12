@@ -8,9 +8,8 @@ import FormContainer from '../components/form/FormContainer';
 import organization from '../../public/organization.svg';
 import OrgAccount from '../components/form/register/organization/OrgAccount';
 import OrgInfo from '../components/form/register/organization/OrgInfo';
-// import OrgBanner from '../components/form/register/organization/OrgBanner';
-// import Final from '../components/form/register/organization/Final';
-import OrgFinal from '../components/form/register/organization/OrgFInal';
+import OrgBanner from '../components/form/register/organization/OrgBanner';
+// import OrgFinal from '../components/form/register/organization/OrgFInal';
 
 function RegisterOrganization() {
   const navigate = useNavigate();
@@ -21,6 +20,7 @@ function RegisterOrganization() {
     password: '',
     domain: '',
     website: '',
+    photo: null,
   });
 
   const steps = ['Login Details', 'Company Details', 'Review'];
@@ -42,13 +42,13 @@ function RegisterOrganization() {
           />
         );
       case 3:
-        // return <OrgBanner formData={formData} setFormData={setFormData} />;
-        return (
-          <OrgFinal
-            formData={formData}
-            setFormData={setFormData}
-          />
-        );
+        return <OrgBanner formData={formData} setFormData={setFormData} />;
+        // return (
+        //   <OrgFinal
+        //     formData={formData}
+        //     setFormData={setFormData}
+        //   />
+        // );
       default:
         return 0;
     }
@@ -59,26 +59,46 @@ function RegisterOrganization() {
     // console.log('newstep---', newStep);
     // console.log('lenght?------', steps.length);
 
-    // POST when the you reach at the last step
-    if (newStep === steps.length) {
-      // console.log('heyyyy ', JSON.stringify(formData));
+    // --- POST if the you reach at the last step
+    // means when 3 === 3
+    // and when back button is not clicked otherwise even for back button click, network calls will be made.
+    if (newStep === steps.length && direction !== "back") {
+      const bodyData = new FormData();
+
+      bodyData.append("name", formData.name);
+      bodyData.append("password", formData.password);
+      if (formData.about) {
+        bodyData.append("about", formData.about);
+      }
+      if (formData.domain) {
+        bodyData.append("domain", formData.domain);
+      }
+      if (formData.website) {
+        bodyData.append("website", formData.website);
+      }
+      if (formData.photo) {
+        bodyData.append("photo", formData.photo);
+      }
       fetch(
         `${import.meta.env.VITE_API_URL}/organizations/auth/register`,
         {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
+          // when working with multipart/form-data, the browser automatically sets the appropriate Content-Type header, so you don't need to manually set it.
+          // including the header manually might cause issues, especially with CORS.
+          // headers: {
+          //   'Content-Type': 'application/json',
+          // },
+          // body: JSON.stringify(formData),
+          body: bodyData,
         },
       )
         .then((response) => response.json())
         .then((data) => {
           // console.log('POSTED --> ', data);
           if (data.data.access_token) {
-            // console.log("token is ", data.data.access_token);
             localStorage.setItem("authToken", data.data.access_token);
             localStorage.setItem('isOrg', data.data.organization._id);
+
             navigate("/");
             alert(`${data.message}`);
             window.location.reload();
@@ -102,7 +122,7 @@ function RegisterOrganization() {
     }
   };
 
-  console.log('org data ==== ', formData);
+  // console.log('org data ==== ', formData);
   return (
     <div>
       {/* Stepper */}
