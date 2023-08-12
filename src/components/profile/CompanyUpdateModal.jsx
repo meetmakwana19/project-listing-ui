@@ -3,6 +3,8 @@ import { LuEdit } from 'react-icons/lu';
 import { useNavigate } from 'react-router-dom';
 
 function CompanyUpdateModal({ organization }) {
+  // need to make a local copy of the state came from parent component
+  // because the update in original state using onChange handler was causing unnessary network requests for proposals and reviews as this state variable is useEffect hook's dependency
   const [localOrg, setLocalOrg] = useState(organization);
   const navigate = useNavigate(); // ued for navigation
   const handleUpdate = (e) => {
