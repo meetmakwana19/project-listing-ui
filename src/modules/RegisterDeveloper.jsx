@@ -60,14 +60,21 @@ function RegisterDeveloper() {
     }
   };
 
+  console.log('currentStep---', currentStep);
+  console.log('steps lenght before?------', steps.length);
   const handleClick = (direction) => {
-    let newStep = currentStep;
-    // console.log('newstep---', newStep);
-    // console.log('lenght?------', steps.length);
-    // console.log('direction------>', direction);
+    console.log("here");
+    console.log('currentStep after click---', currentStep);
+    console.log('direction------>', direction);
 
-    // --- POST when the you reach at the last step
-    if (newStep === steps.length) {
+    let newStep = currentStep;
+    console.log('newstep---', newStep);
+    console.log('lenght?------', steps.length);
+
+    // --- POST if the you reach at the last step
+    // means when 3 === 3
+    // and when back button is not clicked otherwise even for back button click, network calls will be made.
+    if (newStep === steps.length && direction !== "back") {
       // console.log('heyyyy ', JSON.stringify(formData));
 
       const bodyData = new FormData();
@@ -121,15 +128,17 @@ function RegisterDeveloper() {
     }
 
     // direction === 'next' ? newStep++ : newStep--;
+    console.log("then");
     if (direction === 'next') {
       newStep += 1;
     } else {
       newStep -= 1;
     }
 
-    // check if steps are within bounds
+    // check if steps are within bounds and save the changes in state variable
     // newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
     if (newStep > 0 && newStep <= steps.length) {
+      console.log("savingggggggg");
       setCurrentStep(newStep);
     }
   };

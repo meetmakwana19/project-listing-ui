@@ -5,7 +5,7 @@ export default function StepperControl({ handleClick, currentStep, steps }) {
     <div className="container mt-4 mb-8 flex justify-between">
       <button
         type="button"
-        onClick={() => handleClick()}
+        onClick={() => handleClick("back")}
         className={`cursor-pointer inline-block  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg transition duration-200 hover:bg-indigo-600 ease w-32  ${currentStep === 1 ? ' hidden ' : ''}`}
       >
         Back
