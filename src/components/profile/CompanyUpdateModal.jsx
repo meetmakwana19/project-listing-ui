@@ -1,17 +1,19 @@
+import { useState } from 'react';
 import { LuEdit } from 'react-icons/lu';
 import { useNavigate } from 'react-router-dom';
 
-function CompanyUpdateModal({ organization, setOrganization }) {
+function CompanyUpdateModal({ organization }) {
+  const [localOrg, setLocalOrg] = useState(organization);
   const navigate = useNavigate(); // ued for navigation
   const handleUpdate = (e) => {
     e.preventDefault();
-    fetch(`${import.meta.env.VITE_API_URL}/organizations/${organization.uid}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/organizations/${localOrg.uid}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         authorization: localStorage.getItem('authToken'),
       },
-      body: JSON.stringify(organization),
+      body: JSON.stringify(localOrg),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -50,8 +52,8 @@ function CompanyUpdateModal({ organization, setOrganization }) {
               <input
                 placeholder="Google"
                 type="text"
-                value={organization.name}
-                onChange={(event) => setOrganization({ ...organization, name: event.target.value })}
+                value={localOrg.name}
+                onChange={(event) => setLocalOrg({ ...localOrg, name: event.target.value })}
                 className="border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
               />
             </div>
@@ -63,8 +65,8 @@ function CompanyUpdateModal({ organization, setOrganization }) {
               <input
                 placeholder="e.g example.com"
                 type="text"
-                value={organization.website}
-                onChange={(event) => setOrganization({ ...organization, website: event.target.value })}
+                value={localOrg.website}
+                onChange={(event) => setLocalOrg({ ...localOrg, website: event.target.value })}
                 className="border placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
@@ -77,8 +79,8 @@ function CompanyUpdateModal({ organization, setOrganization }) {
               <input
                 placeholder="e.g I.T Engineering"
                 type="phone"
-                value={organization.domain}
-                onChange={(event) => setOrganization({ ...organization, domain: event.target.value })}
+                value={localOrg.domain}
+                onChange={(event) => setLocalOrg({ ...localOrg, domain: event.target.value })}
                 className="border placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
@@ -93,8 +95,8 @@ function CompanyUpdateModal({ organization, setOrganization }) {
               <textarea
                 rows="4"
                 placeholder="description..."
-                value={organization.about}
-                onChange={(e) => setOrganization({ ...organization, about: e.target.value })}
+                value={localOrg.about}
+                onChange={(e) => setLocalOrg({ ...localOrg, about: e.target.value })}
                 className="border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
               />
             </div>
