@@ -38,7 +38,7 @@ function PersonalInfo({ formData, setFormData }) {
             type="text"
             value={formData.city}
             onChange={(event) => setFormData({ ...formData, city: event.target.value })}
-            className="border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+            className="border   placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
           />
         </div>
         <div className="relative w-full">
@@ -53,7 +53,7 @@ function PersonalInfo({ formData, setFormData }) {
             type="text"
             value={formData.technical_role}
             onChange={(event) => setFormData({ ...formData, technical_role: event.target.value })}
-            className="border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+            className="border   placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
           />
         </div>
       </div>
@@ -69,7 +69,7 @@ function PersonalInfo({ formData, setFormData }) {
           type="text"
           value={formData.qualification}
           onChange={(event) => setFormData({ ...formData, qualification: event.target.value })}
-          className="border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+          className="border   placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
         />
       </div>
       <div className="relative w-full">
@@ -118,7 +118,7 @@ function PersonalInfo({ formData, setFormData }) {
           type="text"
           value={formData.linkedin}
           onChange={(event) => setFormData({ ...formData, linkedin: event.target.value })}
-          className="border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+          className="border   placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
         />
       </div>
       <div className="relative w-full">
@@ -132,7 +132,7 @@ function PersonalInfo({ formData, setFormData }) {
           type="text"
           value={formData.github}
           onChange={(event) => setFormData({ ...formData, github: event.target.value })}
-          className="border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+          className="border   placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
         />
       </div>
     </div>
