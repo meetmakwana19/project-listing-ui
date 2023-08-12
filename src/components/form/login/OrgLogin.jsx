@@ -20,8 +20,14 @@ export default function OrgLogin() {
     })
       .then((response) => response.json())
       .then((data) => {
+        if (data.error) {
+          alert(`${data.message} : ${data.error}`);
+        }
         // console.log("LOGGED IN --> ", data);
         if (data.data.access_token) {
+          if (data.error) {
+            alert(`${data.message}`);
+          }
           // console.log("token is ", data.data.access_token);
           localStorage.setItem('authToken', data.data.access_token);
           localStorage.setItem('isOrg', data.data.organization._id);
