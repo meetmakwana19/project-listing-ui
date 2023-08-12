@@ -27,7 +27,6 @@ function CompanyDetails({
     let orgId;
     // only render if the url param has {} object due to no :uid in url
     if (profile.uid) {
-      console.log("yessssssssssss", profile);
       orgId = org_data._id;
     } else if (localStorage.getItem("isOrg")) {
       orgId = localStorage.getItem("isOrg");
@@ -42,7 +41,7 @@ function CompanyDetails({
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log("proposals : ", data);
+        // console.log("proposals : ", data);
         setOrgProposals(data.data);
       });
   };
@@ -55,7 +54,7 @@ function CompanyDetails({
       .then((fetched) => {
         // FILTERING those reviews which were posted by Developer for organization.
         const filteredData = fetched.data.filter((doc) => doc.reviewedByDev === true);
-        // console.log("filtered is ", filteredData);
+        // console.log("filtered reviews are ", filteredData);
         setReviews(filteredData);
       });
   };
@@ -68,7 +67,7 @@ function CompanyDetails({
     if (org_data._id) {
       fetchReviews();
     }
-  }, [org_data]);
+  }, [org_data]); // org_data for fetchReviews as it needs id
 
   const deleteProject = (uid) => {
     setSelectedUID(uid);

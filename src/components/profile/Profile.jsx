@@ -453,6 +453,7 @@ export default function Profile() {
         <CompanyUpdateModal
           organization={organization}
           setOrganization={setOrganization}
+          fetchProfile={fetchProfile}
         />
   )}
     />

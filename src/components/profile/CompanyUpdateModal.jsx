@@ -1,12 +1,17 @@
 import { useState } from 'react';
 import { LuEdit } from 'react-icons/lu';
-import { useNavigate } from 'react-router-dom';
 
-function CompanyUpdateModal({ organization }) {
+function CompanyUpdateModal({ organization, fetchProfile }) {
   // need to make a local copy of the state came from parent component
   // because the update in original state using onChange handler was causing unnessary network requests for proposals and reviews as this state variable is useEffect hook's dependency
   const [localOrg, setLocalOrg] = useState(organization);
-  const navigate = useNavigate(); // ued for navigation
+
+  const handleCloseModal = () => {
+    const modal = document.getElementById('my_modal_2');
+    if (modal) {
+      modal.close();
+    }
+  };
   const handleUpdate = (e) => {
     e.preventDefault();
     fetch(`${import.meta.env.VITE_API_URL}/organizations/${localOrg.uid}`, {
@@ -20,7 +25,8 @@ function CompanyUpdateModal({ organization }) {
       .then((response) => response.json())
       .then((data) => {
         alert(`${data.message}`);
-        navigate("/");
+        fetchProfile();
+        handleCloseModal();
       })
       .catch((error) => {
         console.log('POSTING error --> ', error);
