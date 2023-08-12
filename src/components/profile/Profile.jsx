@@ -77,8 +77,12 @@ export default function Profile() {
     const fetched = await response.json();
     if (localStorage.getItem('isDev')) {
       await setDeveloper(fetched.data[0]);
+
+      // proposals needs to have authentication token for GET request
+      // therefore fetch proposals only after setting authToken
       fetchProposals();
     } else if (localStorage.getItem('isOrg')) {
+      // CompanyDetails component handles fetching proposals for itself with a differend query paramter so no need to do here.
       setOrganization(fetched.data[0]);
     }
     // console.log('fetched info------------', fetched.data[0]);
@@ -159,6 +163,7 @@ export default function Profile() {
             <UpdateModal
               developer={developer}
               setDeveloper={setDeveloper}
+              fetchProfile={fetchProfile}
             />
 
             {/* {isOpen ? (

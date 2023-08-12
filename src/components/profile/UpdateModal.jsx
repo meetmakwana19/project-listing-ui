@@ -1,9 +1,7 @@
 // import { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
 import { LuEdit } from "react-icons/lu";
 
-function UpdateModal({ developer, setDeveloper }) {
-  const navigate = useNavigate();
+function UpdateModal({ developer, setDeveloper, fetchProfile }) {
   const uid = localStorage.getItem("dev_uid");
 
   const handleSkills = (event) => {
@@ -14,6 +12,12 @@ function UpdateModal({ developer, setDeveloper }) {
     });
   };
 
+  const handleModalClose = () => {
+    const modal = document.getElementById("my_modal_2");
+    if (modal) {
+      modal.close();
+    }
+  };
   const handleUpdate = (event) => {
     event.preventDefault();
 
@@ -30,8 +34,8 @@ function UpdateModal({ developer, setDeveloper }) {
       .then((data) => {
         // console.log('POSTED --> ', data);
         alert(`${data.message}`);
-        navigate("/");
-        // window.location.reload();
+        fetchProfile();
+        handleModalClose();
       })
       .catch((error) => {
         console.log("POSTING error --> ", error);
