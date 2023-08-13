@@ -173,7 +173,7 @@ function CompanyDetails({
             <div className="flex flex-col gap-2">
               <h1 className="text-lg font-semibold mb-2">Domain</h1>
               <div className="flex flex-wrap">
-                <ul className="flex flex-wrap  gap-2 capitalize text-accent">
+                <ul className="flex flex-wrap  gap-2 text-accent">
                   <li
                     key={org_data.uid}
                     className="border border-slate-300 px-2 py-1 bg-accent/5 text-sm rounded-2xl"
