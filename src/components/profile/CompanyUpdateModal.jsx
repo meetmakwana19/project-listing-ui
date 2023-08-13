@@ -166,7 +166,7 @@ function CompanyUpdateModal({ organization, fetchProfile }) {
                         <img
                           alt="Upload"
                           src={URL.createObjectURL(image)}
-                          className="img-display-after"
+                          className="aspect-video md:w4 h-40 object-cover rounded-lg"
                         />
                       ) : (
                         <RxAvatar className="w-40 h-40 text-accent" />
