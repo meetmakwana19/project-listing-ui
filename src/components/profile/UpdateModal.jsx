@@ -1,13 +1,19 @@
 // import { useEffect, useState } from 'react';
+import { useState } from "react";
 import { LuEdit } from "react-icons/lu";
 
-function UpdateModal({ developer, setDeveloper, fetchProfile }) {
+function UpdateModal({ developer, fetchProfile }) {
+  // need to make a local copy of the state came from parent component
+  // because the update in original state using onChange handler was causing unnessary change in original state before saving it up through the PATCH request.
+  const [localDev, setLocalDev] = useState(developer);
+  console.log("local state : ", localDev);
+
   const uid = localStorage.getItem("dev_uid");
 
   const handleSkills = (event) => {
     const { name, value } = event.target;
-    setDeveloper({
-      ...developer,
+    setLocalDev({
+      ...localDev,
       [name]: name === "skills" ? value.split(", ") : value,
     });
   };
@@ -20,15 +26,50 @@ function UpdateModal({ developer, setDeveloper, fetchProfile }) {
   };
   const handleUpdate = (event) => {
     event.preventDefault();
+    const bodyData = new FormData();
+    bodyData.append('fname', localDev.fname);
+    bodyData.append('lname', localDev.lname);
+    bodyData.append('email', localDev.email);
+    bodyData.append('phone', localDev.phone);
+    if (localDev.qualification) {
+      bodyData.append('qualification', localDev.qualification);
+    }
+    if (localDev.skills) {
+      // localDev.skills is already an array which is handled by handleSkills onChange method
+      // so just appending each array element to a separate form-data key as sending array in form-data type is tricky
+      localDev.skills.forEach((skill) => {
+        bodyData.append('skills', skill);
+      });
+    }
+    if (localDev.city) {
+      bodyData.append('city', localDev.city);
+    }
+    if (localDev.technical_role) {
+      bodyData.append('technical_role', localDev.technical_role);
+    }
+    if (localDev.openToWork) {
+      bodyData.append('openToWork', localDev.openToWork);
+    }
+    if (localDev.linkedin) {
+      bodyData.append('linkedin', localDev.linkedin);
+    }
+    if (localDev.github) {
+      bodyData.append('github', localDev.github);
+    }
+    if (localDev.about) {
+      bodyData.append('about', localDev.about);
+    }
+    if (localDev.photo) {
+      bodyData.append('photo', localDev.photo);
+    }
 
-    // const dev_id = localStorage.
     fetch(`${import.meta.env.VITE_API_URL}/developers/${uid}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         authorization: localStorage.getItem("authToken"),
       },
-      body: JSON.stringify(developer),
+      body: JSON.stringify(localDev),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -65,8 +106,8 @@ function UpdateModal({ developer, setDeveloper, fetchProfile }) {
                 <input
                   placeholder="John"
                   type="text"
-                  value={developer.fname}
-                  onChange={(event) => setDeveloper({ ...developer, fname: event.target.value })}
+                  value={localDev.fname}
+                  onChange={(event) => setLocalDev({ ...localDev, fname: event.target.value })}
                   className="border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
                 />
               </div>
@@ -77,8 +118,8 @@ function UpdateModal({ developer, setDeveloper, fetchProfile }) {
                 <input
                   placeholder="Doe"
                   type="text"
-                  value={developer.lname}
-                  onChange={(event) => setDeveloper({ ...developer, lname: event.target.value })}
+                  value={localDev.lname}
+                  onChange={(event) => setLocalDev({ ...localDev, lname: event.target.value })}
                   className="border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
                 />
               </div>
@@ -90,9 +131,9 @@ function UpdateModal({ developer, setDeveloper, fetchProfile }) {
               <input
                 placeholder="johndoe@example.com"
                 type="text"
-                value={developer.email}
-                onChange={(event) => setDeveloper({ ...developer, email: event.target.value })}
-                className="border lowercase placeholder-gray-400 focus:outline-none
+                value={localDev.email}
+                onChange={(event) => setLocalDev({ ...localDev, email: event.target.value })}
+                className="border   placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
               />
@@ -104,9 +145,9 @@ function UpdateModal({ developer, setDeveloper, fetchProfile }) {
               <input
                 placeholder="+91 84597 25190"
                 type="phone"
-                value={developer.phone}
-                onChange={(event) => setDeveloper({ ...developer, phone: event.target.value })}
-                className="border lowercase placeholder-gray-400 focus:outline-none
+                value={localDev.phone}
+                onChange={(event) => setLocalDev({ ...localDev, phone: event.target.value })}
+                className="border   placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
               />
@@ -118,9 +159,26 @@ function UpdateModal({ developer, setDeveloper, fetchProfile }) {
               <input
                 placeholder="Mumbai"
                 type="text"
-                value={developer.city}
-                onChange={(event) => setDeveloper({ ...developer, city: event.target.value })}
-                className="border lowercase placeholder-gray-400 focus:outline-none
+                value={localDev.city}
+                onChange={(event) => setLocalDev({ ...localDev, city: event.target.value })}
+                className="border   placeholder-gray-400 focus:outline-none
+                  focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
+                  border-gray-300 rounded-md"
+              />
+            </div>
+            <div className="relative">
+              <p className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
+                Educational Qualification
+              </p>
+              <input
+                placeholder="Full stack web developer"
+                type="text"
+                value={localDev.qualification}
+                onChange={(event) => setLocalDev({
+                  ...localDev,
+                  qualification: event.target.value,
+                })}
+                className="border  placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
               />
@@ -132,18 +190,18 @@ function UpdateModal({ developer, setDeveloper, fetchProfile }) {
               <input
                 placeholder="Full stack web developer"
                 type="text"
-                value={developer.technical_role}
-                onChange={(event) => setDeveloper({
-                  ...developer,
+                value={localDev.technical_role}
+                onChange={(event) => setLocalDev({
+                  ...localDev,
                   technical_role: event.target.value,
                 })}
-                className="border lowercase placeholder-gray-400 focus:outline-none
+                className="border   placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
               />
             </div>
             {/* ----------------Image Update-------------- */}
-            {/* <div className="relative">
+            <div className="relative">
               <p
                 className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute"
               >
@@ -196,13 +254,13 @@ function UpdateModal({ developer, setDeveloper, fetchProfile }) {
               <textarea
                 placeholder="About yourself..."
                 type="text"
-                value={developer.about}
-                onChange={(event) => setDeveloper({ ...developer, about: event.target.value })}
+                value={localDev.about}
+                onChange={(event) => setLocalDev({ ...localDev, about: event.target.value })}
                 className="border placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
                   border-gray-300 rounded-md"
               />
-            </div> */}
+            </div>
             <div className="relative">
               <p
                 className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
@@ -213,7 +271,7 @@ function UpdateModal({ developer, setDeveloper, fetchProfile }) {
               <input
                 placeholder="Enter skills comma (,) separated.."
                 type="text"
-                value={developer.skills.join(", ")}
+                value={localDev.skills.join(", ")}
                 name="skills"
                 onChange={handleSkills}
                 className="border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
@@ -231,9 +289,9 @@ function UpdateModal({ developer, setDeveloper, fetchProfile }) {
                     type="checkbox"
                     role="switch"
                     id="flexSwitchChecked"
-                    checked={developer.openToWork}
-                    onChange={(e) => setDeveloper({
-                      ...developer,
+                    checked={localDev.openToWork}
+                    onChange={(e) => setLocalDev({
+                      ...localDev,
                       openToWork: e.target.checked,
                     })}
                   />
