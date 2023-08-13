@@ -9,7 +9,6 @@ import organization from '../../public/organization.svg';
 import OrgAccount from '../components/form/register/organization/OrgAccount';
 import OrgInfo from '../components/form/register/organization/OrgInfo';
 import OrgBanner from '../components/form/register/organization/OrgBanner';
-// import OrgFinal from '../components/form/register/organization/OrgFInal';
 
 function RegisterOrganization() {
   const navigate = useNavigate();
@@ -43,12 +42,6 @@ function RegisterOrganization() {
         );
       case 3:
         return <OrgBanner formData={formData} setFormData={setFormData} />;
-        // return (
-        //   <OrgFinal
-        //     formData={formData}
-        //     setFormData={setFormData}
-        //   />
-        // );
       default:
         return 0;
     }

@@ -1,10 +1,23 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { LuEdit } from 'react-icons/lu';
+import { RxAvatar } from "react-icons/rx";
 
 function CompanyUpdateModal({ organization, fetchProfile }) {
   // need to make a local copy of the state came from parent component
   // because the update in original state using onChange handler was causing unnessary network requests for proposals and reviews as this state variable is useEffect hook's dependency
   const [localOrg, setLocalOrg] = useState(organization);
+  const [image, setImage] = useState(null);
+  const hiddenFileInput = useRef(null);
+
+  const handleClick = () => {
+    hiddenFileInput.current.click();
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setImage(file);
+    setLocalOrg({ ...localOrg, photo: file });
+  };
 
   const handleCloseModal = () => {
     const modal = document.getElementById('my_modal_2');
@@ -14,13 +27,28 @@ function CompanyUpdateModal({ organization, fetchProfile }) {
   };
   const handleUpdate = (e) => {
     e.preventDefault();
+
+    const bodyData = new FormData();
+    bodyData.append('name', localOrg.name);
+    if (localOrg.website) {
+      bodyData.append('website', localOrg.website);
+    }
+    if (localOrg.domain) {
+      bodyData.append('domain', localOrg.domain);
+    }
+    if (localOrg.about) {
+      bodyData.append('openToWork', localOrg.about);
+    }
+    if (localOrg.photo) {
+      bodyData.append('photo', localOrg.photo);
+    }
+
     fetch(`${import.meta.env.VITE_API_URL}/organizations/${localOrg.uid}`, {
       method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json',
         authorization: localStorage.getItem('authToken'),
       },
-      body: JSON.stringify(localOrg),
+      body: bodyData,
     })
       .then((response) => response.json())
       .then((data) => {
@@ -109,66 +137,56 @@ function CompanyUpdateModal({ organization, fetchProfile }) {
               />
             </div>
             {/* ----------------Image Update-------------- */}
-            {/* <div className="relative">
+            <div className="relative">
               <p
                 className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute"
               >
-                Update Photo
+                Change Company Banner
               </p>
-              <label
-                htmlFor="dropzone-file"
-                className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:text-accent  hover:bg-accent/10 "
-              >
-                <div className="flex flex-col text-gray-500  hover:text-accent items-center justify-center pt-5 pb-6">
-                  <svg
-                    className="w-8 h-8 mb-4 "
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 20 16"
+
+              <div className="flex w-full justify-center">
+                <div className="box-decoration w-full py-6">
+                  <label
+                    htmlFor="image-upload-input"
+                    className="image-upload-label"
                   >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                    />
-                  </svg>
-                  <p className="mb-2 text-sm  ">
-                    <span className="font-semibold">Click to upload</span>
-                    {' '}
-                    or
-                    drag and drop
-                  </p>
-                  <p className="text-xs  ">
-                    SVG, PNG, JPG or GIF (MAX. 800x400px)
-                  </p>
+                    {image ? image.name : 'Choose an image'}
+
+                    <div
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          handleClick();
+                        }
+                      }}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      {image ? (
+                        <img
+                          alt="Upload"
+                          src={URL.createObjectURL(image)}
+                          className="img-display-after"
+                        />
+                      ) : (
+                        <RxAvatar className="w-40 h-40 text-accent" />
+                      )}
+
+                      <input
+                        id="image-upload-input"
+                        type="file"
+                        onChange={handleImageChange}
+                        ref={hiddenFileInput}
+                        style={{ display: 'none' }}
+                        accept="image/*"
+                      />
+                    </div>
+
+                  </label>
                 </div>
-                <input
-                  id="dropzone-file"
-                  type="file"
-                  className="hidden"
-                />
-              </label>
+              </div>
+
             </div>
-            <div className="relative">
-              <p
-                className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
-                  absolute"
-              >
-                About
-              </p>
-              <textarea
-                placeholder="About yourself..."
-                type="text"
-                value={developer.about}
-                onChange={(event) => setDeveloper({ ...developer, about: event.target.value })}
-                className="border placeholder-gray-400 focus:outline-none
-                  focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                  border-gray-300 rounded-md"
-              />
-            </div> */}
           </div>
           <button
             type="button"
