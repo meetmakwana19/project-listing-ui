@@ -190,7 +190,6 @@ export default function Profile() {
                 {/* ------------------------ Developer City-------------------------- */}
                 <p>
                   {developer?.city}
-                  , India
                 </p>
               </div>
             </div>
