@@ -196,7 +196,7 @@ function CompanyDetails({
               <h1 className="text-lg text-slate-900 font-medium">
                 Company Website
               </h1>
-              <a href={org_data.website} target="_blank" className="description break-words" rel="noreferrer">{org_data.website}</a>
+              <a href={org_data.website} target="_blank" className="description break-words hover:text-accent transition-all" rel="noreferrer">{org_data.website}</a>
             </div>
           </div>
           {/* ----------Col-2----------------*/}
@@ -217,13 +217,13 @@ function CompanyDetails({
       {/* keep thiss dialog component ouotside here so that it doesnt overlap with other components */}
       {/* render ConfirmationDialog only if selectedUID && deleteBtn are available */}
       {selectedUID && deleteBtn && (
-      <ProjectDeleteConfirmationDialog
-        cancel={() => setDeleteBtn(!deleteBtn)}
-        deleteBtn={deleteBtn}
-        setDeleteBtn={setDeleteBtn}
-        propUid={selectedUID}
-        onDeleteSuccess={handleDeleteSuccess}
-      />
+        <ProjectDeleteConfirmationDialog
+          cancel={() => setDeleteBtn(!deleteBtn)}
+          deleteBtn={deleteBtn}
+          setDeleteBtn={setDeleteBtn}
+          propUid={selectedUID}
+          onDeleteSuccess={handleDeleteSuccess}
+        />
       )}
 
       <div
@@ -264,15 +264,15 @@ function CompanyDetails({
 
                 <div className="absolute top-6 right-3 md:flex">
                   {localStorage.getItem("isOrg")
-                  && (
-                  <button
-                    type="button"
-                    onClick={() => deleteProject(project.uid)}
-                    className="text-red-500 text-xl lg:text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-xl"
-                  >
-                    <IoTrashBinOutline />
-                  </button>
-                  )}
+                    && (
+                      <button
+                        type="button"
+                        onClick={() => deleteProject(project.uid)}
+                        className="text-red-500 text-xl lg:text-2xl bg-red-50 hover:bg-red-500 hover:text-white p-3 rounded-xl"
+                      >
+                        <IoTrashBinOutline />
+                      </button>
+                    )}
                 </div>
 
               </div>
@@ -281,24 +281,39 @@ function CompanyDetails({
         </div>
 
       </div>
-
+      {/* ----------Company Reviews------------ */}
       <div
         className="flex w-full lg:w-3/5 md:w-4/5 flex-col justify-center
             items-center border z-10 relative
-           border-slate-300  bg-white/50 rounded-2xl my-6 mb-10"
+           border-slate-300  bg-white/50 rounded-2xl my-6"
       >
         <div className="flex w-full flex-col">
           <h1 className="text-2xl font-semibold px-5 pt-7 mb-3">Company Reviews</h1>
           <div className="py-5">
             {reviews && reviews.map((review) => (
               <div className="flex w-full justify-between items-center py-5 relative border-t px-5 gap-5 border-slate-300" key={review.uid}>
-                <div className="flex flex-col md:flex-row gap-6 md:gap-0">
-                  <div className="flex items-start justify-start">
+                <div className="flex flex-col md:flex-row gap-2 md:gap-0">
+                  <div className="flex items-center justify-start">
                     <img
                       src={review.developer.profile_pic}
                       alt=""
-                      className="w-[30vw]  md:w-40 rounded-lg  object-cover aspect-video mr-8"
+                      className="w-[10vw] h-full md:w-20 md:h-20 object-cover aspect-square rounded-full md:mr-0 mr-4"
                     />
+                    <div>
+                      <Link
+                        to={`/developers/${review
+                          .developer.uid}`}
+                        className="flex md:hidden text-xl font-semibold  hover:text-accent"
+                      >
+                        {review.developer.fname}
+                        {' '}
+                        {review.developer.lname}
+                      </Link>
+                      <div className="md:hidden description w-full md:w-[90%] flex items-center">
+                        {review.rating}
+                        <Star rating={review.rating} />
+                      </div>
+                    </div>
                   </div>
                   <div className="lg:w-[60%] md:pl-6">
                     <Link
@@ -310,7 +325,7 @@ function CompanyDetails({
                       {' '}
                       {review.developer.lname}
                     </Link>
-                    <div className="description w-full md:w-[90%] flex items-center">
+                    <div className="hidden description w-full md:w-[90%] md:flex items-center">
                       {review.rating}
                       <Star rating={review.rating} />
                     </div>
@@ -327,6 +342,8 @@ function CompanyDetails({
           </div>
         </div>
       </div>
+      {/* ----------END  Company Reviews------------ */}
+
       {/* only render if the url param has {} object due to no :uid in url */}
       {!profile.uid === true
         ? (
@@ -359,7 +376,7 @@ function CompanyDetails({
                     <div className="flex order-2 md:w-1/2 md:pl-6 flex-col items-start">
                       {/* badge for proposal status */}
                       <p
-                    // eslint-disable-next-line no-nested-ternary
+                        // eslint-disable-next-line no-nested-ternary
                         className={`border py-0.5 px-1 md:px-2 md:py-1 bg-accent/5 text-xs md:text-sm rounded-2xl text-accent ${proposal.pending ? "bg-yellow-100/50 text-orange-600 border-orange-300" : proposal.accepted ? "bg-green-100 text-green-800 border-green-300" : "bg-red-100 text-red-800 border-red-300"}`}
                       >
                         {getStatusText(proposal)}
@@ -383,26 +400,26 @@ function CompanyDetails({
                       </p>
                       <div className="flex gap-2">
                         {proposal.accepted && (
-                        <ReviewVaul
-                          orgID={proposal.organization._id}
-                          devID={proposal.developer._id}
-                          proposalUID={proposal.uid}
-                          fetchProposals={fetchProposals}
-                          reviewVaulOpen={reviewVaulOpen}
-                          setReviewVaulOpen={setReviewVaulOpen}
-                        >
-                          <button
-                            type="button"
-                            className={`flex text-accent text-2xl bg-indigo-50 hover:bg-accent hover:text-white p-2 md:p-3 rounded-xl relative ${proposal.reviewedByOrg ? 'opacity-50 cursor-not-allowed' : ''}`}
-                            disabled={proposal.reviewedByOrg}
-                            onClick={() => setReviewVaulOpen(true)}
+                          <ReviewVaul
+                            orgID={proposal.organization._id}
+                            devID={proposal.developer._id}
+                            proposalUID={proposal.uid}
+                            fetchProposals={fetchProposals}
+                            reviewVaulOpen={reviewVaulOpen}
+                            setReviewVaulOpen={setReviewVaulOpen}
                           >
-                            <p className="hidden md:flex  w-36 text-base">
-                              {proposal.reviewedByOrg ? "Reviewed" : "Review Developer"}
-                            </p>
-                            <MdReviews />
-                          </button>
-                        </ReviewVaul>
+                            <button
+                              type="button"
+                              className={`flex text-accent text-2xl bg-indigo-50 hover:bg-accent hover:text-white p-2 md:p-3 rounded-xl relative ${proposal.reviewedByOrg ? 'opacity-50 cursor-not-allowed' : ''}`}
+                              disabled={proposal.reviewedByOrg}
+                              onClick={() => setReviewVaulOpen(true)}
+                            >
+                              <p className="hidden md:flex  w-36 text-base">
+                                {proposal.reviewedByOrg ? "Reviewed" : "Review Developer"}
+                              </p>
+                              <MdReviews />
+                            </button>
+                          </ReviewVaul>
                         )}
                       </div>
                     </div>
@@ -448,7 +465,7 @@ function CompanyDetails({
             </div>
           </div>
         )
-        : null }
+        : null}
 
     </div>
   );
