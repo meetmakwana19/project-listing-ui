@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import LoginContainer from './LoginContainer';
-import 'react-toastify/dist/ReactToastify.min.css';
-// import developer from "../../../../../../../../../../developer.svg";
 import developer from '../../../../public/developer.svg';
 
 export default function DevLogin() {
@@ -62,6 +60,7 @@ export default function DevLogin() {
             placeholder="johndoe@example.com"
             type="email"
             value={form.email}
+            name="email"
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             className="border lowercase placeholder-gray-400 focus:outline-none
           focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white

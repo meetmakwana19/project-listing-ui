@@ -17,6 +17,7 @@ function AccountCredentials({ formData, setFormData }) {
             First Name
           </p>
           <input
+            name="fname"
             placeholder="John"
             type="text"
             required
@@ -24,6 +25,7 @@ function AccountCredentials({ formData, setFormData }) {
             onChange={(event) => setFormData({ ...formData, fname: event.target.value })}
             className="border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
           />
+
         </div>
         <div className="relative w-full">
           <p

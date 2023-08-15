@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Stepper from '../components/form/register/Stepper';
 import StepperControl from '../components/form/register/StepperControl';
 import { UseContextProvider } from '../components/form/register/StepperContext';
@@ -8,7 +9,6 @@ import PersonalInfo from '../components/form/register/developer/PersonalInfo';
 import Final from '../components/form/register/developer/Final';
 import FormContainer from '../components/form/FormContainer';
 import developer from "../../public/developer.svg";
-import { toast } from 'react-toastify';
 // import developer from "../../../../../../../../developer.svg";
 
 function RegisterDeveloper() {
@@ -140,7 +140,7 @@ function RegisterDeveloper() {
             localStorage.setItem('isDev', data.data.developer._id);
             localStorage.setItem('dev_uid', data.data.developer.uid);
             toast.success(`${data.message}`, {
-              position: toast.POSITION.TOP_CENTER, autoClose: 2000
+              position: toast.POSITION.TOP_CENTER, autoClose: 2000,
             });
             navigate("/");
             // alert(`${data.message}`);
