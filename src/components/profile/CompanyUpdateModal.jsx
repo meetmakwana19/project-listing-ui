@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { LuEdit } from 'react-icons/lu';
 import { RxAvatar } from "react-icons/rx";
+import { toast } from 'react-toastify';
 
 function CompanyUpdateModal({ organization, fetchProfile }) {
   // need to make a local copy of the state came from parent component
@@ -52,7 +53,10 @@ function CompanyUpdateModal({ organization, fetchProfile }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        alert(`${data.message}`);
+        // alert(`${data.message}`);
+        toast.success(`${data.message}`, {
+          position: toast.POSITION.TOP_CENTER, autoClose: 2000
+        });
         fetchProfile();
         handleCloseModal();
       })

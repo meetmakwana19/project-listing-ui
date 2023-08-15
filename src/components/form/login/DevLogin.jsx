@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import LoginContainer from './LoginContainer';
+import 'react-toastify/dist/ReactToastify.min.css';
 // import developer from "../../../../../../../../../../developer.svg";
 import developer from '../../../../public/developer.svg';
 
@@ -12,13 +14,16 @@ export default function DevLogin() {
   });
 
   const onSignIn = () => {
-    fetch(`${import.meta.env.VITE_API_URL}/developers/auth/login`, {
+    const id = toast.loading("Please wait...", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+    (fetch(`${import.meta.env.VITE_API_URL}/developers/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(form),
-    })
+    }))
       .then((response) => response.json())
       .then((data) => {
         if (data.data.access_token) {
@@ -26,14 +31,22 @@ export default function DevLogin() {
           localStorage.setItem('authToken', data.data.access_token);
           localStorage.setItem('isDev', data.data.developer._id);
           localStorage.setItem('dev_uid', data.data.developer.uid);
+          toast.update(id, {
+            render: "Login Successful", type: "success", isLoading: false, autoClose: 2000,
+          });
           navigate('/');
-          alert(`${data.message}`);
+          // alert(`${data.message}`);
+
           window.location.reload();
         }
         // console.log("LOGGED IN --> ", data);
         // console.log("DEV --> ", localStorage.getItem('isDev'));
       })
       .catch((error) => {
+        toast.update(id, {
+          render: `${error}`, type: "error", isLoading: false, autoClose: 2000,
+        });
+
         console.log('POSTING error --> ', error);
       });
   };
@@ -47,7 +60,7 @@ export default function DevLogin() {
           </p>
           <input
             placeholder="johndoe@example.com"
-            type="text"
+            type="email"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             className="border lowercase placeholder-gray-400 focus:outline-none

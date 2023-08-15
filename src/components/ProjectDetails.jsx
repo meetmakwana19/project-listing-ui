@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { BiSolidMap } from 'react-icons/bi';
 import { FaCircleDollarToSlot } from 'react-icons/fa6';
+import { toast } from 'react-toastify';
 // import { AiFillQuestionCircle } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import Container from './Container';
@@ -94,7 +95,9 @@ function ProjectDetails() {
       .then((response) => response.json())
       .then((data) => {
         // navigate("/");
-        alert(`${data.message}`);
+        toast.success(`${data.message}`, {
+          position: toast.POSITION.TOP_CENTER, autoClose: 2000
+        });
         fetchProposalHistory(projectId);
         // window.location.reload();
       })
@@ -141,7 +144,9 @@ function ProjectDetails() {
         // console.log('POSTED --> ', data);
         fetchProject(); // to update the save btn state
         // navigate("/");
-        alert(`${data.message}`);
+        toast.success(`${data.message}`, {
+          position: toast.POSITION.TOP_CENTER, autoClose: 2000
+        });
         // window.location.reload();
       })
       .catch((error) => {
@@ -316,27 +321,27 @@ function ProjectDetails() {
       </Container>
       {/* Apply Button */}
       {dev
-      && (
-      <div className="flex md:relative 2xl:absolute 2xl:w-96 md:w-4/5 2xl:bg-transparent 2xl:-top-[79%] 2xl:right-[21%] fixed bottom-0 bg-white gap-2 w-full border-t md:border-0 md:bottom-4 border-slate-300 py-2 items-center justify-center z-10 px-3">
-        <div className="flex items-center justify-center w-1/2">
-          <button
-            type="button"
-            className={`flex bg-accent px-4 py-2 w-full items-center justify-center text-white hover:bg-white hover:text-accent hover:border-accent font-medium border border-slate-300 rounded-full ${proposed ? 'opacity-50 cursor-not-allowed' : ''}`}
-            disabled={proposed}
-            onClick={() => clickApply(project._id, project.proj_organization)}
-          >
-            {proposed ? "Applied" : "Apply Now"}
-          </button>
-        </div>
-        <div className="flex items-center justify-center w-1/2">
-          {' '}
-          <button type="button" className="flex bg-white px-4 py-2 w-full items-center justify-center text-accent hover:bg-accent hover:text-white font-medium border border-accent rounded-full" onClick={() => handleSave(bookmarkState)}>
-            {/* {project.bookmark.find((id) => id === localStorage.getItem("isDev")) ? "Unsave" : "Save"} */}
-            {bookmarkState}
-          </button>
-        </div>
-      </div>
-      )}
+        && (
+          <div className="flex md:relative 2xl:absolute 2xl:w-96 md:w-4/5 2xl:bg-transparent 2xl:-top-[79%] 2xl:right-[21%] fixed bottom-0 bg-white gap-2 w-full border-t md:border-0 md:bottom-4 border-slate-300 py-2 items-center justify-center z-10 px-3">
+            <div className="flex items-center justify-center w-1/2">
+              <button
+                type="button"
+                className={`flex bg-accent px-4 py-2 w-full items-center justify-center text-white hover:bg-white hover:text-accent hover:border-accent font-medium border border-slate-300 rounded-full ${proposed ? 'opacity-50 cursor-not-allowed' : ''}`}
+                disabled={proposed}
+                onClick={() => clickApply(project._id, project.proj_organization)}
+              >
+                {proposed ? "Applied" : "Apply Now"}
+              </button>
+            </div>
+            <div className="flex items-center justify-center w-1/2">
+              {' '}
+              <button type="button" className="flex bg-white px-4 py-2 w-full items-center justify-center text-accent hover:bg-accent hover:text-white font-medium border border-accent rounded-full" onClick={() => handleSave(bookmarkState)}>
+                {/* {project.bookmark.find((id) => id === localStorage.getItem("isDev")) ? "Unsave" : "Save"} */}
+                {bookmarkState}
+              </button>
+            </div>
+          </div>
+        )}
     </div>
   );
 }

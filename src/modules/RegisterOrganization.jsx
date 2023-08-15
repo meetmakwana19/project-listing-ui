@@ -9,6 +9,7 @@ import organization from '../../public/organization.svg';
 import OrgAccount from '../components/form/register/organization/OrgAccount';
 import OrgInfo from '../components/form/register/organization/OrgInfo';
 import OrgBanner from '../components/form/register/organization/OrgBanner';
+import { toast } from 'react-toastify';
 
 function RegisterOrganization() {
   const navigate = useNavigate();
@@ -91,9 +92,11 @@ function RegisterOrganization() {
           if (data.data.access_token) {
             localStorage.setItem("authToken", data.data.access_token);
             localStorage.setItem('isOrg', data.data.organization._id);
-
+            toast.success(`${data.message}`, {
+              position: toast.POSITION.TOP_CENTER, autoClose: 2000
+            });
             navigate("/");
-            alert(`${data.message}`);
+            // alert(`${data.message}`);
             window.location.reload();
           }
         })

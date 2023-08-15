@@ -11,7 +11,7 @@ function FormContainer({ children, image }) {
               <img
                 alt="form"
                 src={image}
-                className="flex w-full object-cover h-[50vh] p-0"
+                className="flex w-full object-cover h-auto p-0"
               />
             </div>
           </div>

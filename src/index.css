@@ -70,6 +70,10 @@
 	}
 }
 
+:root{
+	--toastify-color-success: #6c47ff;
+}
+
 html {
 	scroll-behavior: smooth;
 	padding: 0%;

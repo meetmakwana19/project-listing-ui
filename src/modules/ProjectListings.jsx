@@ -5,6 +5,7 @@ import FilterButton from "../components/navbar/FilterButton";
 // import loading from "../../../../../../../../SVG/loading.svg";
 import loading from "../../public/SVG/loading.svg";
 import Search from "../components/navbar/Search";
+import { toast } from 'react-toastify';
 
 const filters = [
   {
@@ -60,12 +61,18 @@ function ProjectListings() {
     );
     const fetchedProjects = await response.json();
     setProjects(fetchedProjects.data);
-    alert(`${fetchedProjects.message}`);
+    // alert(`${fetchedProjects.message}`);
+    toast.success(`${fetchedProjects.message}`, {
+      position: toast.POSITION.TOP_CENTER, autoClose: 2000
+    });
   };
   const handleBestMatches = async () => {
     // using async-await is imp here as fetchProjects returns a Promise so need to handle it untill it is resolved by the fetchProjects() method.
     const message = await fetchProjects();
-    alert(`${message}`);
+    // alert(`${message}`);
+    toast.success(`${message}`, {
+      position: toast.POSITION.TOP_CENTER, autoClose: 2000
+    });
     SetsaveBtnState(false);
     setBestMatchesBtnState(true);
   };
