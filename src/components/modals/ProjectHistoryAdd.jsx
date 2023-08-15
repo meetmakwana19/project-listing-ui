@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { MdOutlineLibraryAdd } from 'react-icons/md';
+import { toast } from 'react-toastify';
 
 function ProjectHistoryAdd({ fetchHistory }) {
-// function ProjectHistoryUpdate( { projectHistory, setProjectHistory }) {
+  // function ProjectHistoryUpdate( { projectHistory, setProjectHistory }) {
   const [formData, setFormData] = useState({
     title: "",
     link: "",
@@ -41,10 +42,17 @@ function ProjectHistoryAdd({ fetchHistory }) {
       .then((data) => {
         // console.log("History -----", data);
         if (data.error) {
-          alert(`${data.message} : ${data.error}`);
+          // alerts_toast
+          toast.success(`${data.message}`, {
+            position: toast.POSITION.TOP_CENTER, autoClose: 2000
+          });
+          // alert(`${data.message} : ${data.error}`);
         }
-        alert(data.message);
+        // alert(data.message);
         fetchHistory();
+        toast.success(`${data.message}`, {
+          position: toast.POSITION.TOP_CENTER, autoClose: 2000
+        });
       });
   };
   const handleSubmit = () => {

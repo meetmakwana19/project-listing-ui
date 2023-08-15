@@ -2,6 +2,7 @@
 import { useRef, useState } from "react";
 import { LuEdit } from "react-icons/lu";
 import { RxAvatar } from "react-icons/rx";
+import { toast } from 'react-toastify';
 
 function UpdateModal({ developer, fetchProfile }) {
   // need to make a local copy of the state came from parent component
@@ -87,7 +88,10 @@ function UpdateModal({ developer, fetchProfile }) {
       .then((response) => response.json())
       .then((data) => {
         // console.log('POSTED --> ', data);
-        alert(`${data.message}`);
+        // alert(`${data.message}`);
+        toast.success(`${data.message}`, {
+          position: toast.POSITION.TOP_CENTER, autoClose: 2000
+        });
         fetchProfile();
         handleModalClose();
       })
@@ -226,7 +230,7 @@ function UpdateModal({ developer, fetchProfile }) {
                     <div
                       role="button"
                       tabIndex={0}
-        //   onClick={handleClick}
+                      //   onClick={handleClick}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
                           handleClick();

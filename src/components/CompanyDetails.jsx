@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 // import { BiSolidMap } from 'react-icons/bi';
-
+import { toast } from 'react-toastify';
 import { useEffect, useState } from "react";
 import { IoTrashBinOutline } from "react-icons/io5";
 import { TiThumbsUp, TiThumbsDown } from "react-icons/ti";
@@ -91,9 +91,13 @@ function CompanyDetails({
     });
     const result = await response.json();
     if (result.error) {
-      alert(`${result.error}`);
+      toast.error(`${result.error}`, {
+        position: toast.POSITION.TOP_CENTER, autoClose: 2000
+      });
     }
-    alert(`${result.message}`);
+    toast.success(`${result.message}`, {
+      position: toast.POSITION.TOP_CENTER, autoClose: 2000
+    });
     // console.log("PATCHED ? ", result);
     fetchProposals();
   };

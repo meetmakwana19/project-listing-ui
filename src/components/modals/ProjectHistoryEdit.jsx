@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { LuEdit } from 'react-icons/lu';
+import { toast } from 'react-toastify';
 
 function ProjectHistoryEdit({ fetchHistory, projectUID }) {
   const [formData, setFormData] = useState({
@@ -39,9 +40,16 @@ function ProjectHistoryEdit({ fetchHistory, projectUID }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
-          alert(`${data.message} : ${data.error}`);
+          // alerts_toast
+          // alert(`${data.message} : ${data.error}`);
+          toast.success(`${data.message}`, {
+            position: toast.POSITION.TOP_CENTER, autoClose: 2000
+          });
         }
-        alert(data.message);
+        toast.success(`${data.message}`, {
+          position: toast.POSITION.TOP_CENTER, autoClose: 2000
+        });
+        // alert(data.message);
         fetchHistory();
       });
   };

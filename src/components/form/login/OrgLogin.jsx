@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 // import organization from '/organization.svg';
 import { useNavigate } from 'react-router-dom';
 import organization from '../../../../public/organization.svg';
@@ -21,19 +22,26 @@ export default function OrgLogin() {
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
-          alert(`${data.message} : ${data.error}`);
+          // alert(`${data.message} : ${data.error}`);
+          toast.error(`${data.message}`, {
+            position: toast.POSITION.TOP_CENTER, autoClose: 2000
+          });
         }
         // console.log("LOGGED IN --> ", data);
         if (data.data.access_token) {
           if (data.error) {
-            alert(`${data.message}`);
+            toast.error(`${data.message}`, {
+              position: toast.POSITION.TOP_CENTER, autoClose: 2000
+            });
           }
           // console.log("token is ", data.data.access_token);
           localStorage.setItem('authToken', data.data.access_token);
           localStorage.setItem('isOrg', data.data.organization._id);
           localStorage.setItem('orgUID', data.data.organization.uid);
           navigate('/');
-          alert(`${data.message}`);
+          toast.success(`${data.message}`, {
+            position: toast.POSITION.TOP_CENTER, autoClose: 2000
+          });
           window.location.reload();
         }
         // console.log("ORG----------", data);

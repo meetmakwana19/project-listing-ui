@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function ProjectAdd() {
   const navigate = useNavigate();
@@ -35,7 +36,10 @@ export default function ProjectAdd() {
           .then((response) => response.json())
           .then((data) => {
             // console.log("Done patching ----", data);
-            alert(`${projMessage} Also ${data.message}`);
+            // alert(`${projMessage} Also ${data.message}`);
+            toast.success(`${projMessage} Also ${data.message}`, {
+              position: toast.POSITION.TOP_CENTER, autoClose: 2000
+            });
             navigate("/");
           })
           .catch((error) => {
@@ -56,7 +60,11 @@ export default function ProjectAdd() {
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
-          alert(`${data.message}: ${data.error}`);
+          // alerts_toast
+          // alert(`${data.message}: ${data.error}`);
+          toast.success(`${data.message}`, {
+            position: toast.POSITION.TOP_CENTER, autoClose: 2000
+          });
         } else {
           patchORG(data.data._id, data.message);
           // alert(`${data.message}`);
