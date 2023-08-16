@@ -12,43 +12,45 @@ export default function OrgLogin() {
     password: '',
   });
   const onSignIn = () => {
-    fetch(`${import.meta.env.VITE_API_URL}/organizations/auth/login`, {
+    const id = toast.loading("Please wait...", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+
+    (fetch(`${import.meta.env.VITE_API_URL}/organizations/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(form),
-    })
+    }))
       .then((response) => response.json())
       .then((data) => {
-        if (data.error) {
-          // alert(`${data.message} : ${data.error}`);
-          toast.error(`${data.message}`, {
-            position: toast.POSITION.TOP_CENTER, autoClose: 2000
+        if (!data.data) {
+          return toast.update(id, {
+            render: `${data.error}`, type: "error", isLoading: false, autoClose: 2000,
           });
         }
-        // console.log("LOGGED IN --> ", data);
         if (data.data.access_token) {
-          if (data.error) {
-            toast.error(`${data.message}`, {
-              position: toast.POSITION.TOP_CENTER, autoClose: 2000
-            });
-          }
           // console.log("token is ", data.data.access_token);
           localStorage.setItem('authToken', data.data.access_token);
           localStorage.setItem('isOrg', data.data.organization._id);
           localStorage.setItem('orgUID', data.data.organization.uid);
-          navigate('/');
-          toast.success(`${data.message}`, {
-            position: toast.POSITION.TOP_CENTER, autoClose: 2000
+          toast.update(id, {
+            render: "Login Successful", type: "success", isLoading: false, autoClose: 2000,
           });
+          navigate('/');
           window.location.reload();
         }
         // console.log("ORG----------", data);
         // console.log("ORG id ----------", localStorage.getItem("isOrg"));
+
+        return 0;
       })
       .catch((error) => {
-        console.log('POSTING error --> ', error);
+        toast.update(id, {
+          render: `${error.message}`, type: "error", isLoading: false, autoClose: 2000,
+        });
+        // console.log('POSTING error --> ', error);
       });
   };
 

@@ -26,6 +26,13 @@ export default function DevLogin() {
     }))
       .then((response) => response.json())
       .then((data) => {
+        // if error comes and no data is there then update the toast with the error msg
+        if (!data.data) {
+          // return is imp so that it doesnt go again in catch block and update the toast again
+          return toast.update(id, {
+            render: `${data.error}`, type: "error", isLoading: false, autoClose: 2000,
+          });
+        }
         if (data.data.access_token) {
           // console.log("token is ", data.data.access_token);
           localStorage.setItem('authToken', data.data.access_token);
@@ -41,13 +48,15 @@ export default function DevLogin() {
         }
         // console.log("LOGGED IN --> ", data);
         // console.log("DEV --> ", localStorage.getItem('isDev'));
+
+        // return is so that the function returns something and stays consistent with above return of if block
+        return 0;
       })
       .catch((error) => {
+        // console.log('POSTING error --> ', error.message);
         toast.update(id, {
-          render: `${error}`, type: "error", isLoading: false, autoClose: 2000,
+          render: `${error.message}`, type: "error", isLoading: false, autoClose: 2000,
         });
-
-        console.log('POSTING error --> ', error);
       });
   };
 
