@@ -43,7 +43,7 @@ function ReviewVaul({
     // alerts_toast
     // alert(`${reviewResponse.message} and ${fetched.message}`);
     toast.success(`${reviewResponse.message} and ${fetched.message}`, {
-      position: toast.POSITION.TOP_CENTER, autoClose: 2000
+      position: toast.POSITION.TOP_CENTER, autoClose: 2000,
     });
     fetchProposals();
   };

@@ -38,7 +38,7 @@ export default function ProjectAdd() {
             // console.log("Done patching ----", data);
             // alert(`${projMessage} Also ${data.message}`);
             toast.success(`${projMessage} Also ${data.message}`, {
-              position: toast.POSITION.TOP_CENTER, autoClose: 2000
+              position: toast.POSITION.TOP_CENTER, autoClose: 2000,
             });
             navigate("/");
           })
@@ -63,7 +63,7 @@ export default function ProjectAdd() {
           // alerts_toast
           // alert(`${data.message}: ${data.error}`);
           toast.success(`${data.message}`, {
-            position: toast.POSITION.TOP_CENTER, autoClose: 2000
+            position: toast.POSITION.TOP_CENTER, autoClose: 2000,
           });
         } else {
           patchORG(data.data._id, data.message);

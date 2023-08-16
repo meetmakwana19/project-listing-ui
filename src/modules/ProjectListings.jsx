@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { RiArrowRightSLine } from "react-icons/ri";
+import { toast } from 'react-toastify';
 import ProjectList from "../components/ProjectList";
 import FilterButton from "../components/navbar/FilterButton";
 // import loading from "../../../../../../../../SVG/loading.svg";
 import loading from "../../public/SVG/loading.svg";
 import Search from "../components/navbar/Search";
-import { toast } from 'react-toastify';
 
 const filters = [
   {
@@ -49,6 +49,9 @@ function ProjectListings() {
     return fetchedProjects.message;
   };
   useEffect(() => {
+    if (!localStorage.getItem("isDev")) {
+      SetsaveBtnState(false);
+    }
     fetchProjects();
   }, [searchInput]);
 
@@ -63,7 +66,7 @@ function ProjectListings() {
     setProjects(fetchedProjects.data);
     // alert(`${fetchedProjects.message}`);
     toast.success(`${fetchedProjects.message}`, {
-      position: toast.POSITION.TOP_CENTER, autoClose: 2000
+      position: toast.POSITION.TOP_CENTER, autoClose: 2000,
     });
   };
   const handleBestMatches = async () => {
@@ -71,7 +74,7 @@ function ProjectListings() {
     const message = await fetchProjects();
     // alert(`${message}`);
     toast.success(`${message}`, {
-      position: toast.POSITION.TOP_CENTER, autoClose: 2000
+      position: toast.POSITION.TOP_CENTER, autoClose: 2000,
     });
     SetsaveBtnState(false);
     setBestMatchesBtnState(true);
@@ -122,9 +125,11 @@ function ProjectListings() {
               <button type="button" className={`tab ${bestMatchesBtnState ? "tab-bordered tab-active" : ""}`} onClick={handleBestMatches}>
                 Best Matches
               </button>
-              <button type="button" className={`tab ${saveBtnState ? "tab-bordered tab-active" : ""}`} onClick={handleSaved}>
-                Saved Jobs
-              </button>
+              {localStorage.getItem("isDev") ? (
+                <button type="button" className={`tab ${saveBtnState ? "tab-bordered tab-active" : ""}`} onClick={handleSaved}>
+                  Saved Jobs
+                </button>
+              ) : null}
             </div>
 
             {/* --------sort button--------- */}

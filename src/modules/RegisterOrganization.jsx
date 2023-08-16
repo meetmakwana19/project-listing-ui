@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Stepper from '../components/form/register/Stepper';
 import StepperControl from '../components/form/register/StepperControl';
 import { UseContextProvider } from '../components/form/register/StepperContext';
@@ -9,7 +10,6 @@ import organization from '../../public/organization.svg';
 import OrgAccount from '../components/form/register/organization/OrgAccount';
 import OrgInfo from '../components/form/register/organization/OrgInfo';
 import OrgBanner from '../components/form/register/organization/OrgBanner';
-import { toast } from 'react-toastify';
 
 function RegisterOrganization() {
   const navigate = useNavigate();
@@ -89,19 +89,29 @@ function RegisterOrganization() {
         .then((response) => response.json())
         .then((data) => {
           // console.log('POSTED --> ', data);
+          if (!data.data) {
+            // return is imp so that it doesnt go again in catch block and update the toast again
+            return toast.error(`${data.message} : ${data.error}`, {
+              position: toast.POSITION.TOP_CENTER, autoClose: 2000,
+            });
+          }
           if (data.data.access_token) {
             localStorage.setItem("authToken", data.data.access_token);
             localStorage.setItem('isOrg', data.data.organization._id);
             toast.success(`${data.message}`, {
-              position: toast.POSITION.TOP_CENTER, autoClose: 2000
+              position: toast.POSITION.TOP_CENTER, autoClose: 2000,
             });
             navigate("/");
             // alert(`${data.message}`);
             window.location.reload();
           }
+          return 0;
         })
         .catch((error) => {
-          console.log('POSTING error --> ', error);
+          console.log('POSTING error --> ', error.message);
+          toast.error(`An error occured while sending request. Please try again.`, {
+            position: toast.POSITION.TOP_CENTER, autoClose: 2000,
+          });
         });
     }
 

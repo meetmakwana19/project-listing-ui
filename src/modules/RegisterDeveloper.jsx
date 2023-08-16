@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Stepper from '../components/form/register/Stepper';
 import StepperControl from '../components/form/register/StepperControl';
 import { UseContextProvider } from '../components/form/register/StepperContext';
@@ -8,7 +9,6 @@ import PersonalInfo from '../components/form/register/developer/PersonalInfo';
 import Final from '../components/form/register/developer/Final';
 import FormContainer from '../components/form/FormContainer';
 import developer from "../../public/developer.svg";
-import { toast } from 'react-toastify';
 // import developer from "../../../../../../../../developer.svg";
 
 function RegisterDeveloper() {
@@ -134,21 +134,35 @@ function RegisterDeveloper() {
         .then((response) => response.json())
         .then((data) => {
           // console.log('POSTED --> ', data);
+          if (!data.data) {
+            // return is imp so that it doesnt go again in catch block and update the toast again
+            return toast.error(`${data.message} : ${data.error}`, {
+              position: toast.POSITION.TOP_CENTER, autoClose: 2000,
+            });
+          }
           if (data.data.access_token) {
             // console.log("token is ", data.data.access_token);
             localStorage.setItem("authToken", data.data.access_token);
             localStorage.setItem('isDev', data.data.developer._id);
             localStorage.setItem('dev_uid', data.data.developer.uid);
             toast.success(`${data.message}`, {
-              position: toast.POSITION.TOP_CENTER, autoClose: 2000
+              position: toast.POSITION.TOP_CENTER, autoClose: 2000,
             });
             navigate("/");
             // alert(`${data.message}`);
             window.location.reload();
+          } else if (data.error) {
+            toast.error(`${data.error}`, {
+              position: toast.POSITION.TOP_CENTER, autoClose: 2000,
+            });
           }
+          return 0;
         })
         .catch((error) => {
           console.log('POSTING error --> ', error);
+          toast.error(`An error occured while sending request. Please try again.`, {
+            position: toast.POSITION.TOP_CENTER, autoClose: 2000,
+          });
         });
     }
 
