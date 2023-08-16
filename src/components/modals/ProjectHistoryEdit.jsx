@@ -43,11 +43,11 @@ function ProjectHistoryEdit({ fetchHistory, projectUID }) {
           // alerts_toast
           // alert(`${data.message} : ${data.error}`);
           toast.success(`${data.message}`, {
-            position: toast.POSITION.TOP_CENTER, autoClose: 2000
+            position: toast.POSITION.TOP_CENTER, autoClose: 2000,
           });
         }
         toast.success(`${data.message}`, {
-          position: toast.POSITION.TOP_CENTER, autoClose: 2000
+          position: toast.POSITION.TOP_CENTER, autoClose: 2000,
         });
         // alert(data.message);
         fetchHistory();
@@ -55,6 +55,7 @@ function ProjectHistoryEdit({ fetchHistory, projectUID }) {
   };
   const handleSubmit = (uid) => {
     updateProject(uid);
+    setShowModal(!showModal);
   };
 
   const fetchProject = async (uid) => {
@@ -193,6 +194,7 @@ function ProjectHistoryEdit({ fetchHistory, projectUID }) {
               Update
             </button>
           </form>
+          {/* for background click closing */}
           <form method="dialog">
             <button
               type="button"
