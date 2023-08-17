@@ -92,11 +92,11 @@ function CompanyDetails({
     const result = await response.json();
     if (result.error) {
       toast.error(`${result.error}`, {
-        position: toast.POSITION.TOP_CENTER, autoClose: 2000
+        position: toast.POSITION.TOP_CENTER, autoClose: 2000,
       });
     }
     toast.success(`${result.message}`, {
-      position: toast.POSITION.TOP_CENTER, autoClose: 2000
+      position: toast.POSITION.TOP_CENTER, autoClose: 2000,
     });
     // console.log("PATCHED ? ", result);
     fetchProposals();

@@ -2,7 +2,7 @@ import React from 'react';
 
 function OrgAccount({ formData, setFormData }) {
   return (
-    <div className="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
+    <div className="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8 h-[30vh] overflow-y-scroll scroll-smooth z-100 scrollbar p-3">
       <div className="relative w-full">
         <p
           className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600

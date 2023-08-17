@@ -8,7 +8,7 @@ function AccountCredentials({ formData, setFormData }) {
   // Re-enter Password
 
   return (
-    <div className="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
+    <div className="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8 h-[40vh] overflow-y-scroll scroll-smooth z-100 scrollbar p-3">
       <div className="flex flex-auto gap-5 w-full items-center justify-between">
         <div className="relative w-full">
           <p

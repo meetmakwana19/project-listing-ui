@@ -55,7 +55,7 @@ function CompanyUpdateModal({ organization, fetchProfile }) {
       .then((data) => {
         // alert(`${data.message}`);
         toast.success(`${data.message}`, {
-          position: toast.POSITION.TOP_CENTER, autoClose: 2000
+          position: toast.POSITION.TOP_CENTER, autoClose: 2000,
         });
         fetchProfile();
         handleCloseModal();

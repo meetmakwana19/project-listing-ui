@@ -90,7 +90,7 @@ function UpdateModal({ developer, fetchProfile }) {
         // console.log('POSTED --> ', data);
         // alert(`${data.message}`);
         toast.success(`${data.message}`, {
-          position: toast.POSITION.TOP_CENTER, autoClose: 2000
+          position: toast.POSITION.TOP_CENTER, autoClose: 2000,
         });
         fetchProfile();
         handleModalClose();
