@@ -1,5 +1,5 @@
 import { Drawer } from "vaul";
-import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import { AiFillStar } from 'react-icons/ai';
 import { useState } from "react";
 import { toast } from 'react-toastify';
 
@@ -69,25 +69,31 @@ function ReviewVaul({
   // Reviews starts
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
-  const stars = Array(5).fill(0)
+  const stars = Array(5).fill(0);
 
-  const handleClick = value => {
-    setCurrentValue(value)
-  }
+  const handleClick = (value) => {
+    setCurrentValue(value);
+    setFormData({ ...formData, rating: value });
+    // console.log(value);
+  };
 
-  const handleMouseOver = newHoverValue => {
-    setHoverValue(newHoverValue)
+  const handleMouseOver = (newHoverValue) => {
+    setHoverValue(newHoverValue);
   };
 
   const handleMouseLeave = () => {
-    setHoverValue(undefined)
-  }
+    setHoverValue(undefined);
+  };
 
   const colors = {
-    orange: "#FFBA5A",
-    grey: "#d4d4d8"
+    accent: "#6c47ff",
+    grey: "#d4d4d8",
 
   };
+  // const reviewStar = currentValue;
+
+  // console.log(reviewStar);
+  // console.log(`${formData.rating} and ${formData.review}`);
   // Reviews End
   return (
     <Drawer.Root>
@@ -102,35 +108,22 @@ function ReviewVaul({
             <div className="p-4 bg-white rounded-t-[10px] flex-1">
               <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-zinc-300 mb-2" />
               <div className="max-w-lg mx-auto">
-                <Drawer.Title className="font-medium text-2xl lg:text-2xl mb-4">
+                <Drawer.Title className="font-medium text-xl lg:text-2xl mb-4">
                   Please leave a review.
+                  <p className="text-lg font-normal text-slate-600 mt-4">Help others make better decision</p>
                 </Drawer.Title>
-                {/* <div className="rating my-8 justify-around text-3xl md:text-4xl px-4 rating-base w-full text-accent">
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiOutlineStar />
-                <AiOutlineStar />
-              </div> */}
                 <div className="rating my-8 justify-around text-3xl md:text-4xl px-4 rating-base w-full text-accent transition-all cursor-pointer">
-                  {stars.map((_, index) => {
-                    return (
-                      <AiFillStar
-                        key={index}
-
-                        onClick={() => handleClick(index + 1)}
-                        onMouseOver={() => handleMouseOver(index + 1)}
-                        onMouseLeave={handleMouseLeave}
-                        color={(hoverValue || currentValue) > index ? colors.orange : colors.grey}
-                      // style={{
-                      //   marginRight: 10,
-                      //   cursor: "pointer"
-                      // }}
-                      />
-                    )
-                  })}
+                  {stars.map((_, index) => (
+                    <AiFillStar
+                      key={index}
+                      onClick={() => handleClick(index + 1)}
+                      onMouseOver={() => handleMouseOver(index + 1)}
+                      onMouseLeave={handleMouseLeave}
+                      color={(hoverValue || currentValue) > index ? colors.accent : colors.grey}
+                    />
+                  ))}
                 </div>
-                <input
+                {/* <input
                   type="number"
                   className="text-zinc-600 my-2 border border-zinc-600 p-3 w-[35%]  rounded-xl"
                   name="rating"
@@ -139,7 +132,7 @@ function ReviewVaul({
                   step="0.1"
                   onChange={(e) => setFormData({ ...formData, rating: e.target.value })}
                   placeholder="Rate between 0-5"
-                />
+                /> */}
                 <textarea
                   rows={5}
                   placeholder="How was your experience?"
@@ -153,7 +146,7 @@ function ReviewVaul({
                 </button>
               </div>
             </div>
-            <div className="p-4 bg-zinc-100 border-t border-zinc-200 mt-auto">
+            <div className="p-4 bg-zinc-100 border-t border-zinc-200">
               <div className="flex gap-6 justify-center max-w-lg mx-auto">
                 <p>Thank you for using IdeaBox</p>
               </div>
