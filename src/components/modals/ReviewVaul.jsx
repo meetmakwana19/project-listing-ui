@@ -1,5 +1,5 @@
 import { Drawer } from "vaul";
-// import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { useState } from "react";
 import { toast } from 'react-toastify';
 
@@ -65,6 +65,30 @@ function ReviewVaul({
     // console.log("Submitting ", reviewVaulOpen);
     postReview();
   };
+
+  // Reviews starts
+  const [currentValue, setCurrentValue] = useState(0);
+  const [hoverValue, setHoverValue] = useState(undefined);
+  const stars = Array(5).fill(0)
+
+  const handleClick = value => {
+    setCurrentValue(value)
+  }
+
+  const handleMouseOver = newHoverValue => {
+    setHoverValue(newHoverValue)
+  };
+
+  const handleMouseLeave = () => {
+    setHoverValue(undefined)
+  }
+
+  const colors = {
+    orange: "#FFBA5A",
+    grey: "#d4d4d8"
+
+  };
+  // Reviews End
   return (
     <Drawer.Root>
       <Drawer.Trigger asChild className="cursor-pointer">
@@ -88,7 +112,34 @@ function ReviewVaul({
                 <AiOutlineStar />
                 <AiOutlineStar />
               </div> */}
-                <input type="number" className="text-zinc-600 my-2 border border-zinc-600 p-3 w-[35%]  rounded-xl" name="rating" min="0" max="5" step="0.1" onChange={(e) => setFormData({ ...formData, rating: e.target.value })} placeholder="Rate between 0-5" />
+                <div className="rating my-8 justify-around text-3xl md:text-4xl px-4 rating-base w-full text-accent transition-all cursor-pointer">
+                  {stars.map((_, index) => {
+                    return (
+                      <AiFillStar
+                        key={index}
+
+                        onClick={() => handleClick(index + 1)}
+                        onMouseOver={() => handleMouseOver(index + 1)}
+                        onMouseLeave={handleMouseLeave}
+                        color={(hoverValue || currentValue) > index ? colors.orange : colors.grey}
+                      // style={{
+                      //   marginRight: 10,
+                      //   cursor: "pointer"
+                      // }}
+                      />
+                    )
+                  })}
+                </div>
+                <input
+                  type="number"
+                  className="text-zinc-600 my-2 border border-zinc-600 p-3 w-[35%]  rounded-xl"
+                  name="rating"
+                  min="0"
+                  max="5"
+                  step="0.1"
+                  onChange={(e) => setFormData({ ...formData, rating: e.target.value })}
+                  placeholder="Rate between 0-5"
+                />
                 <textarea
                   rows={5}
                   placeholder="How was your experience?"
