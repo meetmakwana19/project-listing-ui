@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { BsFillBookmarkPlusFill } from 'react-icons/bs';
+import { BiSolidMap } from 'react-icons/bi';
 import { AiFillStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
@@ -24,6 +25,7 @@ const DeveloperList = ({ developersProp = [] }) => {
       uid,
       skills,
       about,
+      city,
     } = developer;
     return (
       <Link
@@ -78,8 +80,13 @@ const DeveloperList = ({ developersProp = [] }) => {
               <div className="flex flex-col w-1/2 items-start justify-start gap-3">
                 {/* -----------TODO: Experience------------ */}
                 <div>
-                  <h3 className="listing-content-data">Experience</h3>
-                  <h4 className="listing-content-constant">3+ Years</h4>
+                  <h3 className="flex listing-content-data gap-2 items-center">
+                    {' '}
+                    <BiSolidMap />
+                    City
+
+                  </h3>
+                  <h4 className="listing-content-constant">{city}</h4>
                 </div>
               </div>
             </div>
