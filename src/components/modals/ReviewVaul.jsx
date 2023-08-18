@@ -48,16 +48,20 @@ function ReviewVaul({
     fetchProposals();
   };
   const postReview = async () => {
+    let bodyData;
+    if (localStorage.getItem("isDev")) {
+      bodyData = { ...formData, reviewedByDev: true };
+    }
     const response = await fetch(`${import.meta.env.VITE_API_URL}/reviews`, {
       method: "POST",
       headers: {
         authorization: localStorage.getItem("authToken"),
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(bodyData),
     });
     const data = await response.json();
-    // console.log("Review posted ? ", data);
+    console.log("Review posted ? ", data);
     patchProposal(data);
   };
   const handleSubmit = () => {
