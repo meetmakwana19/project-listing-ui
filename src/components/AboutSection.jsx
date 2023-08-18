@@ -34,9 +34,9 @@ export default function AboutSection() {
             image="http://res.cloudinary.com/dulptytgu/image/upload/v1689539554/qcyvdqkfcoll6d2uqhyc.jpg"
             name="meet makwana"
             github="meetmakwana19"
-            linkedin="#"
-            email="#"
-            portfolio="#"
+            linkedin="meetmakwana19"
+            email="meetmakwana203@gmail.com"
+            portfolio="https://meetmakwana.netlify.app/"
           />
           <AboutCard
             image="http://res.cloudinary.com/dulptytgu/image/upload/v1689539837/veqzm3jod0tluyoennjy.jpg"

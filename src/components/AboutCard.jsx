@@ -25,16 +25,16 @@ export default function AboutCard(props) {
         </p>
       </div>
       <div className="flex flex-grow justify-around w-[60%] text-accent text-2xl">
-        <Link to={`https://github.com/${props.github}`}>
+        <Link to={`https://github.com/${props.github}`} target="_blank">
           <AiFillGithub className="hover:text-blue-600 " />
         </Link>
-        <Link to={`https://www.linkedin.com/in/${props.linkedin}`}>
+        <Link to={`https://www.linkedin.com/in/${props.linkedin}`} target="_blank">
           <AiFillLinkedin className="hover:text-blue-600 " />
         </Link>
         <Link to={`mailto:${props.email}`}>
           <MdEmail className="hover:text-blue-600 " />
         </Link>
-        <Link to={`${props.portfolio}`}>
+        <Link to={`${props.portfolio}`} target="_blank">
           <LuLink2 className="hover:text-blue-600 " />
         </Link>
       </div>
