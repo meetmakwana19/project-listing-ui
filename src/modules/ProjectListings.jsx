@@ -155,7 +155,6 @@ function ProjectListings() {
             {/* <Search /> */}
           </div>
 
-          {projects.length === 0 ? <h1>No Projects Found.</h1> : null}
           {projects.length > 0 ? (
             <ProjectList projectsProp={projects} />
           ) : (
@@ -163,7 +162,7 @@ function ProjectListings() {
               <img alt="loader" src={loading} />
             </div>
           )}
-          {!authToken ? (
+          {!authToken && projects.length > 0 ? (
             <h1 className=" blue-gradient text-center text-3xl md:text-4xl font-semibold ml-5">
               Please login to see more...
             </h1>

@@ -123,7 +123,6 @@ function CompanyListings() {
               searchPlaceholder="Type company name to search.."
             />
           </div>
-          {organizations.length === 0 ? <h1>No Organizations found.</h1> : null}
           {organizations.length > 0 ? (
             <CompanyList organizationsProp={organizations} />
           ) : (
@@ -131,7 +130,7 @@ function CompanyListings() {
               <img alt="loader" src={loading} />
             </div>
           )}
-          {!authToken ? (
+          {!authToken && organizations.length > 0 ? (
             <h1 className=" blue-gradient text-center text-3xl md:text-4xl font-semibold ml-5">
               Please login to see more...
             </h1>

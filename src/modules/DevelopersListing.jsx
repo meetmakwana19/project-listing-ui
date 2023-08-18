@@ -90,7 +90,7 @@ function DevelopersListing() {
               <img alt="loader" src={loading} />
             </div>
           )}
-          {!authToken ? (
+          {!authToken && developers.length > 0 ? (
             <h1 className=" blue-gradient text-center text-3xl md:text-4xl font-semibold ml-5">
               Please login to see more...
             </h1>
