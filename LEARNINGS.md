@@ -265,3 +265,21 @@ if (formData.skills) {
   });
 }
 ```
+
+### 13. Conditional rendering 
+
+- Always do conditional rendering inside `return` method of a component.
+- Something like this :
+```js
+return (
+  (!isObjectEmpty(org_data)) ? (
+    <div className="flex flex-col max-w-screen-sm md:max-w-none lg:max-w-none items-center justify-center mx-3">
+      {/* ... Rest of your JSX ... */}
+    </div>
+  ) : (
+    <div className="flex w-full py-10 justify-center text-slate-500">
+      <img alt="loader" src={loading} />
+    </div>
+  )
+);
+```
