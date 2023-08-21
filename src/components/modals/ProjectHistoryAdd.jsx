@@ -29,35 +29,65 @@ function ProjectHistoryAdd({ fetchHistory }) {
   }, []);
 
   const postProject = async () => {
-    console.log("Posting started");
-    fetch(`${import.meta.env.VITE_API_URL}/project-histories`, {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: localStorage.getItem("authToken"),
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
+    try {
+      fetch(`${import.meta.env.VITE_API_URL}/project-histories`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: localStorage.getItem("authToken"),
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
         // console.log("History -----", data);
-        if (data.error) {
+          if (data.error) {
           // alerts_toast
-          toast.success(`${data.message}`, {
-            position: toast.POSITION.TOP_CENTER, autoClose: 2000
-          });
+            toast.success(`${data.message}`, {
+              position: toast.POSITION.TOP_CENTER, autoClose: 2000,
+            });
           // alert(`${data.message} : ${data.error}`);
-        }
-        // alert(data.message);
-        fetchHistory();
-        toast.success(`${data.message}`, {
-          position: toast.POSITION.TOP_CENTER, autoClose: 2000
+          }
+          // alert(data.message);
+          fetchHistory();
+          toast.success(`${data.message}`, {
+            position: toast.POSITION.TOP_CENTER, autoClose: 2000,
+          });
         });
-      });
+    } catch (error) {
+      console.log("Error : ", error);
+    }
   };
+
+  // const handleModalClose = () => {
+  //   const modal = document.getElementById("my_modal_2");
+  //   if (modal) {
+  //     modal.close();
+  //   }
+  // };
+
   const handleSubmit = () => {
-    console.log("clicked");
+    const requiredFields = ['title', 'description', 'startDate', 'endDate'];
+
+    // return those fields from formData which are empty.
+    const emptyFields = requiredFields.filter((field) => !formData[field]);
+
+    if (emptyFields.length > 0) {
+      // map through each item and make a new array
+      const emptyFieldNames = emptyFields.map((field) => field.charAt(0).toUpperCase() + field.slice(1));
+
+      const errorMessage = `Please fill in the following required fields: ${emptyFieldNames.join(', ')}`;
+      alert(errorMessage);
+      // setShowModal(!showModal);
+      return;
+    }
+
+    console.log("fields : ", emptyFields);
+
     postProject();
+    setShowModal(!showModal);
+
+    // handleModalClose();
   };
   return (
     <>
@@ -84,13 +114,13 @@ function ProjectHistoryAdd({ fetchHistory }) {
               {/* ------Project title--------- */}
               <div className="relative w-full pt-3">
                 <p className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
-                  Project title
+                  Project title*
                 </p>
                 <input
                   minLength={1}
                   maxLength={50}
                   required
-                  placeholder="Google"
+                  placeholder="E-commerce platform"
                   type="text"
                   value={formData.title}
                   onChange={(event) => setFormData({ ...formData, title: event.target.value })}
@@ -103,7 +133,7 @@ function ProjectHistoryAdd({ fetchHistory }) {
                   Demo link
                 </p>
                 <input
-                  placeholder="e.g example.com"
+                  placeholder="https://www.example.com"
                   type="text"
                   value={formData.link}
                   onChange={(event) => setFormData({ ...formData, link: event.target.value })}
@@ -115,13 +145,14 @@ function ProjectHistoryAdd({ fetchHistory }) {
               {/* ------Project description--------- */}
               <div className="relative">
                 <p className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
-                  Description
+                  Description*
                 </p>
                 <textarea
                   rows={4}
                   maxLength={350}
-                  placeholder="e.g key responsibilities"
+                  placeholder="Describe your project in short"
                   type="text"
+                  required
                   value={formData.description}
                   onChange={(event) => setFormData({ ...formData, description: event.target.value })}
                   className="border placeholder-gray-400 focus:outline-none
@@ -133,11 +164,12 @@ function ProjectHistoryAdd({ fetchHistory }) {
               <div className="flex w-full items-center justify-between relative z-[100]">
                 <div className="relative w-[49%]">
                   <p className="bg-white pt-0  pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
-                    Start Date
+                    Start Date*
                   </p>
                   <input
                     placeholder="e.g example.com"
                     type="date"
+                    required
                     value={formData.startDate}
                     onChange={(event) => setFormData({ ...formData, startDate: event.target.value })}
                     className="border lowercase placeholder-gray-400 focus:outline-none
@@ -148,11 +180,12 @@ function ProjectHistoryAdd({ fetchHistory }) {
                 {' '}
                 <div className="relative w-[49%]">
                   <p className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
-                    End Date
+                    End Date*
                   </p>
                   <input
                     placeholder="e.g example.com"
                     type="date"
+                    required
                     value={formData.endDate}
                     onChange={(event) => setFormData({ ...formData, endDate: event.target.value })}
                     className="border lowercase placeholder-gray-400 focus:outline-none
