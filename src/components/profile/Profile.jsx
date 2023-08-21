@@ -16,6 +16,7 @@ import ConfirmationDialog from '../modals/ConfirmationDialog';
 import ProjectHistoryAdd from '../modals/ProjectHistoryAdd';
 import ProjectHistoryEdit from '../modals/ProjectHistoryEdit';
 import ReviewVaul from '../modals/ReviewVaul';
+import loading from "../../../public/SVG/loading.svg";
 
 export default function Profile() {
   const [developer, setDeveloper] = useState([]);
@@ -139,8 +140,8 @@ export default function Profile() {
     !Object.keys(developer).length > 0 && !Object.keys(organization).length > 0
   ) {
     return (
-      <div className="flex w-full justify-center text-slate-500">
-        Loading.....
+      <div className="flex w-full py-10 justify-center text-slate-500">
+        <img alt="loader" src={loading} />
       </div>
     );
   }

@@ -6,6 +6,7 @@ import {
 } from 'react-icons/bs';
 import { Link, useParams } from 'react-router-dom';
 import Star from '../components/Star';
+import loading from "../../public/SVG/loading.svg";
 
 function DeveloperMain() {
   const { uid } = useParams();
@@ -61,8 +62,8 @@ function DeveloperMain() {
 
   if (!Object.keys(developer).length > 0) {
     return (
-      <div className="flex w-full justify-center text-slate-500">
-        Loading.....
+      <div className="flex w-full py-10 justify-center text-slate-500">
+        <img alt="loader" src={loading} />
       </div>
     );
   }

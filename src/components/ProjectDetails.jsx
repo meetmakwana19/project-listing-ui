@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import Container from './Container';
 import Members from './Members';
+import loading from "../../public/SVG/loading.svg";
 
 function ProjectDetails() {
   const { uid } = useParams();
@@ -96,7 +97,7 @@ function ProjectDetails() {
       .then((data) => {
         // navigate("/");
         toast.success(`${data.message}`, {
-          position: toast.POSITION.TOP_CENTER, autoClose: 2000
+          position: toast.POSITION.TOP_CENTER, autoClose: 2000,
         });
         fetchProposalHistory(projectId);
         // window.location.reload();
@@ -145,7 +146,7 @@ function ProjectDetails() {
         fetchProject(); // to update the save btn state
         // navigate("/");
         toast.success(`${data.message}`, {
-          position: toast.POSITION.TOP_CENTER, autoClose: 2000
+          position: toast.POSITION.TOP_CENTER, autoClose: 2000,
         });
         // window.location.reload();
       })
@@ -162,7 +163,9 @@ function ProjectDetails() {
 
   if (!Object.keys(project).length > 0) {
     return (
-      <div className="flex justify-center text-slate-500">Loading.....</div>
+      <div className="flex w-full py-10 justify-center text-slate-500">
+        <img alt="loader" src={loading} />
+      </div>
     );
   }
 
