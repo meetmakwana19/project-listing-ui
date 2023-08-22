@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { LuEdit } from 'react-icons/lu';
 import { toast } from 'react-toastify';
+import { loadingContext } from '../context/LoadingState';
 
 function ProjectHistoryEdit({ fetchHistory, projectUID }) {
+  const progressState = useContext(loadingContext);
+  const { setProgress } = progressState;
+
   const [formData, setFormData] = useState({
     title: "",
     link: "",
@@ -29,29 +33,50 @@ function ProjectHistoryEdit({ fetchHistory, projectUID }) {
   }, []);
 
   const updateProject = async (uid) => {
-    fetch(`${import.meta.env.VITE_API_URL}/project-histories/${uid}`, {
-      method: "PATCH",
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: localStorage.getItem("authToken"),
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.error) {
-          // alerts_toast
-          // alert(`${data.message} : ${data.error}`);
+    // always start the loader with 0
+    await setProgress(0);
+    await setProgress(10);
+    try {
+      await setProgress(20);
+      fetch(`${import.meta.env.VITE_API_URL}/project-histories/${uid}`, {
+        method: "PATCH",
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: localStorage.getItem("authToken"),
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => response.json())
+        .then(async (data) => {
+          await setProgress(30);
+          if (data.error) {
+            await setProgress(100);
+            return toast.success(`${data.message}`, {
+              position: toast.POSITION.TOP_CENTER, autoClose: 10000,
+            });
+          }
+          await setProgress(50);
           toast.success(`${data.message}`, {
             position: toast.POSITION.TOP_CENTER, autoClose: 2000,
           });
-        }
-        toast.success(`${data.message}`, {
-          position: toast.POSITION.TOP_CENTER, autoClose: 2000,
+          await setProgress(80);
+          // alert(data.message);
+          fetchHistory();
+          await setProgress(100);
+          return 0;
+        })
+        .catch((error) => {
+          setProgress(100);
+          toast.error(`${error}`, {
+            position: toast.POSITION.TOP_CENTER, autoClose: 2000,
+          });
         });
-        // alert(data.message);
-        fetchHistory();
+    } catch (error) {
+      setProgress(100);
+      toast.error(`${error}`, {
+        position: toast.POSITION.TOP_CENTER, autoClose: 2000,
       });
+    }
   };
   const handleSubmit = (uid) => {
     updateProject(uid);
@@ -59,6 +84,9 @@ function ProjectHistoryEdit({ fetchHistory, projectUID }) {
   };
 
   const fetchProject = async (uid) => {
+    // always start the loader with 0
+    await setProgress(0);
+    await setProgress(20);
     fetch(`${import.meta.env.VITE_API_URL}/project-histories/${uid}`, {
       method: "GET",
       headers: {
@@ -66,7 +94,8 @@ function ProjectHistoryEdit({ fetchHistory, projectUID }) {
       },
     })
       .then((response) => response.json())
-      .then((data) => {
+      .then(async (data) => {
+        await setProgress(50);
         setFormData({
           title: data.data.title,
           link: data.data.link,
@@ -74,12 +103,13 @@ function ProjectHistoryEdit({ fetchHistory, projectUID }) {
           startDate: data.data.startDate,
           endDate: data.data.endDate,
         });
+        await setProgress(100);
       });
   };
 
-  const handleEdit = (uid) => {
-    fetchProject(uid);
-    setShowModal(!showModal);
+  const handleEdit = async (uid) => {
+    await fetchProject(uid);
+    await setShowModal(!showModal);
   };
   return (
     <>

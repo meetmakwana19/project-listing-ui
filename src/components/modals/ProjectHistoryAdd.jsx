@@ -1,16 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { MdOutlineLibraryAdd } from 'react-icons/md';
 import { toast } from 'react-toastify';
+import { loadingContext } from '../context/LoadingState';
 
 function ProjectHistoryAdd({ fetchHistory }) {
-  // function ProjectHistoryUpdate( { projectHistory, setProjectHistory }) {
+  const progressState = useContext(loadingContext);
+  const { setProgress } = progressState;
+
+  const devID = localStorage.getItem("isDev");
   const [formData, setFormData] = useState({
     title: "",
     link: "",
     description: "",
     startDate: "",
     endDate: "",
-    developer: localStorage.getItem("isDev"),
+    developer: devID,
   });
   // console.log("FromData : ", formData);
   const [showModal, setShowModal] = useState(false);
@@ -29,7 +33,11 @@ function ProjectHistoryAdd({ fetchHistory }) {
   }, []);
 
   const postProject = async () => {
+    // always start the loader with 0
+    await setProgress(0);
+    await setProgress(10);
     try {
+      await setProgress(20);
       fetch(`${import.meta.env.VITE_API_URL}/project-histories`, {
         method: "POST",
         headers: {
@@ -39,23 +47,43 @@ function ProjectHistoryAdd({ fetchHistory }) {
         body: JSON.stringify(formData),
       })
         .then((response) => response.json())
-        .then((data) => {
-        // console.log("History -----", data);
+        .then(async (data) => {
+          await setProgress(40);
           if (data.error) {
-          // alerts_toast
-            toast.success(`${data.message}`, {
-              position: toast.POSITION.TOP_CENTER, autoClose: 2000,
+            // alerts_toast
+            await setProgress(100);
+            return toast.error(`${data.message} - ${data.error}`, {
+              position: toast.POSITION.TOP_CENTER, autoClose: 10000,
             });
           // alert(`${data.message} : ${data.error}`);
           }
-          // alert(data.message);
           fetchHistory();
+          await setProgress(60);
           toast.success(`${data.message}`, {
+            position: toast.POSITION.TOP_CENTER, autoClose: 2000,
+          });
+          await setProgress(80);
+          // setFormData({
+          //   title: "",
+          //   link: "",
+          //   description: "",
+          //   startDate: "",
+          //   endDate: "",
+          // });
+          await setProgress(100);
+          return 0;
+        })
+        .catch((error) => {
+          setProgress(100);
+          toast.error(`${error}`, {
             position: toast.POSITION.TOP_CENTER, autoClose: 2000,
           });
         });
     } catch (error) {
-      console.log("Error : ", error);
+      setProgress(100);
+      toast.error(`${error}`, {
+        position: toast.POSITION.TOP_CENTER, autoClose: 2000,
+      });
     }
   };
 
