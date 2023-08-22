@@ -19,7 +19,7 @@ function ConfirmationDialog({
     // so checking here if the incoming uid is of history projects
     if (uid.startsWith("hist")) {
       await setProgress(40);
-      fetch(`${import.meta.env.VITE_API_URL}/project-histories/${uid}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/project-histories/${uid}`, {
         method: "DELETE",
         headers: {
           authorization: localStorage.getItem("authToken"),
@@ -32,7 +32,7 @@ function ConfirmationDialog({
         });
     } else {
       await setProgress(40);
-      fetch(`${import.meta.env.VITE_API_URL}/proposals/${uid}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/proposals/${uid}`, {
         method: "DELETE",
         headers: {
           authorization: localStorage.getItem("authToken"),

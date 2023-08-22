@@ -122,8 +122,8 @@ export default function Profile() {
   // Callback function to be passed to the ConfirmationDialog
   const handleDeleteSuccess = async () => {
     // Fetch the updated proposals and history from the server
-    fetchProposals();
-    fetchHistory();
+    await fetchProposals();
+    await fetchHistory();
     await setProgress(100);
   };
 
