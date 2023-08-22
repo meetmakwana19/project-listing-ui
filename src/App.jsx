@@ -32,8 +32,8 @@ function App() {
   return (
     <>
       <LoadingBar
-        color="#f08804"
-        height={6}
+        color="#6c47ff"
+        height={10}
         progress={progress}
       />
       <Header />
