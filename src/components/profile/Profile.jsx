@@ -403,7 +403,7 @@ export default function Profile() {
                     {project.title}
                   </h2>
                   {/* ------------------------ Project timeline-------------------------- */}
-                  <div className="flex place-content-start items-center w-full text-slate-600 gap-1">
+                  <div className="flex place-content-start items-center w-[200%] text-slate-600 gap-1">
                     <p className="flex  w-[56%] mb-3">
                       <BsFillCalendarEventFill className="mr-[5%]" />
                       {project.startDate}
