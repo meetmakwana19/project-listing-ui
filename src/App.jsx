@@ -2,6 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import './App.css';
+import LoadingBar from 'react-top-loading-bar';
+import { useContext } from 'react';
 import Header from './components/Header';
 import Home from './modules/Home';
 import CompanyListings from './modules/CompanyListings';
@@ -16,16 +18,24 @@ import RegisterDeveloper from './modules/RegisterDeveloper';
 import RegisterOrganization from './modules/RegisterOrganization';
 import AboutUs from './modules/AboutUs';
 import ProjectAdd from './modules/ProjectAdd';
-
 import DevLogin from './components/form/login/DevLogin';
 import OrgLogin from './components/form/login/OrgLogin';
 import Profile from './components/profile/Profile';
+import { loadingContext } from './components/context/LoadingState';
 
 function App() {
+  const progressState = useContext(loadingContext);
+  const { progress } = progressState;
+
   // console.log("env : ", import.meta.env.VITE_API_URL);
   // console.log("env : ", process.env.REACT_APP_API_URL);
   return (
     <>
+      <LoadingBar
+        color="#f08804"
+        height={6}
+        progress={progress}
+      />
       <Header />
       <div className="pt-20">
         <Routes>

@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+  useContext, useEffect, useRef, useState,
+} from 'react';
 import { BiSolidMap } from 'react-icons/bi';
 import { MdReviews } from 'react-icons/md';
 import { FaEnvelope, FaPhone } from 'react-icons/fa';
@@ -17,6 +19,7 @@ import ProjectHistoryAdd from '../modals/ProjectHistoryAdd';
 import ProjectHistoryEdit from '../modals/ProjectHistoryEdit';
 import ReviewVaul from '../modals/ReviewVaul';
 import loading from "../../../public/SVG/loading.svg";
+import { loadingContext } from '../context/LoadingState';
 
 export default function Profile() {
   const [developer, setDeveloper] = useState([]);
@@ -113,11 +116,15 @@ export default function Profile() {
     setSelectedUID(uid);
   };
 
+  const progressState = useContext(loadingContext);
+  const { setProgress } = progressState;
+
   // Callback function to be passed to the ConfirmationDialog
-  const handleDeleteSuccess = () => {
+  const handleDeleteSuccess = async () => {
     // Fetch the updated proposals and history from the server
     fetchProposals();
     fetchHistory();
+    await setProgress(100);
   };
 
   // dynamix text for proposals status

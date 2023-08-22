@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { loadingContext } from "../context/LoadingState";
+
 function ConfirmationDialog({
   cancel,
   deleteBtn,
@@ -5,10 +8,17 @@ function ConfirmationDialog({
   propUid,
   onDeleteSuccess,
 }) {
+  const progressState = useContext(loadingContext);
+  const { setProgress } = progressState;
+
   const requestDelete = async (uid) => {
+    // always start the loader with 0
+    await setProgress(0);
+    await setProgress(20);
     // giving 2 functionalities to same component
     // so checking here if the incoming uid is of history projects
     if (uid.startsWith("hist")) {
+      await setProgress(40);
       fetch(`${import.meta.env.VITE_API_URL}/project-histories/${uid}`, {
         method: "DELETE",
         headers: {
@@ -16,10 +26,12 @@ function ConfirmationDialog({
         },
       })
         .then((response) => response.json())
-        .then(() => {
+        .then(async () => {
+          await setProgress(60);
           onDeleteSuccess();
         });
     } else {
+      await setProgress(40);
       fetch(`${import.meta.env.VITE_API_URL}/proposals/${uid}`, {
         method: "DELETE",
         headers: {
@@ -27,11 +39,13 @@ function ConfirmationDialog({
         },
       })
         .then((response) => response.json())
-        .then(() => {
+        .then(async () => {
+          await setProgress(60);
           onDeleteSuccess();
         });
     }
     setDeleteBtn(!deleteBtn);
+    await setProgress(80);
   };
 
   return (

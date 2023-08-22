@@ -82,8 +82,6 @@ function ProjectHistoryAdd({ fetchHistory }) {
       return;
     }
 
-    console.log("fields : ", emptyFields);
-
     postProject();
     setShowModal(!showModal);
 
