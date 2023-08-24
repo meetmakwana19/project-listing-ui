@@ -1,8 +1,9 @@
 // import { useEffect, useState } from 'react';
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { LuEdit } from "react-icons/lu";
 import { RxAvatar } from "react-icons/rx";
 import { toast } from 'react-toastify';
+import { loadingContext } from "../context/LoadingState";
 
 function UpdateModal({ developer, fetchProfile }) {
   // need to make a local copy of the state came from parent component
@@ -11,8 +12,8 @@ function UpdateModal({ developer, fetchProfile }) {
   const [image, setImage] = useState(null);
   const hiddenFileInput = useRef(null);
 
-  // console.log("local state : ", localDev);
-
+  const progressState = useContext(loadingContext);
+  const { setProgress } = progressState;
   const uid = localStorage.getItem("dev_uid");
 
   const handleClick = () => {
@@ -39,7 +40,9 @@ function UpdateModal({ developer, fetchProfile }) {
       modal.close();
     }
   };
-  const handleUpdate = (event) => {
+  const handleUpdate = async (event) => {
+    await setProgress(0);
+    await setProgress(10);
     event.preventDefault();
     const bodyData = new FormData();
     bodyData.append('fname', localDev.fname);
@@ -77,7 +80,7 @@ function UpdateModal({ developer, fetchProfile }) {
     if (localDev.photo) {
       bodyData.append('photo', localDev.photo);
     }
-
+    await setProgress(30);
     fetch(`${import.meta.env.VITE_API_URL}/developers/${uid}`, {
       method: "PATCH",
       headers: {
@@ -86,17 +89,24 @@ function UpdateModal({ developer, fetchProfile }) {
       body: bodyData,
     })
       .then((response) => response.json())
-      .then((data) => {
+      .then(async (data) => {
+        await setProgress(50);
         // console.log('POSTED --> ', data);
         // alert(`${data.message}`);
         toast.success(`${data.message}`, {
           position: toast.POSITION.TOP_CENTER, autoClose: 2000,
         });
         fetchProfile();
+        await setProgress(80);
         handleModalClose();
+        await setProgress(100);
       })
-      .catch((error) => {
-        console.log("POSTING error --> ", error);
+      .catch(async (error) => {
+        await setProgress(100);
+        handleModalClose();
+        toast.error(`${error}`, {
+          position: toast.POSITION.TOP_CENTER, autoClose: 2000,
+        });
       });
   };
   return (

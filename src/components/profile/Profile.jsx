@@ -33,6 +33,9 @@ export default function Profile() {
   // need this state variable to keep track of the uid got from edit and delete button click
   const [selectedUID, setSelectedUID] = useState([]);
 
+  const progressState = useContext(loadingContext);
+  const { setProgress } = progressState;
+
   // --------------!Can avoid this useRef part as it is was later on not needed.
   // using useRef hook create a reference to the developer state variable and access its updated value immediately after it is updated by setDeveloper.
   // useRef allows you to store a mutable value that persists across renders without causing a re-render when the value changes.
@@ -64,6 +67,8 @@ export default function Profile() {
 
   // fetching profile based on current logged in user type i.e. developer or organization
   const fetchProfile = async () => {
+    await setProgress(0);
+    await setProgress(30);
     let id;
     let url;
     if (localStorage.getItem('isDev')) {
@@ -78,16 +83,20 @@ export default function Profile() {
       `${import.meta.env.VITE_API_URL}/${url}`,
       { mode: 'cors' },
     );
+    await setProgress(40);
     const fetched = await response.json();
     if (localStorage.getItem('isDev')) {
       await setDeveloper(fetched.data[0]);
-
+      await setProgress(60);
       // proposals needs to have authentication token for GET request
       // therefore fetch proposals only after setting authToken
       fetchProposals();
+      await setProgress(100);
     } else if (localStorage.getItem('isOrg')) {
+      await setProgress(60);
       // CompanyDetails component handles fetching proposals for itself with a differend query paramter so no need to do here.
       setOrganization(fetched.data[0]);
+      await setProgress(100);
     }
     // console.log('fetched info------------', fetched.data[0]);
   };
@@ -115,9 +124,6 @@ export default function Profile() {
     setDeleteBtn(!deleteBtn);
     setSelectedUID(uid);
   };
-
-  const progressState = useContext(loadingContext);
-  const { setProgress } = progressState;
 
   // Callback function to be passed to the ConfirmationDialog
   const handleDeleteSuccess = async () => {
@@ -309,9 +315,9 @@ export default function Profile() {
 
                 <div className="flex flex-col items-start pl-7  justify-start w-full text-slate-600">
                   {/* ------------------------ Proposal title-------------------------- */}
-                  <h2 className="text-lg lg:text-2xl font-semibold mb-3 text-slate-800">
+                  <Link to={`/companies/${proposal.organization.uid}`} className="text-lg lg:text-2xl font-semibold mb-3 text-slate-800">
                     {proposal.project.title}
-                  </h2>
+                  </Link>
                   <p className="text-sm lg:text-lg font-normal text-slate-600 mb-2">
                     {proposal.project.uid}
                   </p>
