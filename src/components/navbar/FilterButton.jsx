@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { loadingContext } from "../context/LoadingState";
 
 export default function FilterButton({
   filters,
@@ -8,58 +9,76 @@ export default function FilterButton({
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const progressState = useContext(loadingContext);
+  const { setProgress } = progressState;
+
   const filterProjectsFunc = (filter) => {
     // console.log("Heloooo", filter.property);
 
     let queryParam;
 
     const filterProjects = async () => {
+      // always start the loader with 0
+      await setProgress(0);
+      await setProgress(30);
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/projects${queryParam}`,
         { mode: "cors" },
       );
+      await setProgress(60);
       const filtered = await response.json();
       setProjects(filtered.data);
+      await setProgress(100);
       // console.log('fetch filtered projects------------', filtered.data);
       // console.log('fetch Developers------------', developers);
     };
 
     const filterOrganizations = async () => {
+      // always start the loader with 0
+      await setProgress(0);
+      await setProgress(30);
+
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/organizations${queryParam}`,
         { mode: "cors" },
       );
+      await setProgress(50);
       const filtered = await response.json();
+      await setProgress(70);
       setOrganizations(filtered.data);
-      // console.log('fetch filtered orgs------------', filtered.data);
-      // console.log('fetch Developers------------', developers);
+      await setProgress(100);
     };
 
     const filterDevelopers = async () => {
-      console.log("got-", queryParam);
+      // always start the loader with 0
+      await setProgress(0);
+      await setProgress(10);
+
+      // console.log("got-", queryParam);
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/developers${queryParam}`,
         { mode: "cors" },
       );
+      await setProgress(50);
       const filtered = await response.json();
+      await setProgress(70);
       setDevelopers(filtered.data);
-      console.log("fetch filtered devs------------", filtered.data);
-      // console.log('fetch Developers------------', developers);
+      await setProgress(100);
     };
 
     if (filter.label === "featured") {
       queryParam = "?featured=true";
       filterProjects();
-    } else if (filter.label === "Newest first") {
+    } else if (filter.property === "newest_first_project") {
       queryParam = "?sort=-createdAt";
       filterProjects();
     } else if (filter.label === "Open to work") {
       queryParam = "?open=true";
       filterProjects();
-    } else if (filter.label === "Sort A-Z") {
+    } else if (filter.property === "#proj_sort_asc") {
       queryParam = "?sort=title";
       filterProjects();
-    } else if (filter.label === "Sort Z-A") {
+    } else if (filter.property === "#proj_sort_dsc") {
       queryParam = "?sort=-title";
       filterProjects();
     }

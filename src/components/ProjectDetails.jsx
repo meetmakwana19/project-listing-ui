@@ -3,10 +3,11 @@ import { BiSolidMap } from 'react-icons/bi';
 import { FaCircleDollarToSlot } from 'react-icons/fa6';
 import { toast } from 'react-toastify';
 // import { AiFillQuestionCircle } from 'react-icons/ai';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Container from './Container';
 import Members from './Members';
 import loading from "../../public/SVG/loading.svg";
+import { loadingContext } from './context/LoadingState';
 
 function ProjectDetails() {
   const { uid } = useParams();
@@ -15,6 +16,8 @@ function ProjectDetails() {
   const [proposed, setProposed] = useState(false);
   const [bookmarkState, setBookmarkState] = useState("Save");
   const dev = localStorage.getItem("isDev");
+  const progressState = useContext(loadingContext);
+  const { setProgress } = progressState;
 
   const fetchProposal = async (id) => {
     // console.log("project is ", id);
@@ -80,11 +83,16 @@ function ProjectDetails() {
 
   const devId = localStorage.getItem('isDev');
   const proposeProject = async (projectId, OrgId) => {
+    // always start the loader with 0
+    await setProgress(0);
+    await setProgress(10);
+
     const proposalData = {
       project: projectId,
       developer: devId,
       organization: OrgId,
     };
+    await setProgress(30);
     fetch(`${import.meta.env.VITE_API_URL}/proposals`, {
       method: 'POST',
       headers: {
@@ -94,16 +102,22 @@ function ProjectDetails() {
       body: JSON.stringify(proposalData),
     })
       .then((response) => response.json())
-      .then((data) => {
+      .then(async (data) => {
         // navigate("/");
+        await setProgress(50);
         toast.success(`${data.message}`, {
           position: toast.POSITION.TOP_CENTER, autoClose: 2000,
         });
+        await setProgress(70);
         fetchProposalHistory(projectId);
         // window.location.reload();
+        await setProgress(100);
       })
       .catch((error) => {
-        console.log('POSTING error --> ', error);
+        setProgress(100);
+        toast.error(`${error}`, {
+          position: toast.POSITION.TOP_CENTER, autoClose: 2000,
+        });
       });
   };
 
@@ -111,7 +125,11 @@ function ProjectDetails() {
     proposeProject(id, projOrg._id);
   };
 
-  const patchProject = (code) => {
+  const patchProject = async (code) => {
+    // always start the loader with 0
+    await setProgress(0);
+    await setProgress(10);
+
     const devID = localStorage.getItem("isDev");
     let formData;
     // if the project document from databased doesn't have the bookmark key.
@@ -131,6 +149,7 @@ function ProjectDetails() {
     }
     // console.log("body before : ", project.bookmark);
     // console.log("body after: ", formData);
+    await setProgress(20);
 
     fetch(`${import.meta.env.VITE_API_URL}/projects/${project.uid}`, {
       method: 'PATCH',
@@ -141,17 +160,22 @@ function ProjectDetails() {
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
-      .then((data) => {
+      .then(async (data) => {
+        await setProgress(50);
         // console.log('POSTED --> ', data);
         fetchProject(); // to update the save btn state
-        // navigate("/");
+        await setProgress(70);
         toast.success(`${data.message}`, {
           position: toast.POSITION.TOP_CENTER, autoClose: 2000,
         });
+        await setProgress(100);
         // window.location.reload();
       })
       .catch((error) => {
-        console.log('POSTING error --> ', error);
+        setProgress(100);
+        toast.error(`${error}`, {
+          position: toast.POSITION.TOP_CENTER, autoClose: 2000,
+        });
       });
   };
   const handleSave = (code) => {

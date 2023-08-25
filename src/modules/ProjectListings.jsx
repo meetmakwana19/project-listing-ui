@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RiArrowRightSLine } from "react-icons/ri";
 import { toast } from 'react-toastify';
 import ProjectList from "../components/ProjectList";
@@ -6,6 +6,7 @@ import FilterButton from "../components/navbar/FilterButton";
 // import loading from "../../../../../../../../SVG/loading.svg";
 import loading from "../../public/SVG/loading.svg";
 import Search from "../components/navbar/Search";
+import { loadingContext } from "../components/context/LoadingState";
 
 const filters = [
   {
@@ -14,15 +15,15 @@ const filters = [
   },
   {
     label: "Newest first",
-    property: "#newest_first",
+    property: "#newest_first_project",
   },
   {
     label: "Sort A-Z",
-    property: "#sort_asc",
+    property: "#proj_sort_asc",
   },
   {
     label: "Sort Z-A",
-    property: "#sort_dsc",
+    property: "#proj_sort_dsc",
   },
   {
     label: "Open to work",
@@ -37,6 +38,9 @@ function ProjectListings() {
   const [saveBtnState, SetsaveBtnState] = useState(false);
   const [bestMatchesBtnState, setBestMatchesBtnState] = useState(true);
   const authToken = localStorage.getItem("authToken");
+
+  const progressState = useContext(loadingContext);
+  const { setProgress } = progressState;
 
   const fetchProjects = async () => {
     const searchTitle = `?title=${searchInput.searchString}`;
@@ -58,26 +62,40 @@ function ProjectListings() {
   const orgToken = localStorage.getItem("isOrg");
 
   const fetchSavedProjects = async () => {
+    // always start the loader with 0
+    await setProgress(0);
+    await setProgress(10);
+
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/projects?bookmark=${localStorage.getItem("isDev")}`,
       { mode: "cors" },
     );
+    await setProgress(30);
     const fetchedProjects = await response.json();
     setProjects(fetchedProjects.data);
+    await setProgress(50);
     // alert(`${fetchedProjects.message}`);
     toast.success(`${fetchedProjects.message}`, {
       position: toast.POSITION.TOP_CENTER, autoClose: 2000,
     });
+    await setProgress(1000);
   };
   const handleBestMatches = async () => {
+    // always start the loader with 0
+    await setProgress(0);
+    await setProgress(10);
+
     // using async-await is imp here as fetchProjects returns a Promise so need to handle it untill it is resolved by the fetchProjects() method.
     const message = await fetchProjects();
-    // alert(`${message}`);
+
+    await setProgress(30);
     toast.success(`${message}`, {
       position: toast.POSITION.TOP_CENTER, autoClose: 2000,
     });
+    await setProgress(50);
     SetsaveBtnState(false);
     setBestMatchesBtnState(true);
+    await setProgress(100);
   };
   const handleSaved = async () => {
     await fetchSavedProjects();
