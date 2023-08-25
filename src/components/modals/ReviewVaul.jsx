@@ -1,7 +1,8 @@
 import { Drawer } from "vaul";
 import { AiFillStar } from 'react-icons/ai';
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from 'react-toastify';
+import { loadingContext } from "../context/LoadingState";
 
 function ReviewVaul({
   children, orgID, devID, proposalUID, reviewVaulOpen, setReviewVaulOpen, fetchProposals,
@@ -12,6 +13,9 @@ function ReviewVaul({
     organization: orgID,
     developer: localStorage.getItem("isDev") ? localStorage.getItem("isDev") : devID,
   });
+
+  const progressState = useContext(loadingContext);
+  const { setProgress } = progressState;
 
   // console.log("review for ", orgID);
   // console.log("review form : ", formData);
@@ -48,6 +52,9 @@ function ReviewVaul({
     fetchProposals();
   };
   const postReview = async () => {
+    // always start the loader with 0
+    await setProgress(0);
+    await setProgress(10);
     let bodyData;
     if (localStorage.getItem("isDev")) {
       bodyData = { ...formData, reviewedByDev: true };
@@ -60,9 +67,12 @@ function ReviewVaul({
       },
       body: JSON.stringify(bodyData),
     });
+    await setProgress(30);
     const data = await response.json();
-    console.log("Review posted ? ", data);
+    await setProgress(70);
+    // console.log("Review posted ? ", data);
     patchProposal(data);
+    await setProgress(100);
   };
   const handleSubmit = () => {
     setReviewVaulOpen(false);

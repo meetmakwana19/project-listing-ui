@@ -315,7 +315,7 @@ export default function Profile() {
 
                 <div className="flex flex-col items-start pl-7  justify-start w-full text-slate-600">
                   {/* ------------------------ Proposal title-------------------------- */}
-                  <Link to={`/companies/${proposal.organization.uid}`} className="text-lg lg:text-2xl font-semibold mb-3 text-slate-800">
+                  <Link to={`/projects/${proposal.project.uid}`} className="text-lg lg:text-2xl font-semibold mb-3 text-slate-800">
                     {proposal.project.title}
                   </Link>
                   <p className="text-sm lg:text-lg font-normal text-slate-600 mb-2">
