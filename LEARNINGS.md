@@ -283,3 +283,11 @@ return (
   )
 );
 ```
+
+---
+
+### 14. Issues at profile pages 
+
+1. Even though the application was completely finished still it gave errors in fetching some proposals, reviews at developer, company profile pages.
+2. It happened because those proposals, reviews were posted from a dummy developer account which I later deleted from database.
+3. So when the API was trying to fetch those results which had data from that deleted developer too, it was throwing error as mongoose at the back couldn't resolve the populate query for that _id as it doesn't exists anymore.

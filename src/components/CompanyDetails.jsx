@@ -61,7 +61,8 @@ function CompanyDetails({
   };
   useEffect(() => {
     // if condition is there to fetch only for org profile pages.
-    if (localStorage.getItem("isOrg")) {
+    // !profile.uid is to check that the proposals request isnt hit when on company/:uid page.
+    if (!profile.uid && localStorage.getItem("isOrg")) {
       fetchProposals();
     }
     // if condition is there to avoid the error of 400 BAD REQUEST when on initial render the org_data is empty {}
