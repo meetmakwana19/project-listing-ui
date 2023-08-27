@@ -14,6 +14,20 @@ export default function DevLogin() {
   });
 
   const onSignIn = () => {
+    const requiredFields = ['email', 'password'];
+    // return those fields from formData which are empty.
+    const emptyFields = requiredFields.filter((field) => !form[field]);
+    if (emptyFields.length > 0) {
+      // map through each item and make a new array
+      const emptyFieldNames = emptyFields.map((field) => field.charAt(0).toUpperCase() + field.slice(1));
+
+      const errorMessage = `Please fill in the following required fields: ${emptyFieldNames.join(', ')}`;
+      toast.error(`${errorMessage}`, {
+        position: toast.POSITION.TOP_CENTER, autoClose: 10000,
+      });
+      return;
+    }
+
     const id = toast.loading("Please wait...", {
       position: toast.POSITION.TOP_CENTER,
     });

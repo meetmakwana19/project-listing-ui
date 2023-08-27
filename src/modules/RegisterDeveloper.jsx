@@ -81,6 +81,21 @@ function RegisterDeveloper() {
     if (newStep === steps.length && direction !== "back") {
       // console.log('heyyyy ', JSON.stringify(formData));
 
+      const requiredFields = ['fname', 'lname', 'email', 'password', 'phone'];
+      // return those fields from formData which are empty.
+      const emptyFields = requiredFields.filter((field) => !formData[field]);
+      if (emptyFields.length > 0) {
+      // map through each item and make a new array
+        const emptyFieldNames = emptyFields.map((field) => field.charAt(0).toUpperCase() + field.slice(1));
+
+        const errorMessage = `Please fill in the following required fields: ${emptyFieldNames.join(', ')}`;
+        toast.error(`${errorMessage}`, {
+          position: toast.POSITION.TOP_CENTER, autoClose: 10000,
+        });
+        // setShowModal(!showModal);
+        return;
+      }
+
       const bodyData = new FormData();
       bodyData.append('fname', formData.fname);
       bodyData.append('lname', formData.lname);

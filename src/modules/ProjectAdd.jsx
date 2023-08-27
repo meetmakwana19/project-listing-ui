@@ -49,6 +49,21 @@ export default function ProjectAdd() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const requiredFields = ['title', 'description'];
+    // return those fields from formData which are empty.
+    const emptyFields = requiredFields.filter((field) => !formData[field]);
+    if (emptyFields.length > 0) {
+      // map through each item and make a new array
+      const emptyFieldNames = emptyFields.map((field) => field.charAt(0).toUpperCase() + field.slice(1));
+
+      const errorMessage = `Please fill in the following required fields: ${emptyFieldNames.join(', ')}`;
+      toast.error(`${errorMessage}`, {
+        position: toast.POSITION.TOP_CENTER, autoClose: 10000,
+      });
+      // setShowModal(!showModal);
+      return;
+    }
     fetch(`${import.meta.env.VITE_API_URL}/projects`, {
       method: "POST",
       headers: {
@@ -107,7 +122,7 @@ export default function ProjectAdd() {
               htmlFor="title"
               className="block text-gray-700 stext-sm font-bold mb-2"
             >
-              Project Title
+              Project Title*
               <input
                 type="text"
                 name="title"
@@ -124,7 +139,7 @@ export default function ProjectAdd() {
               htmlFor="description"
               className="block text-gray-700 text-sm font-bold mb-2"
             >
-              Description
+              Description*
               <textarea
                 id="description"
                 name="description"

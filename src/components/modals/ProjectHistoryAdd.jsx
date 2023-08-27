@@ -105,8 +105,12 @@ function ProjectHistoryAdd({ fetchHistory }) {
       const emptyFieldNames = emptyFields.map((field) => field.charAt(0).toUpperCase() + field.slice(1));
 
       const errorMessage = `Please fill in the following required fields: ${emptyFieldNames.join(', ')}`;
-      alert(errorMessage);
+      // alert(errorMessage);
       // setShowModal(!showModal);
+      toast.error(`${errorMessage}`, {
+        position: toast.POSITION.TOP_CENTER, autoClose: 10000,
+      });
+
       return;
     }
 

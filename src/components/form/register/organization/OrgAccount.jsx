@@ -8,7 +8,7 @@ function OrgAccount({ formData, setFormData }) {
           className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
                           absolute"
         >
-          Company Name
+          Company Name*
         </p>
         <input
           placeholder="Eg. Raw Engineering "
@@ -26,7 +26,7 @@ function OrgAccount({ formData, setFormData }) {
           className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
           absolute"
         >
-          Password
+          Password*
         </p>
         <input
           placeholder="Password"

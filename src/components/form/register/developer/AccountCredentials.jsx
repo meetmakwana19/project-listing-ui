@@ -14,7 +14,7 @@ function AccountCredentials({ formData, setFormData }) {
           <p
             className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute"
           >
-            First Name
+            First Name*
           </p>
           <input
             name="fname"
@@ -31,7 +31,7 @@ function AccountCredentials({ formData, setFormData }) {
           <p
             className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute"
           >
-            Last Name
+            Last Name*
           </p>
           <input
             placeholder="John"
@@ -45,7 +45,7 @@ function AccountCredentials({ formData, setFormData }) {
       </div>
       <div className="relative">
         <p className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
-          Email
+          Email*
         </p>
         <input
           placeholder="johndoe@example.com"
@@ -62,7 +62,7 @@ function AccountCredentials({ formData, setFormData }) {
         <p
           className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute"
         >
-          Password
+          Password*
         </p>
         <input
           placeholder="Password"

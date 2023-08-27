@@ -57,6 +57,21 @@ function RegisterOrganization() {
     // means when 3 === 3
     // and when back button is not clicked otherwise even for back button click, network calls will be made.
     if (newStep === steps.length && direction !== "back") {
+      const requiredFields = ['name', 'password'];
+      // return those fields from formData which are empty.
+      const emptyFields = requiredFields.filter((field) => !formData[field]);
+      if (emptyFields.length > 0) {
+        // map through each item and make a new array
+        const emptyFieldNames = emptyFields.map((field) => field.charAt(0).toUpperCase() + field.slice(1));
+
+        const errorMessage = `Please fill in the following required fields: ${emptyFieldNames.join(', ')}`;
+        toast.error(`${errorMessage}`, {
+          position: toast.POSITION.TOP_CENTER, autoClose: 10000,
+        });
+        // setShowModal(!showModal);
+        return;
+      }
+
       const bodyData = new FormData();
 
       bodyData.append("name", formData.name);
