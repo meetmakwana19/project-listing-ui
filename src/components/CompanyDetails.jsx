@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 // import { BiSolidMap } from 'react-icons/bi';
 import { toast } from 'react-toastify';
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IoTrashBinOutline } from "react-icons/io5";
 import { TiThumbsUp, TiThumbsDown } from "react-icons/ti";
 import { MdPendingActions, MdReviews } from "react-icons/md";
@@ -10,10 +10,14 @@ import ProjectDeleteConfirmationDialog from "./modals/ProjectDeleteConfirmationD
 import Star from "./Star";
 import ReviewVaul from "./modals/ReviewVaul";
 import loading from "../../public/SVG/loading.svg";
+import { loadingContext } from './context/LoadingState';
 
 function CompanyDetails({
   org_data, update, edit, fetchOrg,
 }) {
+  const progressState = useContext(loadingContext);
+  const { setProgress } = progressState;
+
   const [orgProposals, setOrgProposals] = useState([]);
   const [deleteBtn, setDeleteBtn] = useState(false);
   const [selectedUID, setSelectedUID] = useState([]);
@@ -83,6 +87,10 @@ function CompanyDetails({
   };
 
   const patchProposal = async (uid, body) => {
+    // always start the loader with 0
+    await setProgress(0);
+    await setProgress(30);
+
     const response = await fetch(`${import.meta.env.VITE_API_URL}/proposals/${uid}`, {
       method: "PATCH",
       headers: {
@@ -92,11 +100,14 @@ function CompanyDetails({
       body: JSON.stringify(body),
     });
     const result = await response.json();
+    await setProgress(50);
     if (result.error) {
+      await setProgress(100);
       toast.error(`${result.error}`, {
         position: toast.POSITION.TOP_CENTER, autoClose: 2000,
       });
     }
+    await setProgress(100);
     toast.success(`${result.message}`, {
       position: toast.POSITION.TOP_CENTER, autoClose: 2000,
     });
