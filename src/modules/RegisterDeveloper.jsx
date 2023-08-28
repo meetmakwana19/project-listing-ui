@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Stepper from '../components/form/register/Stepper';
@@ -9,9 +9,13 @@ import PersonalInfo from '../components/form/register/developer/PersonalInfo';
 import Final from '../components/form/register/developer/Final';
 import FormContainer from '../components/form/FormContainer';
 import developer from "../../public/developer.svg";
+import { loadingContext } from '../components/context/LoadingState';
 // import developer from "../../../../../../../../developer.svg";
 
 function RegisterDeveloper() {
+  const progressState = useContext(loadingContext);
+  const { setProgress } = progressState;
+
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [image, setImage] = useState(null); // to show the image preview when image is selected through input tag.
@@ -199,7 +203,7 @@ function RegisterDeveloper() {
 
   // console.log('currentStep---', currentStep);
   // console.log('steps lenght before?------', steps.length);
-  const handleClick = (direction) => {
+  const handleClick = async (direction) => {
     // console.log('currentStep after click---', currentStep);
     // console.log('direction------>', direction);
 
@@ -211,6 +215,10 @@ function RegisterDeveloper() {
     // means when 3 === 3
     // and when back button is not clicked otherwise even for back button click, network calls will be made.
     if (newStep === steps.length && direction !== "back") {
+      // always start the loader with 0
+      await setProgress(0);
+      await setProgress(10);
+
       // console.log('heyyyy ', JSON.stringify(formData));
 
       // return those fields from formData which are empty.
@@ -228,6 +236,9 @@ function RegisterDeveloper() {
       }
 
       const bodyData = new FormData();
+
+      await setProgress(30);
+
       bodyData.append('fname', formData.fname);
       bodyData.append('lname', formData.lname);
       bodyData.append('email', formData.email);
@@ -278,15 +289,19 @@ function RegisterDeveloper() {
         body: bodyData,
       })
         .then((response) => response.json())
-        .then((data) => {
+        .then(async (data) => {
+          await setProgress(70);
+
           // console.log('POSTED --> ', data);
           if (!data.data) {
+            await setProgress(100);
             // return is imp so that it doesnt go again in catch block and update the toast again
             return toast.error(`${data.message} : ${data.error}`, {
               position: toast.POSITION.TOP_CENTER, autoClose: 2000,
             });
           }
           if (data.data.access_token) {
+            await setProgress(100);
             // console.log("token is ", data.data.access_token);
             localStorage.setItem("authToken", data.data.access_token);
             localStorage.setItem('isDev', data.data.developer._id);
@@ -298,13 +313,15 @@ function RegisterDeveloper() {
             // alert(`${data.message}`);
             window.location.reload();
           } else if (data.error) {
+            await setProgress(100);
             toast.error(`${data.error}`, {
               position: toast.POSITION.TOP_CENTER, autoClose: 2000,
             });
           }
           return 0;
         })
-        .catch((error) => {
+        .catch(async (error) => {
+          await setProgress(100);
           toast.error(`An error occured while sending request. Please try again. (${error})`, {
             position: toast.POSITION.TOP_CENTER, autoClose: 2000,
           });
