@@ -1,6 +1,8 @@
 import React from 'react';
 
-function OrgAccount({ formData, setFormData }) {
+function OrgAccount({
+  formData, validationErrors, updateFormValue,
+}) {
   return (
     <div className="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8 h-[30vh] overflow-y-scroll scroll-smooth z-100 scrollbar p-3">
       <div className="relative w-full">
@@ -15,11 +17,13 @@ function OrgAccount({ formData, setFormData }) {
           type="text"
           required
           value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="border placeholder-gray-400 focus:outline-none
-                          focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                          border-gray-300 rounded-md"
+          onChange={(e) => updateFormValue("name", e.target.value)}
+          className={`border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.name ? 'focus:border-red-500 border-red-300' : ''}`}
         />
+        {validationErrors.name && (
+        <p className="text-red-500">{validationErrors.name}</p>
+        )}
+
       </div>
       <div className="relative">
         <p
@@ -33,11 +37,15 @@ function OrgAccount({ formData, setFormData }) {
           type="password"
           required
           value={formData.password}
-          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-          className="border placeholder-gray-400 focus:outline-none
+          onChange={(e) => updateFormValue("password", e.target.value)}
+          className={`border placeholder-gray-400 focus:outline-none
           focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-          border-gray-300 rounded-md"
+          border-gray-300 rounded-md ${validationErrors.password ? 'focus:border-red-500 border-red-300' : ''}`}
         />
+        {validationErrors.password && (
+        <p className="text-red-500">{validationErrors.password}</p>
+        )}
+
       </div>
       {/* <div className="relative">
         <p

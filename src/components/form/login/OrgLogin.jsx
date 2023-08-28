@@ -11,7 +11,35 @@ export default function OrgLogin() {
     uid: '',
     password: '',
   });
+  const [validationErrors, setValidationErrors] = useState({ uid: '' });
+
+  const validateUID = (uid) => {
+    if (uid.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, uid: "" }));
+    } else if (!uid) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, uid: "UID is required" }));
+    } else if (!/^org_\d{8}$/.test(uid)) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, uid: "Please enter a valid uid" }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, uid: "" }));
+    }
+  };
+  const updateFormValue = (field, value) => {
+    setForm({ ...form, [field]: value });
+    if (field === "uid") {
+      validateUID(value);
+    }
+  };
+
   const onSignIn = () => {
+    if (validationErrors.uid) {
+      toast.error('Please correct the input errors before signing in.', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 5000,
+      });
+      return;
+    }
+
     const requiredFields = ['uid', 'password'];
     // return those fields from formData which are empty.
     const emptyFields = requiredFields.filter((field) => !form[field]);
@@ -80,11 +108,13 @@ export default function OrgLogin() {
             placeholder="Eg. org_24157813"
             type="text"
             value={form.uid}
-            onChange={(e) => setForm({ ...form, uid: e.target.value })}
-            className="border lowercase placeholder-gray-400 focus:outline-none
-  focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-  border-gray-300 rounded-md"
+            onChange={(e) => updateFormValue("uid", e.target.value)}
+            className={`border lowercase placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.uid ? 'focus:border-red-500 border-red-300' : ''}`}
           />
+          {validationErrors.uid && (
+          <p className="text-red-500">{validationErrors.uid}</p>
+          )}
+
         </div>
         <div className="relative">
           <p
