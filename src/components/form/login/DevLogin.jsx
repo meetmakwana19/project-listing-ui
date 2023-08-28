@@ -12,8 +12,36 @@ export default function DevLogin() {
     email: '',
     password: '',
   });
+  const [validationErrors, setValidationErrors] = useState({
+    email: '',
+    password: '',
+  });
+
+  const validateEmail = (email) => {
+    if (!email) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "Email is required" }));
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "Please enter a valid email address" }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "" }));
+    }
+  };
+
+  const updateFormValue = (field, value) => {
+    setForm({ ...form, [field]: value });
+    if (field === "email") {
+      validateEmail(value);
+    }
+  };
 
   const onSignIn = () => {
+    if (validationErrors.email || validationErrors.password) {
+      toast.error('Please correct the input errors before signing in.', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 5000,
+      });
+      return;
+    }
     const requiredFields = ['email', 'password'];
     // return those fields from formData which are empty.
     const emptyFields = requiredFields.filter((field) => !form[field]);
@@ -85,11 +113,12 @@ export default function DevLogin() {
             placeholder="johndoe@example.com"
             type="email"
             value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="border lowercase placeholder-gray-400 focus:outline-none
-          focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-          border-gray-300 rounded-md"
+            onChange={(e) => updateFormValue("email", e.target.value)}
+            className={`border lowercase placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.email ? 'focus:border-red-500 border-red-300' : ''}`}
           />
+          {validationErrors.email && (
+            <p className="text-red-500">{validationErrors.email}</p>
+          )}
         </div>
         <div className="relative">
           <p className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600
@@ -101,11 +130,14 @@ export default function DevLogin() {
             placeholder="Password"
             type="password"
             value={form.password}
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
+            onChange={(e) => updateFormValue("password", e.target.value)}
             className="border placeholder-gray-400 focus:outline-none
           focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
           border-gray-300 rounded-md"
           />
+          {validationErrors.password && (
+            <p className="text-red-500">{validationErrors.password}</p>
+          )}
         </div>
         <button
           type="button"

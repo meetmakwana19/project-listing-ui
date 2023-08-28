@@ -31,7 +31,130 @@ function RegisterDeveloper() {
     github: "",
     about: "",
   });
-  // console.log("formData : ", formData);
+  const [validationErrors, setValidationErrors] = useState({
+    fname: '',
+    lname: '',
+    email: '',
+    password: '',
+    phone: '',
+    city: '',
+    technical_role: '',
+    qualification: '',
+    skills: "",
+    photo: null,
+    openToWork: false,
+    linkedin: "",
+    github: "",
+    about: "",
+  });
+  const validateFname = (name) => {
+    if (name.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "" }));
+    } else if (!name) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "Firt name is required" }));
+    } else if (name.length < 3) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "First name must be atleast 3 characters long." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "" }));
+    }
+  };
+  const validateLname = (name) => {
+    if (name.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, lname: "" }));
+    } else if (!name) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, lname: "Last name is required" }));
+    } else if (name.length < 2) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, lname: "Last name must be atleast 2 characters long." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, lname: "" }));
+    }
+  };
+  const validateEmail = (email) => {
+    if (email.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "" }));
+    } else if (!email) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "Email is required" }));
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "Please enter a valid email address" }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "" }));
+    }
+  };
+  const validatePassword = (password) => {
+    if (password.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, password: "" }));
+    } else if (!password) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, password: "Password is required" }));
+    } else if (password.length < 8) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, password: "Password must be at least 8 characters long." }));
+    } else if (password.length > 16) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, password: "Password must not exceed 16 characters." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, password: "" }));
+    }
+  };
+  const validatePhone = (phone) => {
+    if (phone.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, phone: "" }));
+    } else if (!phone) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, phone: "Phone number is required" }));
+    // eslint-disable-next-line no-useless-escape
+    } else if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+      .test(phone)) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, phone: "Please enter a valid phone number" }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, phone: "" }));
+    }
+  };
+  const validateSkills = (skills) => {
+    if (skills.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, skills: "" }));
+    } else if (!/^([a-zA-Z.]+, )*[a-zA-Z.]+$/.test(skills)) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, skills: "Please provide a valid input with space comma separation." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, skills: "" }));
+    }
+  };
+  const validateLinkedin = (linkedin) => {
+    if (linkedin.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, linkedin: "" }));
+    } else if (!/^(https?:\/\/(www\.)?|http:\/\/(www\.)?)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/.test(linkedin)) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, linkedin: "Please provide a valid URL." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, linkedin: "" }));
+    }
+  };
+  const validateGithub = (github) => {
+    if (github.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, github: "" }));
+    } else if (!/^(https?:\/\/(www\.)?|http:\/\/(www\.)?)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/.test(github)) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, github: "Please provide a valid URL." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, github: "" }));
+    }
+  };
+
+  const updateFormValue = (field, value) => {
+    setFormData({ ...formData, [field]: value });
+
+    if (field === "email") {
+      validateEmail(value);
+    } else if (field === "password") {
+      validatePassword(value);
+    } else if (field === "fname") {
+      validateFname(value);
+    } else if (field === "lname") {
+      validateLname(value);
+    } else if (field === "phone") {
+      validatePhone(value);
+    } else if (field === "skills") {
+      validateSkills(value);
+    } else if (field === "linkedin") {
+      validateLinkedin(value);
+    } else if (field === "github") {
+      validateGithub(value);
+    }
+  };
 
   const steps = ['Login Details', 'Personal Details', 'Review'];
 
@@ -42,6 +165,8 @@ function RegisterDeveloper() {
           <AccountCredentials
             formData={formData}
             setFormData={setFormData}
+            validationErrors={validationErrors}
+            updateFormValue={updateFormValue}
           />
         );
       case 2:
@@ -49,6 +174,8 @@ function RegisterDeveloper() {
           <PersonalInfo
             formData={formData}
             setFormData={setFormData}
+            validationErrors={validationErrors}
+            updateFormValue={updateFormValue}
           />
         );
       case 3:
@@ -64,6 +191,11 @@ function RegisterDeveloper() {
         return 0;
     }
   };
+
+  // for not letting the form proceed ahead without these fields being filled
+  const requiredFields = ['fname', 'lname', 'email', 'password', 'phone'];
+  const requiredFields1 = ['fname', 'lname', 'email', 'password'];
+  const requiredFields2 = ['phone'];
 
   // console.log('currentStep---', currentStep);
   // console.log('steps lenght before?------', steps.length);
@@ -81,7 +213,6 @@ function RegisterDeveloper() {
     if (newStep === steps.length && direction !== "back") {
       // console.log('heyyyy ', JSON.stringify(formData));
 
-      const requiredFields = ['fname', 'lname', 'email', 'password', 'phone'];
       // return those fields from formData which are empty.
       const emptyFields = requiredFields.filter((field) => !formData[field]);
       if (emptyFields.length > 0) {
@@ -174,8 +305,7 @@ function RegisterDeveloper() {
           return 0;
         })
         .catch((error) => {
-          console.log('POSTING error --> ', error);
-          toast.error(`An error occured while sending request. Please try again.`, {
+          toast.error(`An error occured while sending request. Please try again. (${error})`, {
             position: toast.POSITION.TOP_CENTER, autoClose: 2000,
           });
         });
@@ -183,6 +313,43 @@ function RegisterDeveloper() {
 
     // direction === 'next' ? newStep++ : newStep--;
     if (direction === 'next') {
+      if (validationErrors.fname || validationErrors.lname || validationErrors.email || validationErrors.password || validationErrors.phone || validationErrors.skills || validationErrors.linkedin || validationErrors.github) {
+        toast.error('Please correct the input errors before proceeding ahead.', {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 5000,
+        });
+        return;
+      }
+      if (currentStep === 1) {
+      // return those fields from formData which are empty.
+        const emptyFields = requiredFields1.filter((field) => !formData[field]);
+        if (emptyFields.length > 0) {
+        // map through each item and make a new array
+          const emptyFieldNames = emptyFields.map((field) => field.charAt(0).toUpperCase() + field.slice(1));
+
+          const errorMessage = `Please fill in the following required fields: ${emptyFieldNames.join(', ')}`;
+          toast.error(`${errorMessage}`, {
+            position: toast.POSITION.TOP_CENTER, autoClose: 10000,
+          });
+          // setShowModal(!showModal);
+          return;
+        }
+      }
+      if (currentStep === 2) {
+      // return those fields from formData which are empty.
+        const emptyFields = requiredFields2.filter((field) => !formData[field]);
+        if (emptyFields.length > 0) {
+        // map through each item and make a new array
+          const emptyFieldNames = emptyFields.map((field) => field.charAt(0).toUpperCase() + field.slice(1));
+
+          const errorMessage = `Please fill in the following required fields: ${emptyFieldNames.join(', ')}`;
+          toast.error(`${errorMessage}`, {
+            position: toast.POSITION.TOP_CENTER, autoClose: 10000,
+          });
+          // setShowModal(!showModal);
+          return;
+        }
+      }
       newStep += 1;
     } else {
       newStep -= 1;

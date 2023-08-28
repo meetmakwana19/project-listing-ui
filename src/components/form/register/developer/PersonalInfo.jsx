@@ -1,6 +1,8 @@
 import React from 'react';
 
-function PersonalInfo({ formData, setFormData }) {
+function PersonalInfo({
+  formData, setFormData, validationErrors, updateFormValue,
+}) {
 //   2.Form
 // Phone
 // City
@@ -21,9 +23,13 @@ function PersonalInfo({ formData, setFormData }) {
           type="tel"
           required
           value={formData.phone}
-          onChange={(event) => setFormData({ ...formData, phone: event.target.value })}
-          className="border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+          onChange={(event) => updateFormValue("phone", event.target.value)}
+          className={`border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.phone ? 'focus:border-red-500 border-red-300' : ''}`}
         />
+        {validationErrors.phone && (
+        <p className="text-red-500">{validationErrors.phone}</p>
+        )}
+
       </div>
       <div className="flex flex-auto gap-5 w-full items-center justify-between">
         <div className="relative w-full">
@@ -82,9 +88,13 @@ function PersonalInfo({ formData, setFormData }) {
           rows="2"
           placeholder="HTML, CSS, JS, .....(Please insert skills comma and space separated"
           value={formData.skills}
-          onChange={(event) => setFormData({ ...formData, skills: event.target.value })}
-          className="border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+          onChange={(event) => updateFormValue("skills", event.target.value)}
+          className={`border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.skills ? 'focus:border-red-500 border-red-300' : ''}`}
         />
+        {validationErrors.skills && (
+        <p className="text-red-500">{validationErrors.skills}</p>
+        )}
+
       </div>
       <div className="mb-4">
         <label
@@ -117,9 +127,12 @@ function PersonalInfo({ formData, setFormData }) {
           placeholder="http://linkedin.com/...."
           type="text"
           value={formData.linkedin}
-          onChange={(event) => setFormData({ ...formData, linkedin: event.target.value })}
-          className="border   placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+          onChange={(event) => updateFormValue("linkedin", event.target.value)}
+          className={`border   placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.linkedin ? 'focus:border-red-500 border-red-300' : ''}`}
         />
+        {validationErrors.linkedin && (
+        <p className="text-red-500">{validationErrors.linkedin}</p>
+        )}
       </div>
       <div className="relative w-full">
         <p
@@ -131,9 +144,13 @@ function PersonalInfo({ formData, setFormData }) {
           placeholder="http://github.com/...."
           type="text"
           value={formData.github}
-          onChange={(event) => setFormData({ ...formData, github: event.target.value })}
-          className="border   placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+          onChange={(event) => updateFormValue("github", event.target.value)}
+          className={`border   placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.github ? 'focus:border-red-500 border-red-300' : ''}`}
         />
+        {validationErrors.github && (
+        <p className="text-red-500">{validationErrors.github}</p>
+        )}
+
       </div>
     </div>
   );
