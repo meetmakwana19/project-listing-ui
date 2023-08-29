@@ -27,6 +27,7 @@ function DevUpdateModal({ developer, fetchProfile }) {
     github: "",
     about: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateFname = (name) => {
     if (name.length === 0) {
@@ -196,6 +197,12 @@ function DevUpdateModal({ developer, fetchProfile }) {
       return;
     }
 
+    if (isSubmitting) {
+      return; // Prevent submitting multiple times while the request is being made
+    }
+
+    setIsSubmitting(true); // Disable the button
+
     await setProgress(0);
     await setProgress(10);
     event.preventDefault();
@@ -262,6 +269,9 @@ function DevUpdateModal({ developer, fetchProfile }) {
         toast.error(`${error}`, {
           position: toast.POSITION.TOP_CENTER, autoClose: 2000,
         });
+      })
+      .finally(() => {
+        setIsSubmitting(false); // Enable the button again after request completion
       });
   };
   return (
@@ -545,10 +555,10 @@ function DevUpdateModal({ developer, fetchProfile }) {
           <button
             type="button"
             onClick={(e) => handleUpdate(e)}
-            className={`cursor-pointer inline-block  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg duration-200 hover:bg-indigo-600 ease w-full ${validationErrors.fname || validationErrors.lname || validationErrors.email || validationErrors.password || validationErrors.phone || validationErrors.skills || validationErrors.linkedin || validationErrors.github ? 'bg-gray-300 hover:bg-gray-300 cursor-not-allowed' : ''}`}
-            disabled={validationErrors.fname || validationErrors.lname || validationErrors.email || validationErrors.password || validationErrors.phone || validationErrors.skills || validationErrors.linkedin || validationErrors.github}
+            className={`cursor-pointer inline-block  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg duration-200 hover:bg-indigo-600 ease w-full ${validationErrors.fname || validationErrors.lname || validationErrors.email || validationErrors.password || validationErrors.phone || validationErrors.skills || validationErrors.linkedin || validationErrors.github || isSubmitting ? 'bg-gray-300 hover:bg-gray-300 cursor-not-allowed' : ''}`}
+            disabled={validationErrors.fname || validationErrors.lname || validationErrors.email || validationErrors.password || validationErrors.phone || validationErrors.skills || validationErrors.linkedin || validationErrors.github || isSubmitting}
           >
-            Update
+            {isSubmitting ? "Updating..." : "Update"}
           </button>
         </form>
         <form method="dialog">

@@ -31,6 +31,7 @@ function RegisterOrganization() {
     password: '',
     website: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateName = (name) => {
     if (name.length === 0) {
@@ -136,6 +137,12 @@ function RegisterOrganization() {
         return;
       }
 
+      if (isSubmitting) {
+        return; // Prevent submitting multiple times while the request is being made
+      }
+
+      setIsSubmitting(true); // Disable the button
+
       const bodyData = new FormData();
 
       await setProgress(15);
@@ -201,6 +208,9 @@ function RegisterOrganization() {
           toast.error(`An error occured while sending request. Please try again.`, {
             position: toast.POSITION.TOP_CENTER, autoClose: 2000,
           });
+        })
+        .finally(() => {
+          setIsSubmitting(false); // Enable the button again after request completion
         });
     }
 
@@ -259,6 +269,7 @@ function RegisterOrganization() {
               handleClick={handleClick}
               currentStep={currentStep}
               steps={steps}
+              isSubmitting={isSubmitting}
             />
             {/* )} */}
           </div>

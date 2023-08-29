@@ -12,6 +12,7 @@ export default function OrgLogin() {
     password: '',
   });
   const [validationErrors, setValidationErrors] = useState({ uid: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateUID = (uid) => {
     if (uid.length === 0) {
@@ -54,6 +55,12 @@ export default function OrgLogin() {
       return;
     }
 
+    if (isSubmitting) {
+      return; // Prevent submitting multiple times while the request is being made
+    }
+
+    setIsSubmitting(true); // Disable the button
+
     const id = toast.loading("Please wait...", {
       position: toast.POSITION.TOP_CENTER,
     });
@@ -93,6 +100,9 @@ export default function OrgLogin() {
           render: `${error.message}`, type: "error", isLoading: false, autoClose: 2000,
         });
         // console.log('POSTING error --> ', error);
+      })
+      .finally(() => {
+        setIsSubmitting(false); // Enable the button again after request completion
       });
   };
 
@@ -137,9 +147,10 @@ export default function OrgLogin() {
           type="button"
           onClick={() => onSignIn()}
           className={`absolute -bottom-52 cursor-pointer  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500
-rounded-lg transition duration-200 hover:bg-indigo-600 ease w-full`}
+rounded-lg transition duration-200 hover:bg-indigo-600 ease w-full ${isSubmitting ? 'bg-gray-300 hover:bg-gray-300 cursor-not-allowed' : ''}`}
+          disabled={isSubmitting} // Disable the button while submitting
         >
-          Sign In
+          {isSubmitting ? "Signing in..." : "Sign in"}
         </button>
         {' '}
       </div>

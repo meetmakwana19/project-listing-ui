@@ -51,6 +51,8 @@ function RegisterDeveloper() {
     github: "",
     about: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const validateFname = (name) => {
     if (name.length === 0) {
       setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "" }));
@@ -235,6 +237,12 @@ function RegisterDeveloper() {
         return;
       }
 
+      if (isSubmitting) {
+        return; // Prevent submitting multiple times while the request is being made
+      }
+
+      setIsSubmitting(true); // Disable the button
+
       const bodyData = new FormData();
 
       await setProgress(30);
@@ -325,6 +333,9 @@ function RegisterDeveloper() {
           toast.error(`An error occured while sending request. Please try again. (${error})`, {
             position: toast.POSITION.TOP_CENTER, autoClose: 2000,
           });
+        })
+        .finally(() => {
+          setIsSubmitting(false); // Enable the button again after request completion
         });
     }
 
@@ -398,6 +409,7 @@ function RegisterDeveloper() {
               handleClick={handleClick}
               currentStep={currentStep}
               steps={steps}
+              isSubmitting={isSubmitting}
             />
             {/* )} */}
           </div>

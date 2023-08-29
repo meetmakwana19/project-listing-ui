@@ -9,6 +9,7 @@ function CompanyUpdateModal({ organization, fetchProfile }) {
   const [localOrg, setLocalOrg] = useState(organization);
   const [image, setImage] = useState(null);
   const hiddenFileInput = useRef(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [validationErrors, setValidationErrors] = useState({
     name: "",
     website: "",
@@ -89,6 +90,12 @@ function CompanyUpdateModal({ organization, fetchProfile }) {
       return;
     }
 
+    if (isSubmitting) {
+      return; // Prevent submitting multiple times while the request is being made
+    }
+
+    setIsSubmitting(true); // Disable the button
+
     const bodyData = new FormData();
     bodyData.append('name', localOrg.name);
     if (localOrg.website) {
@@ -122,6 +129,9 @@ function CompanyUpdateModal({ organization, fetchProfile }) {
       })
       .catch((error) => {
         console.log('POSTING error --> ', error);
+      })
+      .finally(() => {
+        setIsSubmitting(false); // Enable the button again after request completion
       });
   };
   return (
@@ -261,10 +271,10 @@ function CompanyUpdateModal({ organization, fetchProfile }) {
           <button
             type="button"
             onClick={(e) => handleUpdate(e)}
-            className={`cursor-pointer inline-block  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg duration-200 hover:bg-indigo-600 ease w-full ${validationErrors.name || validationErrors.website ? 'bg-gray-300 hover:bg-gray-300 cursor-not-allowed' : ''}`}
-            disabled={validationErrors.name || validationErrors.website}
+            className={`cursor-pointer inline-block  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg duration-200 hover:bg-indigo-600 ease w-full ${validationErrors.name || validationErrors.website || isSubmitting ? 'bg-gray-300 hover:bg-gray-300 cursor-not-allowed' : ''}`}
+            disabled={validationErrors.name || validationErrors.website || isSubmitting}
           >
-            Update
+            {isSubmitting ? "Updating..." : "Update"}
           </button>
         </form>
         <form method="dialog">

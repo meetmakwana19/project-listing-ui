@@ -18,6 +18,7 @@ export default function ProjectAdd() {
     photo: null,
   });
   const [image, setImage] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const hiddenFileInput = useRef(null);
 
   // console.log("Form data ---- ", formData);
@@ -55,6 +56,9 @@ export default function ProjectAdd() {
           })
           .catch((error) => {
             console.log("Error updating organization : ", error);
+          })
+          .finally(() => {
+            setIsSubmitting(false); // Enable the button again after request completion
           });
       });
   };
@@ -75,6 +79,12 @@ export default function ProjectAdd() {
       // setShowModal(!showModal);
       return;
     }
+
+    if (isSubmitting) {
+      return; // Prevent submitting multiple times while the request is being made
+    }
+
+    setIsSubmitting(true); // Disable the button
 
     const bodyData = new FormData();
     bodyData.append('title', formData.title);
@@ -401,10 +411,11 @@ export default function ProjectAdd() {
           <div className="flex items-center justify-between glass">
             <button
               type="submit"
-              className="w-full text-white bg-accent hover:bg-accent/75 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+              className={`w-full text-white bg-accent hover:bg-accent/75 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ${isSubmitting ? 'bg-gray-300 hover:bg-gray-300 cursor-not-allowed' : ''}`}
               onClick={(e) => handleSubmit(e)}
+              disabled={isSubmitting} // Disable the button while submitting
             >
-              Add Project
+              {isSubmitting ? "Adding..." : "Add Project"}
             </button>
           </div>
         </form>

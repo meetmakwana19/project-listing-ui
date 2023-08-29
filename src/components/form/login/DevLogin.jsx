@@ -16,6 +16,7 @@ export default function DevLogin() {
     email: '',
     password: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validateEmail = (email) => {
     if (!email) {
@@ -55,6 +56,12 @@ export default function DevLogin() {
       });
       return;
     }
+
+    if (isSubmitting) {
+      return; // Prevent submitting multiple times while the request is being made
+    }
+
+    setIsSubmitting(true); // Disable the button
 
     const id = toast.loading("Please wait...", {
       position: toast.POSITION.TOP_CENTER,
@@ -99,6 +106,9 @@ export default function DevLogin() {
         toast.update(id, {
           render: `${error.message}`, type: "error", isLoading: false, autoClose: 2000,
         });
+      })
+      .finally(() => {
+        setIsSubmitting(false); // Enable the button again after request completion
       });
   };
 
@@ -114,7 +124,7 @@ export default function DevLogin() {
             type="email"
             value={form.email}
             onChange={(e) => updateFormValue("email", e.target.value)}
-            className={`border lowercase placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.email ? 'focus:border-red-500 border-red-300' : ''}`}
+            className={`border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.email ? 'focus:border-red-500 border-red-300' : ''}`}
           />
           {validationErrors.email && (
             <p className="text-red-500">{validationErrors.email}</p>
@@ -143,9 +153,10 @@ export default function DevLogin() {
           type="button"
           onClick={() => onSignIn()}
           className={`absolute -bottom-52 cursor-pointer  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500
-        rounded-lg transition duration-200 hover:bg-indigo-600 ease w-full`}
+        rounded-lg transition duration-200 hover:bg-indigo-600 ease w-full ${isSubmitting ? 'bg-gray-300 hover:bg-gray-300 cursor-not-allowed' : ''}`}
+          disabled={isSubmitting} // Disable the button while submitting
         >
-          Sign In
+          {isSubmitting ? "Signing in..." : "Sign in"}
         </button>
         {' '}
       </div>
