@@ -9,6 +9,42 @@ function CompanyUpdateModal({ organization, fetchProfile }) {
   const [localOrg, setLocalOrg] = useState(organization);
   const [image, setImage] = useState(null);
   const hiddenFileInput = useRef(null);
+  const [validationErrors, setValidationErrors] = useState({
+    name: "",
+    website: "",
+  });
+
+  const validateName = (name) => {
+    if (name.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, name: "Company name is required" }));
+    } else if (!name) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, name: "Company name is required" }));
+    } else if (name.length < 2) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, name: "Company name must be atleast 2 characters long." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, name: "" }));
+    }
+  };
+
+  const validateWebsite = (website) => {
+    if (website.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, website: "" }));
+    } else if (!/^(https?:\/\/(www\.)?|http:\/\/(www\.)?)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/.test(website)) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, website: "Please provide a valid URL." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, website: "" }));
+    }
+  };
+
+  const updateFormValue = (field, value) => {
+    setLocalOrg({ ...localOrg, [field]: value });
+
+    if (field === "name") {
+      validateName(value);
+    } else if (field === "website") {
+      validateWebsite(value);
+    }
+  };
 
   const handleClick = () => {
     hiddenFileInput.current.click();
@@ -26,8 +62,32 @@ function CompanyUpdateModal({ organization, fetchProfile }) {
       modal.close();
     }
   };
+
+  const requiredFields = ['name'];
   const handleUpdate = (e) => {
     e.preventDefault();
+
+    if (validationErrors.name || validationErrors.website) {
+      toast.error('Please correct the input errors before proceeding ahead.', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 5000,
+      });
+      return;
+    }
+
+    // return those fields from formData which are empty.
+    const emptyFields = requiredFields.filter((field) => !localOrg[field]);
+    if (emptyFields.length > 0) {
+      // map through each item and make a new array
+      const emptyFieldNames = emptyFields.map((field) => field.charAt(0).toUpperCase() + field.slice(1));
+
+      const errorMessage = `Please fill in the following required fields: ${emptyFieldNames.join(', ')}`;
+      toast.error(`${errorMessage}`, {
+        position: toast.POSITION.TOP_CENTER, autoClose: 10000,
+      });
+      // setShowModal(!showModal);
+      return;
+    }
 
     const bodyData = new FormData();
     bodyData.append('name', localOrg.name);
@@ -93,9 +153,12 @@ function CompanyUpdateModal({ organization, fetchProfile }) {
                 placeholder="Google"
                 type="text"
                 value={localOrg.name}
-                onChange={(event) => setLocalOrg({ ...localOrg, name: event.target.value })}
-                className="border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+                onChange={(event) => updateFormValue("name", event.target.value)}
+                className={`border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.name ? 'focus:border-red-500 border-red-300' : ''}`}
               />
+              {validationErrors.name && (
+              <p className="text-red-500">{validationErrors.name}</p>
+              )}
             </div>
 
             <div className="relative">
@@ -106,11 +169,14 @@ function CompanyUpdateModal({ organization, fetchProfile }) {
                 placeholder="e.g example.com"
                 type="text"
                 value={localOrg.website}
-                onChange={(event) => setLocalOrg({ ...localOrg, website: event.target.value })}
-                className="border placeholder-gray-400 focus:outline-none
+                onChange={(event) => updateFormValue("website", event.target.value)}
+                className={`border placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                  border-gray-300 rounded-md"
+                  border-gray-300 rounded-md ${validationErrors.website ? 'focus:border-red-500 border-red-300' : ''}`}
               />
+              {validationErrors.website && (
+              <p className="text-red-500">{validationErrors.website}</p>
+              )}
             </div>
             <div className="relative">
               <p className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
@@ -195,7 +261,8 @@ function CompanyUpdateModal({ organization, fetchProfile }) {
           <button
             type="button"
             onClick={(e) => handleUpdate(e)}
-            className="cursor-pointer inline-block  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg duration-200 hover:bg-indigo-600 ease w-full"
+            className={`cursor-pointer inline-block  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg duration-200 hover:bg-indigo-600 ease w-full ${validationErrors.name || validationErrors.website ? 'bg-gray-300 hover:bg-gray-300 cursor-not-allowed' : ''}`}
+            disabled={validationErrors.name || validationErrors.website}
           >
             Update
           </button>
