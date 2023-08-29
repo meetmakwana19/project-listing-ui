@@ -286,7 +286,7 @@ function CompanyDetails({
                   {/* -------Delete Button------- */}
 
                   <div className="absolute top-6 right-3 md:flex">
-                    {localStorage.getItem("isOrg")
+                    {!profile.uid && localStorage.getItem("isOrg")
                     && (
                       <button
                         type="button"

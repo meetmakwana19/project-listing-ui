@@ -72,7 +72,7 @@ function ProjectDetails() {
     } else {
       setBookmarkState("Save");
     }
-    if (localStorage.getItem("authToken")) {
+    if (localStorage.getItem("authToken") && !uid) {
       fetchProposal(fetchedProject.data._id);
       fetchProposalHistory(fetchedProject.data._id);
     }
@@ -300,6 +300,7 @@ function ProjectDetails() {
             </ul>
           </div>
         </div>
+        {project.lead && (
         <div className="flex flex-col md:flex-row md:gap-64 gap-8 w-full border-t py-3 px-6">
           <div className="flex flex-col items-start justify-start gap-3">
             <h1
@@ -308,9 +309,9 @@ function ProjectDetails() {
               Project Leader
             </h1>
             <Members
-              to={`/developers/${project?.lead.uid}`}
-              image={project?.lead.profile_pic}
-              name={`${project?.lead.fname} ${project?.lead.lname}`}
+              to={`/developers/${project?.lead?.uid}`}
+              image={project?.lead?.profile_pic}
+              name={`${project?.lead?.fname} ${project?.lead?.lname}`}
               className="font-medium text-lg md:text-2xl"
               imageclass="w-[10vw] md:w-20"
             />
@@ -333,6 +334,7 @@ function ProjectDetails() {
             ))}
           </div>
         </div>
+        )}
         {/* <div className="flex flex-row items-center w-full border-t py-3 px-6 gap-4">
           <p className="flex items-center text-lg my-3 text-start font-medium text-slate-800">
             Upgrade your membership to see bid range */}

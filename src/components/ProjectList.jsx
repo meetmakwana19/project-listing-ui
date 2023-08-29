@@ -50,7 +50,6 @@ const ProjectList = ({ projectsProp = [] }) => {
               <h1 className="text-xl font-medium text-slate-900">{title}</h1>
 
               {/* ------------ timestamp ------------- */}
-              <p className="text-sm text-slate-600">Posted by Google</p>
               <div className="flex my-5">
                 <div className="flex flex-col w-1/2 items-start justify-start gap-3">
                   <div>
