@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { RxAvatar } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -14,8 +15,18 @@ export default function ProjectAdd() {
     required_personnel: "",
     open: false,
     proj_organization: localStorage.getItem("isOrg"),
+    photo: null,
   });
+  const [image, setImage] = useState(null);
+  const hiddenFileInput = useRef(null);
+
   // console.log("Form data ---- ", formData);
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setImage(file);
+    setFormData({ ...formData, photo: file });
+  };
 
   const patchORG = (projId, projMessage) => {
     fetch(`${import.meta.env.VITE_API_URL}/organizations/${localStorage.getItem("orgUID")}`)
@@ -64,13 +75,41 @@ export default function ProjectAdd() {
       // setShowModal(!showModal);
       return;
     }
+
+    const bodyData = new FormData();
+    bodyData.append('title', formData.title);
+    bodyData.append('description', formData.description);
+    bodyData.append('proj_organization', formData.proj_organization);
+    if (formData.timeframe) {
+      bodyData.append('timeframe', formData.timeframe);
+    }
+    if (formData.techStack) {
+      bodyData.append('techStack', formData.techStack);
+    }
+    if (formData.board) {
+      bodyData.append('board', formData.board);
+    }
+    if (formData.project_type) {
+      bodyData.append('project_type', formData.project_type);
+    }
+    if (formData.required_personnel) {
+      bodyData.append('required_personnel', formData.required_personnel);
+    }
+    if (formData.open) {
+      bodyData.append('open', formData.open);
+    }
+    if (formData.photo) {
+      bodyData.append('photo', formData.photo);
+    }
+
     fetch(`${import.meta.env.VITE_API_URL}/projects`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         authorization: localStorage.getItem("authToken"),
       },
-      body: JSON.stringify(formData),
+      // body: JSON.stringify(formData),
+      body: bodyData,
     })
       .then((response) => response.json())
       .then((data) => {
@@ -89,6 +128,9 @@ export default function ProjectAdd() {
       .catch((error) => {
         console.log("Error posting the project : ", error);
       });
+  };
+  const handleClick = () => {
+    hiddenFileInput.current.click();
   };
   return (
     <div className="flex justify-center my-10 items-center h-screen">
@@ -305,6 +347,55 @@ export default function ProjectAdd() {
                 />
               </label>
 
+            </div>
+            <div className="relative">
+              <p
+                className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute"
+              >
+                Change Company Banner
+              </p>
+
+              <div className="flex w-full justify-center my-4">
+                <div className="box-decoration w-full py-6">
+                  <label
+                    htmlFor="image-upload-input"
+                    className="image-upload-label"
+                  >
+                    {image ? image.name : 'Choose an image'}
+
+                    <div
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          handleClick();
+                        }
+                      }}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      {image ? (
+                        <img
+                          alt="Upload"
+                          src={URL.createObjectURL(image)}
+                          className="aspect-video md:w4 h-40 object-cover rounded-lg"
+                        />
+                      ) : (
+                        <RxAvatar className="w-40 h-40 text-accent" />
+                      )}
+
+                      <input
+                        id="image-upload-input"
+                        type="file"
+                        onChange={handleImageChange}
+                        ref={hiddenFileInput}
+                        style={{ display: 'none' }}
+                        accept="image/*"
+                      />
+                    </div>
+
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
           <div className="flex items-center justify-between glass">
