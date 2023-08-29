@@ -5,12 +5,137 @@ import { RxAvatar } from "react-icons/rx";
 import { toast } from 'react-toastify';
 import { loadingContext } from "../context/LoadingState";
 
-function UpdateModal({ developer, fetchProfile }) {
+function DevUpdateModal({ developer, fetchProfile }) {
   // need to make a local copy of the state came from parent component
   // because the update in original state using onChange handler was causing unnessary change in original state before saving it up through the PATCH request.
   const [localDev, setLocalDev] = useState(developer);
   const [image, setImage] = useState(null);
   const hiddenFileInput = useRef(null);
+  const [validationErrors, setValidationErrors] = useState({
+    fname: '',
+    lname: '',
+    email: '',
+    password: '',
+    phone: '',
+    city: '',
+    technical_role: '',
+    qualification: '',
+    skills: "",
+    photo: null,
+    openToWork: false,
+    linkedin: "",
+    github: "",
+    about: "",
+  });
+
+  const validateFname = (name) => {
+    if (name.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "" }));
+    } else if (!name) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "Firt name is required" }));
+    } else if (name.length < 3) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "First name must be atleast 3 characters long." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, fname: "" }));
+    }
+  };
+  const validateLname = (name) => {
+    if (name.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, lname: "" }));
+    } else if (!name) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, lname: "Last name is required" }));
+    } else if (name.length < 2) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, lname: "Last name must be atleast 2 characters long." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, lname: "" }));
+    }
+  };
+  const validateEmail = (email) => {
+    if (email.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "" }));
+    } else if (!email) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "Email is required" }));
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "Please enter a valid email address" }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, email: "" }));
+    }
+  };
+  const validatePassword = (password) => {
+    if (password.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, password: "" }));
+    } else if (!password) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, password: "Password is required" }));
+    } else if (password.length < 8) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, password: "Password must be at least 8 characters long." }));
+    } else if (password.length > 16) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, password: "Password must not exceed 16 characters." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, password: "" }));
+    }
+  };
+  const validatePhone = (phone) => {
+    if (phone.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, phone: "" }));
+    } else if (!phone) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, phone: "Phone number is required" }));
+    // eslint-disable-next-line no-useless-escape
+    } else if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+      .test(phone)) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, phone: "Please enter a valid phone number" }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, phone: "" }));
+    }
+  };
+  const validateSkills = (skills) => {
+    if (skills.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, skills: "" }));
+    } else if (!/^([a-zA-Z.]+, )*[a-zA-Z.]+$/.test(skills)) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, skills: "Please provide a valid input with space comma separation." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, skills: "" }));
+    }
+  };
+  const validateLinkedin = (linkedin) => {
+    if (linkedin.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, linkedin: "" }));
+    } else if (!/^(https?:\/\/(www\.)?|http:\/\/(www\.)?)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/.test(linkedin)) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, linkedin: "Please provide a valid URL." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, linkedin: "" }));
+    }
+  };
+  const validateGithub = (github) => {
+    if (github.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, github: "" }));
+    } else if (!/^(https?:\/\/(www\.)?|http:\/\/(www\.)?)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/.test(github)) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, github: "Please provide a valid URL." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, github: "" }));
+    }
+  };
+
+  const updateFormValue = (field, value) => {
+    setLocalDev({ ...localDev, [field]: value });
+
+    if (field === "email") {
+      validateEmail(value);
+    } else if (field === "password") {
+      validatePassword(value);
+    } else if (field === "fname") {
+      validateFname(value);
+    } else if (field === "lname") {
+      validateLname(value);
+    } else if (field === "phone") {
+      validatePhone(value);
+    } else if (field === "skills") {
+      validateSkills(value);
+    } else if (field === "linkedin") {
+      validateLinkedin(value);
+    } else if (field === "github") {
+      validateGithub(value);
+    }
+  };
 
   const progressState = useContext(loadingContext);
   const { setProgress } = progressState;
@@ -26,6 +151,7 @@ function UpdateModal({ developer, fetchProfile }) {
       ...localDev,
       [name]: name === "skills" ? value.split(", ") : value,
     });
+    validateSkills(event.target.value);
   };
 
   const handleImageChange = (event) => {
@@ -40,7 +166,36 @@ function UpdateModal({ developer, fetchProfile }) {
       modal.close();
     }
   };
+
+  const requiredFields = ['fname', 'lname', 'email', 'phone'];
+
   const handleUpdate = async (event) => {
+    if (validationErrors.fname || validationErrors.lname || validationErrors.email || validationErrors.password || validationErrors.phone || validationErrors.skills || validationErrors.linkedin || validationErrors.github) {
+      toast.error('Please correct the input errors before proceeding ahead.', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 10000,
+        style: { zIndex: 9999 }, // Adjust the value as needed
+      });
+      // alert("Validation erros");
+      return;
+    }
+
+    // return those fields from formData which are empty.
+    const emptyFields = requiredFields.filter((field) => !localDev[field]);
+    if (emptyFields.length > 0) {
+      // map through each item and make a new array
+      const emptyFieldNames = emptyFields.map((field) => field.charAt(0).toUpperCase() + field.slice(1));
+
+      const errorMessage = `Please fill in the following required fields: ${emptyFieldNames.join(', ')}`;
+      toast.error(`${errorMessage}`, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 10000,
+        style: { zIndex: 9999 }, // Adjust the value as needed
+      });
+      // setShowModal(!showModal);
+      return;
+    }
+
     await setProgress(0);
     await setProgress(10);
     event.preventDefault();
@@ -134,9 +289,12 @@ function UpdateModal({ developer, fetchProfile }) {
                   placeholder="John"
                   type="text"
                   value={localDev.fname}
-                  onChange={(event) => setLocalDev({ ...localDev, fname: event.target.value })}
-                  className="border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+                  onChange={(event) => updateFormValue("fname", event.target.value)}
+                  className={`border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.fname ? 'focus:border-red-500 border-red-300' : ''}`}
                 />
+                {validationErrors.fname && (
+                <p className="text-red-500">{validationErrors.fname}</p>
+                )}
               </div>
               <div className="relative w-full">
                 <p className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
@@ -146,9 +304,13 @@ function UpdateModal({ developer, fetchProfile }) {
                   placeholder="Doe"
                   type="text"
                   value={localDev.lname}
-                  onChange={(event) => setLocalDev({ ...localDev, lname: event.target.value })}
-                  className="border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+                  onChange={(event) => updateFormValue("lname", event.target.value)}
+                  className={`border capitalize placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.lname ? 'focus:border-red-500 border-red-300' : ''}`}
                 />
+                {validationErrors.lname && (
+                <p className="text-red-500">{validationErrors.lname}</p>
+                )}
+
               </div>
             </div>
             <div className="relative">
@@ -159,11 +321,15 @@ function UpdateModal({ developer, fetchProfile }) {
                 placeholder="johndoe@example.com"
                 type="text"
                 value={localDev.email}
-                onChange={(event) => setLocalDev({ ...localDev, email: event.target.value })}
-                className="border   placeholder-gray-400 focus:outline-none
+                onChange={(event) => updateFormValue("email", event.target.value)}
+                className={`border   placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                  border-gray-300 rounded-md"
+                  border-gray-300 rounded-md ${validationErrors.email ? 'focus:border-red-500 border-red-300' : ''}`}
               />
+              {validationErrors.email && (
+              <p className="text-red-500">{validationErrors.email}</p>
+              )}
+
             </div>
             <div className="relative">
               <p className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
@@ -173,11 +339,15 @@ function UpdateModal({ developer, fetchProfile }) {
                 placeholder="+91 84597 25190"
                 type="phone"
                 value={localDev.phone}
-                onChange={(event) => setLocalDev({ ...localDev, phone: event.target.value })}
-                className="border   placeholder-gray-400 focus:outline-none
+                onChange={(event) => updateFormValue("phone", event.target.value)}
+                className={`border   placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                  border-gray-300 rounded-md"
+                  border-gray-300 rounded-md ${validationErrors.phone ? 'focus:border-red-500 border-red-300' : ''}`}
               />
+              {validationErrors.phone && (
+              <p className="text-red-500">{validationErrors.phone}</p>
+              )}
+
             </div>
             <div className="relative">
               <p className="bg-white pt-0 pr-2 pb-0 pl-2 -mt-3 mr-0 mb-0 ml-2 font-medium text-gray-600 absolute">
@@ -303,8 +473,12 @@ function UpdateModal({ developer, fetchProfile }) {
                 value={localDev.skills.join(", ")}
                 name="skills"
                 onChange={handleSkills}
-                className="border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+                className={`border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.skills ? 'focus:border-red-500 border-red-300' : ''}`}
               />
+              {validationErrors.skills && (
+              <p className="text-red-500">{validationErrors.skills}</p>
+              )}
+
             </div>
             <div className="relative">
               <p
@@ -318,12 +492,13 @@ function UpdateModal({ developer, fetchProfile }) {
                 type="text"
                 value={localDev.linkedin}
                 name="linkedin"
-                onChange={(event) => setLocalDev({
-                  ...localDev,
-                  linkedin: event.target.value,
-                })}
-                className="border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+                onChange={(event) => updateFormValue("linkedin", event.target.value)}
+                className={`border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.linkedin ? 'focus:border-red-500 border-red-300' : ''}`}
               />
+              {validationErrors.linkedin && (
+              <p className="text-red-500">{validationErrors.linkedin}</p>
+              )}
+
             </div>
             <div className="relative">
               <p
@@ -337,12 +512,13 @@ function UpdateModal({ developer, fetchProfile }) {
                 type="text"
                 value={localDev.github}
                 name="github"
-                onChange={(event) => setLocalDev({
-                  ...localDev,
-                  github: event.target.value,
-                })}
-                className="border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+                onChange={(event) => updateFormValue("github", event.target.value)}
+                className={`border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.github ? 'focus:border-red-500 border-red-300' : ''}`}
               />
+              {validationErrors.github && (
+              <p className="text-red-500">{validationErrors.github}</p>
+              )}
+
             </div>
             <div className="mb-4">
               <label
@@ -369,7 +545,8 @@ function UpdateModal({ developer, fetchProfile }) {
           <button
             type="button"
             onClick={(e) => handleUpdate(e)}
-            className="cursor-pointer inline-block  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg duration-200 hover:bg-indigo-600 ease w-full"
+            className={`cursor-pointer inline-block  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500 rounded-lg duration-200 hover:bg-indigo-600 ease w-full ${validationErrors.fname || validationErrors.lname || validationErrors.email || validationErrors.password || validationErrors.phone || validationErrors.skills || validationErrors.linkedin || validationErrors.github ? 'bg-gray-300 hover:bg-gray-300 cursor-not-allowed' : ''}`}
+            disabled={validationErrors.fname || validationErrors.lname || validationErrors.email || validationErrors.password || validationErrors.phone || validationErrors.skills || validationErrors.linkedin || validationErrors.github}
           >
             Update
           </button>
@@ -384,4 +561,4 @@ function UpdateModal({ developer, fetchProfile }) {
   );
 }
 
-export default UpdateModal;
+export default DevUpdateModal;

@@ -16,6 +16,55 @@ function ProjectHistoryAdd({ fetchHistory }) {
     endDate: "",
     developer: devID,
   });
+  const [validationErrors, setValidationErrors] = useState({
+    title: "",
+    link: "",
+    description: "",
+  });
+
+  const validateTitle = (title) => {
+    if (title.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, title: "" }));
+    } else if (!title) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, title: "Title is required" }));
+    } else if (title.length < 3) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, title: "Title must be atleast 3 characters long." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, title: "" }));
+    }
+  };
+  const validateLink = (link) => {
+    if (link.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, link: "" }));
+    } else if (!/^(https?:\/\/(www\.)?|http:\/\/(www\.)?)([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/[^\s]*)?$/.test(link)) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, link: "Please provide a valid URL." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, link: "" }));
+    }
+  };
+  const validateDescription = (description) => {
+    if (description.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, description: "" }));
+    } else if (!description) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, description: "Description is required" }));
+    } else if (description.length < 20) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, description: "Description must be atleast 20 characters long." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, description: "" }));
+    }
+  };
+
+  const updateFormValue = (field, value) => {
+    setFormData({ ...formData, [field]: value });
+
+    if (field === "title") {
+      validateTitle(value);
+    } else if (field === "link") {
+      validateLink(value);
+    } else if (field === "description") {
+      validateDescription(value);
+    }
+  };
   // console.log("FromData : ", formData);
   const [showModal, setShowModal] = useState(false);
   useEffect(() => {
@@ -95,6 +144,16 @@ function ProjectHistoryAdd({ fetchHistory }) {
   // };
 
   const handleSubmit = () => {
+    if (validationErrors.title || validationErrors.link || validationErrors.description) {
+      toast.error('Please correct the input errors before proceeding ahead.', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 10000,
+        style: { zIndex: 9999 }, // Adjust the value as needed
+      });
+      // alert("Validation erros");
+      return;
+    }
+
     const requiredFields = ['title', 'description', 'startDate', 'endDate'];
 
     // return those fields from formData which are empty.
@@ -153,9 +212,12 @@ function ProjectHistoryAdd({ fetchHistory }) {
                   placeholder="E-commerce platform"
                   type="text"
                   value={formData.title}
-                  onChange={(event) => setFormData({ ...formData, title: event.target.value })}
-                  className="border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md"
+                  onChange={(event) => updateFormValue("title", event.target.value)}
+                  className={`border placeholder-gray-400 focus:outline-none focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white border-gray-300 rounded-md ${validationErrors.title ? 'focus:border-red-500 border-red-300' : ''}`}
                 />
+                {validationErrors.title && (
+                <p className="text-red-500">{validationErrors.title}</p>
+                )}
               </div>
               {/* ------Project Link--------- */}
               <div className="relative">
@@ -166,11 +228,15 @@ function ProjectHistoryAdd({ fetchHistory }) {
                   placeholder="https://www.example.com"
                   type="text"
                   value={formData.link}
-                  onChange={(event) => setFormData({ ...formData, link: event.target.value })}
-                  className="border lowercase placeholder-gray-400 focus:outline-none
+                  onChange={(event) => updateFormValue("link", event.target.value)}
+                  className={`border lowercase placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                  border-gray-300 rounded-md"
+                  border-gray-300 rounded-md ${validationErrors.link ? 'focus:border-red-500 border-red-300' : ''}`}
                 />
+                {validationErrors.link && (
+                <p className="text-red-500">{validationErrors.link}</p>
+                )}
+
               </div>
               {/* ------Project description--------- */}
               <div className="relative">
@@ -184,11 +250,15 @@ function ProjectHistoryAdd({ fetchHistory }) {
                   type="text"
                   required
                   value={formData.description}
-                  onChange={(event) => setFormData({ ...formData, description: event.target.value })}
-                  className="border placeholder-gray-400 focus:outline-none
+                  onChange={(event) => updateFormValue("description", event.target.value)}
+                  className={`border placeholder-gray-400 focus:outline-none
                   focus:border-accent w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-white
-                  border-gray-300 rounded-md"
+                  border-gray-300 rounded-md ${validationErrors.description ? 'focus:border-red-500 border-red-300' : ''}`}
                 />
+                {validationErrors.description && (
+                <p className="text-red-500">{validationErrors.description}</p>
+                )}
+
               </div>
               {/* ------------date---------- */}
               <div className="flex w-full items-center justify-between relative z-[100]">

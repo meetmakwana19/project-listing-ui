@@ -11,7 +11,7 @@ import { IoTrashBinOutline } from 'react-icons/io5';
 // import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 // import { LuEdit } from 'react-icons/lu';
-import UpdateModal from './UpdateModal';
+import DevUpdateModal from './DevUpdateModal';
 import CompanyDetails from '../CompanyDetails';
 import CompanyUpdateModal from './CompanyUpdateModal';
 import ConfirmationDialog from '../modals/ConfirmationDialog';
@@ -174,7 +174,7 @@ export default function Profile() {
                 className="inline-block object-cover aspect-square  h-full p-0 shadow shadow-accent rounded-full"
               />
             </div>
-            <UpdateModal
+            <DevUpdateModal
               developer={developer}
               setDeveloper={setDeveloper}
               fetchProfile={fetchProfile}

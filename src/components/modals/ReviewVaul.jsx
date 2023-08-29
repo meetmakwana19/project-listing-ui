@@ -13,13 +13,31 @@ function ReviewVaul({
     organization: orgID,
     developer: localStorage.getItem("isDev") ? localStorage.getItem("isDev") : devID,
   });
+  const [validationErrors, setValidationErrors] = useState({
+    review: null,
+  });
 
   const progressState = useContext(loadingContext);
   const { setProgress } = progressState;
 
-  // console.log("review for ", orgID);
-  // console.log("review form : ", formData);
-  // console.log("child reviewing : ", reviewVaulOpen);
+  const validateReview = (review) => {
+    if (review.length === 0) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, review: "" }));
+    } else if (!review) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, review: "Review is required" }));
+    } else if (review.length < 5) {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, review: "Review must be atleast 5 characters long." }));
+    } else {
+      setValidationErrors((prevErrors) => ({ ...prevErrors, review: "" }));
+    }
+  };
+  const updateFormValue = (field, value) => {
+    setFormData({ ...formData, [field]: value });
+
+    if (field === "review") {
+      validateReview(value);
+    }
+  };
 
   const patchProposal = async (reviewResponse) => {
     // console.log("prop_uid is ", proposalUID);
@@ -75,6 +93,33 @@ function ReviewVaul({
     await setProgress(100);
   };
   const handleSubmit = () => {
+    if (validationErrors.review) {
+      toast.error('Please correct the input errors before proceeding ahead.', {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 10000,
+        style: { zIndex: 9999 }, // Adjust the value as needed
+      });
+      // alert("Validation erros");
+      return;
+    }
+
+    const requiredFields = ['review', 'rating'];
+
+    // return those fields from formData which are empty.
+    const emptyFields = requiredFields.filter((field) => !formData[field]);
+
+    if (emptyFields.length > 0) {
+      // map through each item and make a new array
+      const emptyFieldNames = emptyFields.map((field) => field.charAt(0).toUpperCase() + field.slice(1));
+
+      const errorMessage = `Please fill in the following required fields: ${emptyFieldNames.join(', ')}`;
+      toast.error(`${errorMessage}`, {
+        position: toast.POSITION.TOP_CENTER, autoClose: 10000,
+      });
+
+      return;
+    }
+
     setReviewVaulOpen(false);
     // console.log("Submitting ", reviewVaulOpen);
     postReview();
@@ -150,9 +195,12 @@ function ReviewVaul({
                 <textarea
                   rows={5}
                   placeholder="How was your experience?"
-                  className="text-zinc-600 my-2 w-full border border-zinc-600 p-5 rounded-xl"
-                  onChange={(e) => setFormData({ ...formData, review: e.target.value })}
+                  className={`text-zinc-600 my-2 w-full border border-zinc-600 p-5 rounded-xl ${validationErrors.review ? 'focus:border-red-500 border-red-300' : ''}`}
+                  onChange={(e) => updateFormValue("review", e.target.value)}
                 />
+                {validationErrors.review && (
+                <p className="text-red-500">{validationErrors.review}</p>
+                )}
               </div>
               <div className="flex items-center justify-center w-full mt-4">
                 <button type="submit" className="flex items-center justify-center w-full max-w-lg py-2 text-white bg-accent hover:border border-zinc-600 rounded-xl" onClick={handleSubmit}>
