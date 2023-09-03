@@ -36,7 +36,6 @@ npm init @eslint/config
 Runs the app in the development mode.
 Open http://localhost:5173 to view it in your browser.
 
-
 ---
 
 ## About project : 
@@ -45,20 +44,5 @@ Open http://localhost:5173 to view it in your browser.
 - This is a frontend part of a fullstack application called **ideabox** - A Project Listing app. 
 - This frontend has been integrated with a REST API developed in ExpressJS.
 - The link to the REST API's repository is https://github.com/meetmakwana19/project-listing-backend
-- The API's production link is `${import.meta.env.VITE_API_URL}/
+- The API's production link is https://projekto-backend.onrender.com/
 
-
----
-
----Ignore---
-
-Unnecessary errors by ESLint :
-
-> 'React' must be in scope when using JSX - eslint (react/react-in-jsx-scope) : this is making us import react in every component file.
-
-[Company banner](src/components/image/CompanyBanner.jsx)
-[ModalDropdown](src/components/modals/ModalDropdown.jsx)
-[OrgProfile](src/components/profile/OrgProfile.jsx)
----
-
-[Changed major arrow body styling](src/components/navbar/NavMenu.jsx)
