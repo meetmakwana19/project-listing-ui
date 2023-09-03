@@ -153,7 +153,7 @@ export default function DevLogin() {
           type="button"
           onClick={() => onSignIn()}
           className={`absolute -bottom-52 cursor-pointer  pt-4 pr-5 pb-4 pl-5 text-xl font-medium text-center text-white bg-indigo-500
-        rounded-lg transition duration-200 hover:bg-indigo-600 ease w-full ${isSubmitting ? 'bg-gray-300 hover:bg-gray-300 cursor-not-allowed' : ''}`}
+        rounded-lg transition duration-200 hover:bg-indigo-600 ease w-full ${isSubmitting ? 'bg-gray-500 hover:bg-gray-600 cursor-not-allowed' : ''}`}
           disabled={isSubmitting} // Disable the button while submitting
         >
           {isSubmitting ? "Signing in..." : "Sign in"}
